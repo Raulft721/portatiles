@@ -122,18 +122,14 @@
     overflow: hidden; display: flex; flex-direction: column;
   }
   .pick-photo {
-    position: relative; height: 150px; flex: 0 0 auto;
+    position: relative; height: 168px; flex: 0 0 auto;
     background: var(--grad, #e3e6eb); overflow: hidden;
   }
-  .pick-photo img {
-    width: 100%; height: 100%; object-fit: cover; display: block;
-    transition: transform .7s var(--ease);
-  }
-  .pick-card:hover .pick-photo img { transform: scale(1.045); }
-  .pick-photo::after {
+  .pick-photo::before {
     content: ""; position: absolute; inset: 0; pointer-events: none;
-    background: linear-gradient(180deg, rgba(0,0,0,.28), transparent 42%, rgba(0,0,0,.30));
+    background: linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,255,255,.78));
   }
+  .pick-card:hover .art-slot svg { transform: scale(1.04); }
   .pick-photo .tag {
     position: absolute; top: 10px; left: 10px; z-index: 2;
     font-size: 10.5px; font-weight: 700; letter-spacing: .1em;
@@ -248,18 +244,18 @@
   }
   .card:hover { transform: translateY(-4px); box-shadow: 0 14px 40px rgba(0,0,0,.1); }
   .thumb {
-    position: relative; height: 160px; background: var(--grad); overflow: hidden;
+    position: relative; height: 168px; background: var(--grad); overflow: hidden;
   }
-  .thumb img {
-    position: absolute; inset: 0; width: 100%; height: 100%;
-    object-fit: cover; display: block;
+  .thumb::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,255,255,.78));
+  }
+  .art-slot { position: absolute; inset: 0; z-index: 1; }
+  .art-slot svg, .laptop-art {
+    width: 100%; height: 100%; display: block;
     transition: transform .7s var(--ease);
   }
-  .card:hover .thumb img { transform: scale(1.05); }
-  .thumb::after {
-    content: ""; position: absolute; inset: 0; pointer-events: none;
-    background: linear-gradient(180deg, rgba(0,0,0,.06) 20%, transparent 50%, rgba(0,0,0,.42));
-  }
+  .card:hover .art-slot svg { transform: scale(1.05); }
   .thumb .brand-chip {
     position: absolute; left: 10px; bottom: 10px; z-index: 2;
     font-size: 10.5px; font-weight: 650; letter-spacing: .05em;
@@ -386,7 +382,7 @@
       <div class="pick-card">
         <div class="pick-photo" id="photoA">
           <span class="tag">A</span>
-          <img id="imgA" alt="" />
+          <div class="art-slot" id="artA"></div>
         </div>
         <div class="pick-body">
           <div class="pick-top"><span style="font-size:12.5px;color:var(--ink-2)">Primer portátil</span></div>
@@ -410,7 +406,7 @@
       <div class="pick-card">
         <div class="pick-photo" id="photoB">
           <span class="tag">B</span>
-          <img id="imgB" alt="" />
+          <div class="art-slot" id="artB"></div>
         </div>
         <div class="pick-body">
           <div class="pick-top"><span style="font-size:12.5px;color:var(--ink-2)">Segundo portátil</span></div>
@@ -496,14 +492,15 @@
 
 <footer>
   <div class="wrap foot">
-    <span><b>ComparaPortátil</b> · prototipo de prueba. Datos y fotos de ejemplo; las imágenes son ilustrativas y no corresponden necesariamente al modelo exacto.</span>
-    <span>Fotos de Unsplash (ilustrativas) · precios orientativos que varían según tienda y fecha.</span>
+    <span><b>ComparaPortátil</b> · prototipo de prueba. Datos de ejemplo y dibujos genéricos: no representan el aspecto real de cada modelo.</span>
+    <span>Precios orientativos que varían según tienda y fecha.</span>
   </div>
 </footer>
 
+<script src="art.js"></script>
 <script>
   /* =========================================================
-     DATOS (10 portátiles de ejemplo, precios en EUR)
+     DATOS (16 portátiles de ejemplo, precios en EUR)
      ========================================================= */
   const LAPTOPS = [
     {
@@ -512,7 +509,6 @@
       ram: "16 GB unificada", storage: "512 GB SSD",
       screen: "13,6\" Liquid Retina · 2560 × 1664", weight: 1.24, battery: 18, os: "macOS",
       scores: { estudio: 92, trabajo: 95, gaming: 45, movilidad: 96 },
-      img: "img/laptop-09.jpg",
       grad: "linear-gradient(135deg, #5b6cff, #a5b4fc)"
     },
     {
@@ -521,7 +517,6 @@
       ram: "24 GB unificada", storage: "512 GB SSD",
       screen: "14,2\" Liquid Retina XDR · 120 Hz", weight: 1.60, battery: 17, os: "macOS",
       scores: { estudio: 94, trabajo: 98, gaming: 60, movilidad: 82 },
-      img: "img/laptop-02.jpg",
       grad: "linear-gradient(135deg, #3b3b4f, #9aa0b5)"
     },
     {
@@ -530,7 +525,6 @@
       ram: "16 GB LPDDR5", storage: "512 GB SSD",
       screen: "13,3\" IPS 2.5K", weight: 0.97, battery: 11, os: "Windows 11",
       scores: { estudio: 84, trabajo: 82, gaming: 35, movilidad: 98 },
-      img: "img/extra-01.jpg",
       grad: "linear-gradient(135deg, #0ea5a5, #7fe3d4)"
     },
     {
@@ -539,7 +533,6 @@
       ram: "16 GB LPDDR5X", storage: "1 TB SSD",
       screen: "14\" OLED 3K · 120 Hz", weight: 1.22, battery: 12, os: "Windows 11",
       scores: { estudio: 88, trabajo: 90, gaming: 48, movilidad: 94 },
-      img: "img/laptop-03.jpg",
       grad: "linear-gradient(135deg, #1e3a8a, #60a5fa)"
     },
     {
@@ -548,7 +541,6 @@
       ram: "16 GB LPDDR5", storage: "512 GB SSD",
       screen: "15,6\" IPS Full HD", weight: 1.62, battery: 8, os: "Windows 11",
       scores: { estudio: 78, trabajo: 72, gaming: 30, movilidad: 70 },
-      img: "img/laptop-01.jpg",
       grad: "linear-gradient(135deg, #475569, #94a3b8)"
     },
     {
@@ -557,7 +549,6 @@
       ram: "16 GB DDR4", storage: "512 GB SSD",
       screen: "15,6\" IPS Full HD", weight: 1.78, battery: 7, os: "Windows 11",
       scores: { estudio: 74, trabajo: 70, gaming: 38, movilidad: 58 },
-      img: "img/extra-07.jpg",
       grad: "linear-gradient(135deg, #7c3aed, #c4b5fd)"
     },
     {
@@ -566,7 +557,6 @@
       ram: "32 GB LPDDR5X", storage: "1 TB SSD",
       screen: "14\" OLED 3K · 120 Hz", weight: 1.72, battery: 10, os: "Windows 11",
       scores: { estudio: 85, trabajo: 86, gaming: 92, movilidad: 74 },
-      img: "img/laptop-08.jpg",
       grad: "linear-gradient(135deg, #111827, #4b5563)"
     },
     {
@@ -575,7 +565,6 @@
       ram: "16 GB DDR5", storage: "512 GB SSD",
       screen: "15,6\" IPS Full HD · 144 Hz", weight: 2.38, battery: 6, os: "Windows 11",
       scores: { estudio: 76, trabajo: 78, gaming: 88, movilidad: 45 },
-      img: "img/laptop-07.jpg",
       grad: "linear-gradient(135deg, #0f172a, #3b82f6)"
     },
     {
@@ -584,7 +573,6 @@
       ram: "16 GB LPDDR5X", storage: "512 GB SSD",
       screen: "13,4\" OLED 3K", weight: 1.19, battery: 14, os: "Windows 11",
       scores: { estudio: 90, trabajo: 92, gaming: 42, movilidad: 93 },
-      img: "img/laptop-10.jpg",
       grad: "linear-gradient(135deg, #334155, #cbd5e1)"
     },
     {
@@ -593,7 +581,6 @@
       ram: "16 GB LPDDR5", storage: "512 GB SSD",
       screen: "14\" OLED 2.8K · 90 Hz", weight: 1.32, battery: 10, os: "Windows 11",
       scores: { estudio: 82, trabajo: 80, gaming: 40, movilidad: 88 },
-      img: "img/extra-06.jpg",
       grad: "linear-gradient(135deg, #b45309, #fcd34d)"
     },
     {
@@ -602,7 +589,6 @@
       ram: "16 GB DDR5", storage: "512 GB SSD",
       screen: "14\" WUXGA IPS", weight: 1.41, battery: 10, os: "Windows 11",
       scores: { estudio: 86, trabajo: 90, gaming: 32, movilidad: 88 },
-      img: "img/laptop-12.jpg",
       grad: "linear-gradient(135deg, #0f766e, #5eead4)"
     },
     {
@@ -611,7 +597,6 @@
       ram: "16 GB DDR5", storage: "512 GB SSD",
       screen: "15,6\" IPS Full HD · 144 Hz", weight: 2.30, battery: 7, os: "Windows 11",
       scores: { estudio: 72, trabajo: 76, gaming: 90, movilidad: 42 },
-      img: "img/laptop-15.jpg",
       grad: "linear-gradient(135deg, #171717, #f59e0b)"
     },
     {
@@ -620,7 +605,6 @@
       ram: "16 GB LPDDR5X", storage: "512 GB SSD",
       screen: "14\" AMOLED 3K · 120 Hz", weight: 1.23, battery: 12, os: "Windows 11",
       scores: { estudio: 89, trabajo: 91, gaming: 45, movilidad: 95 },
-      img: "img/laptop-13.jpg",
       grad: "linear-gradient(135deg, #1e1b4b, #818cf8)"
     },
     {
@@ -629,7 +613,6 @@
       ram: "8 GB LPDDR5", storage: "128 GB SSD",
       screen: "15,6\" IPS Full HD", weight: 1.68, battery: 10, os: "ChromeOS",
       scores: { estudio: 82, trabajo: 62, gaming: 20, movilidad: 72 },
-      img: "img/laptop-14.jpg",
       grad: "linear-gradient(135deg, #0369a1, #7dd3fc)"
     },
     {
@@ -638,7 +621,6 @@
       ram: "16 GB DDR5", storage: "512 GB SSD",
       screen: "15,6\" IPS Full HD · 144 Hz", weight: 2.29, battery: 6, os: "Windows 11",
       scores: { estudio: 70, trabajo: 72, gaming: 82, movilidad: 40 },
-      img: "img/laptop-16.jpg",
       grad: "linear-gradient(135deg, #111827, #f97316)"
     },
     {
@@ -647,7 +629,6 @@
       ram: "16 GB LPDDR5X", storage: "512 GB SSD",
       screen: "13,8\" PixelSense · 120 Hz", weight: 1.34, battery: 16, os: "Windows 11",
       scores: { estudio: 88, trabajo: 90, gaming: 38, movilidad: 92 },
-      img: "img/laptop-11.jpg",
       grad: "linear-gradient(135deg, #334155, #a5b4fc)"
     }
   ];
@@ -721,9 +702,7 @@
 
     const photo = $("#photo" + which);
     photo.style.setProperty("--grad", l.grad);
-    const img = $("#img" + which);
-    img.src = l.img;
-    img.alt = `${l.name} (foto ilustrativa)`;
+    $("#art" + which).innerHTML = laptopArt.fromLaptop(l, "pick" + which);
   }
 
   /* =========================================================
@@ -873,7 +852,7 @@
       const sc = overall(l);
       return `<article class="card">
         <div class="thumb" style="--grad:${l.grad}">
-          <img src="${l.img}" alt="${l.name} (foto ilustrativa)" loading="lazy" onerror="this.style.display='none'" />
+          <div class="art-slot">${laptopArt.fromLaptop(l, "c-" + l.id)}</div>
           <span class="brand-chip">${l.brand}</span>
         </div>
         <div class="card-body">
