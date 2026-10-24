@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ComparaPortátil — Encuentra el portátil que encaja contigo</title>
+<meta name="description" content="Compara portátiles según tu uso: estudio, trabajo, gaming o movilidad. Con precio y relación calidad/precio." />
+<link rel="icon" href="favicon.svg" type="image/svg+xml" />
+<meta property="og:title" content="ComparaPortátil — Dos portátiles, una decisión clara" />
+<meta property="og:description" content="Compara modelos según tu perfil y descubre cuál gana para estudiar, trabajar, jugar o moverte, con el precio sobre la mesa." />
+<meta property="og:type" content="website" />
+<style>
+  :root {
+    --bg: #f5f5f7;
+    --surface: #ffffff;
+    --ink: #1d1d1f;
+    --ink-2: #6e6e73;
+    --line: #e5e5ea;
+    --accent: #0071e3;
+    --accent-soft: #e8f2fd;
+    --win: #0f9d58;
+    --win-soft: #e9f8ef;
+    --radius: 20px;
+    --radius-sm: 14px;
+    --shadow: 0 1px 2px rgba(0,0,0,.04), 0 8px 30px rgba(0,0,0,.06);
+    --max: 1120px;
+    --ease: cubic-bezier(.22,1,.36,1);
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Inter, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.45;
+  }
+  a { color: inherit; text-decoration: none; }
+  button, select { font: inherit; color: inherit; }
+  .wrap { width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 22px; }
+
+  /* NAV */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(245,245,247,.78);
+    backdrop-filter: saturate(180%) blur(18px);
+    -webkit-backdrop-filter: saturate(180%) blur(18px);
+    border-bottom: 1px solid rgba(0,0,0,.06);
+  }
+  .nav-in { display: flex; align-items: center; gap: 18px; height: 54px; }
+  .logo { display: flex; align-items: center; gap: 9px; font-weight: 650; letter-spacing: -.02em; }
+  .logo-mark {
+    width: 26px; height: 26px; border-radius: 8px;
+    background: linear-gradient(140deg, #0071e3, #42a5ff);
+    display: grid; place-items: center;
+    box-shadow: 0 4px 12px rgba(0,113,227,.28);
+  }
+  .logo-mark svg { width: 15px; height: 15px; color: #fff; }
+  .nav-links { display: flex; gap: 20px; margin-left: 10px; font-size: 13.5px; color: var(--ink-2); }
+  .nav-links a:hover { color: var(--ink); }
+  .nav .badge {
+    margin-left: auto; font-size: 11.5px; font-weight: 600;
+    color: #8a5a00; background: #fff4d6; border: 1px solid #ffe1a1;
+    padding: 5px 10px; border-radius: 999px; white-space: nowrap;
+  }
+
+  /* HERO */
+  .hero { padding: 56px 0 30px; text-align: center; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 12px; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--ink-2); margin-bottom: 16px;
+  }
+  .eyebrow i { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+  h1 {
+    margin: 0 auto 16px; max-width: 18ch;
+    font-size: clamp(34px, 5.4vw, 58px);
+    line-height: 1.03; letter-spacing: -.045em; font-weight: 700;
+  }
+  h1 span { color: var(--accent); }
+  .hero p {
+    margin: 0 auto; max-width: 62ch;
+    font-size: clamp(15px, 1.5vw, 18px); color: var(--ink-2);
+  }
+
+  /* PROFILE CHIPS */
+  .profiles {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 9px;
+    margin: 28px 0 10px;
+  }
+  .chip {
+    border: 1px solid var(--line);
+    background: var(--surface);
+    padding: 10px 16px; border-radius: 999px;
+    font-size: 13.5px; font-weight: 550; cursor: pointer;
+    transition: all .25s var(--ease);
+  }
+  .chip:hover { border-color: #c7c7cc; transform: translateY(-1px); }
+  .chip.active {
+    background: var(--ink); color: #fff; border-color: var(--ink);
+    box-shadow: 0 6px 18px rgba(0,0,0,.14);
+  }
+  .profile-hint { text-align: center; font-size: 12.5px; color: var(--ink-2); margin: 6px 0 0; }
+
+  /* SECTION TITLES */
+  .sec { padding: 34px 0; }
+  .sec-head { display: flex; align-items: baseline; justify-content: space-between; gap: 14px; margin-bottom: 16px; }
+  .sec-head h2 { margin: 0; font-size: clamp(22px, 2.6vw, 30px); letter-spacing: -.03em; }
+  .sec-head .hint { font-size: 12.5px; color: var(--ink-2); }
+
+  /* PICKER */
+  .picker {
+    display: grid; grid-template-columns: 1fr 52px 1fr; gap: 14px; align-items: stretch;
+  }
+  .pick-card {
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 0; box-shadow: var(--shadow);
+    overflow: hidden; display: flex; flex-direction: column;
+  }
+  .pick-photo {
+    position: relative; height: 150px; flex: 0 0 auto;
+    background: var(--grad, #e3e6eb); overflow: hidden;
+  }
+  .pick-photo img {
+    width: 100%; height: 100%; object-fit: cover; display: block;
+    transition: transform .7s var(--ease);
+  }
+  .pick-card:hover .pick-photo img { transform: scale(1.045); }
+  .pick-photo::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(180deg, rgba(0,0,0,.28), transparent 42%, rgba(0,0,0,.30));
+  }
+  .pick-photo .tag {
+    position: absolute; top: 10px; left: 10px; z-index: 2;
+    font-size: 10.5px; font-weight: 700; letter-spacing: .1em;
+    color: var(--accent); background: rgba(255,255,255,.94);
+    padding: 4px 8px; border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.18);
+  }
+  .pick-body { padding: 15px 18px 18px; display: flex; flex-direction: column; flex: 1; }
+  .pick-top { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .pick-top .tag {
+    font-size: 10.5px; font-weight: 700; letter-spacing: .1em;
+    color: var(--accent); background: var(--accent-soft);
+    padding: 4px 8px; border-radius: 6px;
+  }
+  .pick-card select {
+    width: 100%; padding: 11px 12px; border-radius: 11px;
+    border: 1px solid var(--line); background: #fafafa;
+    font-size: 14px; font-weight: 550; cursor: pointer; outline: none;
+  }
+  .pick-card select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(0,113,227,.14); }
+  .pick-summary { display: flex; align-items: center; gap: 12px; margin-top: 16px; }
+  .ring {
+    flex: 0 0 auto; width: 62px; height: 62px; border-radius: 50%;
+    background: conic-gradient(var(--accent) calc(var(--p) * 1%), #e8e8ed 0);
+    display: grid; place-items: center; position: relative;
+  }
+  .ring::before {
+    content: ""; position: absolute; inset: 5px; border-radius: 50%; background: var(--surface);
+  }
+  .ring b { position: relative; font-size: 17px; letter-spacing: -.03em; }
+  .pick-meta { min-width: 0; }
+  .pick-meta .price { font-size: 19px; font-weight: 650; letter-spacing: -.02em; }
+  .pick-meta .sub { font-size: 12.5px; color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .swap {
+    align-self: center; justify-self: center;
+    width: 44px; height: 44px; border-radius: 50%;
+    border: 1px solid var(--line); background: var(--surface);
+    display: grid; place-items: center; cursor: pointer; color: var(--ink-2);
+    transition: transform .35s var(--ease), color .2s, border-color .2s;
+    box-shadow: var(--shadow);
+  }
+  .swap:hover { color: var(--accent); border-color: #b9d7f5; transform: rotate(180deg); }
+
+  .diff-banner {
+    margin-top: 14px; padding: 13px 16px; border-radius: 12px;
+    background: #fff; border: 1px solid var(--line);
+    font-size: 13.5px; color: var(--ink-2);
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  }
+  .diff-banner b { color: var(--ink); }
+  .diff-banner .pill { font-size: 11.5px; font-weight: 650; padding: 4px 9px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); }
+
+  /* TABLE */
+  .table-card {
+    margin-top: 14px; background: var(--surface); border: 1px solid var(--line);
+    border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow);
+  }
+  .table-scroll { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; min-width: 620px; }
+  thead th {
+    text-align: left; padding: 16px 18px; font-size: 12px;
+    letter-spacing: .1em; text-transform: uppercase; color: var(--ink-2);
+    border-bottom: 1px solid var(--line); font-weight: 650; background: #fbfbfd;
+  }
+  thead th:first-child { width: 34%; }
+  tbody td, tbody th {
+    padding: 14px 18px; border-bottom: 1px solid var(--line);
+    font-size: 14px; text-align: left; vertical-align: middle;
+  }
+  tbody th { font-weight: 500; color: var(--ink-2); }
+  tbody tr:last-child td, tbody tr:last-child th { border-bottom: 0; }
+  tbody tr:hover { background: #fafafc; }
+  td.val { font-weight: 600; position: relative; }
+  td.val.win { background: var(--win-soft); color: #0b6b3d; }
+  td.val.win::after {
+    content: "✓"; position: absolute; right: 12px; top: 50%;
+    transform: translateY(-50%); font-size: 12px; color: var(--win); font-weight: 700;
+  }
+  td.num { font-variant-numeric: tabular-nums; }
+  .score-row td.val { font-size: 15px; }
+  .row-final th, .row-final td { background: #f7f7fa; font-weight: 700; }
+
+  /* VERDICT */
+  .verdicts { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 12px; }
+  .vc {
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-sm);
+    padding: 16px; box-shadow: var(--shadow);
+  }
+  .vc .label {
+    display: flex; align-items: center; gap: 7px;
+    font-size: 11.5px; letter-spacing: .09em; text-transform: uppercase;
+    color: var(--ink-2); font-weight: 650; margin-bottom: 10px;
+  }
+  .vc .label i { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+  .vc .winner { font-size: 16px; font-weight: 650; letter-spacing: -.02em; margin-bottom: 4px; }
+  .vc .why { font-size: 12.8px; color: var(--ink-2); line-height: 1.5; }
+  .final-note {
+    margin-top: 14px; padding: 16px 18px; border-radius: var(--radius-sm);
+    background: linear-gradient(120deg, #eef6ff, #f7f9ff);
+    border: 1px solid #d6e8fb; font-size: 14px; line-height: 1.55;
+  }
+  .final-note b { color: var(--ink); }
+
+  /* CATALOG */
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+  .filters .chip { padding: 7px 13px; font-size: 12.5px; }
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .card {
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius);
+    overflow: hidden; box-shadow: var(--shadow); display: flex; flex-direction: column;
+    transition: transform .35s var(--ease), box-shadow .35s;
+  }
+  .card:hover { transform: translateY(-4px); box-shadow: 0 14px 40px rgba(0,0,0,.1); }
+  .thumb {
+    position: relative; height: 160px; background: var(--grad); overflow: hidden;
+  }
+  .thumb img {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; display: block;
+    transition: transform .7s var(--ease);
+  }
+  .card:hover .thumb img { transform: scale(1.05); }
+  .thumb::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(180deg, rgba(0,0,0,.06) 20%, transparent 50%, rgba(0,0,0,.42));
+  }
+  .thumb .brand-chip {
+    position: absolute; left: 10px; bottom: 10px; z-index: 2;
+    font-size: 10.5px; font-weight: 650; letter-spacing: .05em;
+    color: #fff; background: rgba(0,0,0,.55);
+    backdrop-filter: blur(6px);
+    padding: 4px 9px; border-radius: 6px;
+  }
+  .card-body { padding: 15px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+  .card h3 { margin: 0; font-size: 15.5px; letter-spacing: -.02em; line-height: 1.3; }
+  .card .specs { font-size: 12.3px; color: var(--ink-2); line-height: 1.5; }
+  .card .bottom { margin-top: auto; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-top: 8px; }
+  .card .p { font-size: 17px; font-weight: 650; letter-spacing: -.02em; }
+  .card .score {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 12px; font-weight: 650; color: var(--accent);
+    background: var(--accent-soft); padding: 4px 9px; border-radius: 999px;
+  }
+  .card .actions { display: flex; gap: 7px; }
+  .btn-mini {
+    flex: 1; border: 1px solid var(--line); background: #fafafa;
+    padding: 8px 10px; border-radius: 9px; font-size: 12px; font-weight: 600;
+    cursor: pointer; transition: all .2s;
+  }
+  .btn-mini:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+
+  /* FOOTER */
+  footer {
+    margin-top: 44px; padding: 30px 0 40px;
+    border-top: 1px solid var(--line);
+    font-size: 12.5px; color: var(--ink-2);
+  }
+  footer .foot { display: flex; flex-wrap: wrap; gap: 10px; justify-content: space-between; }
+  footer b { color: var(--ink); }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .cards { grid-template-columns: 1fr 1fr; }
+    .picker { grid-template-columns: 1fr; }
+    .swap { justify-self: center; transform: rotate(90deg); }
+    .swap:hover { transform: rotate(270deg); }
+    .nav-links { display: none; }
+  }
+  @media (max-width: 600px) {
+    .cards { grid-template-columns: 1fr; }
+    .hero { padding-top: 40px; }
+    .pick-summary { flex-wrap: wrap; }
+    .sec-head { flex-direction: column; align-items: flex-start; gap: 4px; }
+    .nav .badge { font-size: 10.5px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition-duration: .001ms !important; animation: none !important; }
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap nav-in">
+    <a href="#" class="logo">
+      <span class="logo-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="4" width="18" height="12" rx="2"/><path d="M2 20h20"/>
+        </svg>
+      </span>
+      ComparaPortátil
+    </a>
+    <div class="nav-links">
+      <a href="#comparador">Comparador</a>
+      <a href="#veredicto">Veredicto</a>
+      <a href="#catalogo">Catálogo</a>
+    </div>
+    <span class="badge">Demo · precios orientativos</span>
+  </div>
+</nav>
+
+<header class="hero wrap">
+  <div class="eyebrow"><i></i>Prototipo local · sin cuentas ni servidores</div>
+  <h1>Dos portátiles. <span>Una decisión clara.</span></h1>
+  <p>Elige tu perfil, compara modelos reales y descubre cuál gana para estudiar, trabajar, jugar o moverte. Todo con el precio sobre la mesa.</p>
+
+  <div class="profiles" id="profiles" role="group" aria-label="Elige tu perfil de uso">
+    <button class="chip" data-profile="estudio">Estudiante</button>
+    <button class="chip" data-profile="trabajo">Trabajo</button>
+    <button class="chip" data-profile="gaming">Gaming</button>
+    <button class="chip" data-profile="movilidad">Movilidad</button>
+    <button class="chip active" data-profile="equilibrado">Equilibrado</button>
+  </div>
+  <p class="profile-hint" id="profileHint"></p>
+</header>
+
+<main class="wrap">
+
+  <!-- COMPARADOR -->
+  <section class="sec" id="comparador">
+    <div class="sec-head">
+      <h2>Comparador</h2>
+      <span class="hint">Las puntuaciones se recalculan según tu perfil</span>
+    </div>
+
+    <div class="picker">
+      <div class="pick-card">
+        <div class="pick-photo" id="photoA">
+          <span class="tag">A</span>
+          <img id="imgA" alt="" />
+        </div>
+        <div class="pick-body">
+          <div class="pick-top"><span style="font-size:12.5px;color:var(--ink-2)">Primer portátil</span></div>
+          <select id="selA" aria-label="Primer portátil"></select>
+          <div class="pick-summary">
+            <div class="ring" id="ringA"><b id="scoreA">0</b></div>
+            <div class="pick-meta">
+              <div class="price" id="priceA">—</div>
+              <div class="sub" id="subA">—</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button class="swap" id="swap" aria-label="Intercambiar portátiles" title="Intercambiar">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M7 4 3 8l4 4"/><path d="M3 8h13a4 4 0 0 1 4 4"/><path d="m17 20 4-4-4-4"/><path d="M21 16H8a4 4 0 0 1-4-4"/>
+        </svg>
+      </button>
+
+      <div class="pick-card">
+        <div class="pick-photo" id="photoB">
+          <span class="tag">B</span>
+          <img id="imgB" alt="" />
+        </div>
+        <div class="pick-body">
+          <div class="pick-top"><span style="font-size:12.5px;color:var(--ink-2)">Segundo portátil</span></div>
+          <select id="selB" aria-label="Segundo portátil"></select>
+          <div class="pick-summary">
+            <div class="ring" id="ringB"><b id="scoreB">0</b></div>
+            <div class="pick-meta">
+              <div class="price" id="priceB">—</div>
+              <div class="sub" id="subB">—</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="diff-banner" id="diffBanner"></div>
+
+    <div class="table-card">
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Característica</th>
+              <th scope="col" id="headA">Portátil A</th>
+              <th scope="col" id="headB">Portátil B</th>
+            </tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- VEREDICTO -->
+  <section class="sec" id="veredicto">
+    <div class="sec-head">
+      <h2>Veredicto por uso</h2>
+      <span class="hint">Quién gana y por qué</span>
+    </div>
+    <div class="verdicts" id="verdicts"></div>
+    <div class="final-note" id="finalNote"></div>
+  </section>
+
+  <!-- CATÁLOGO -->
+  <section class="sec" id="catalogo">
+    <div class="sec-head">
+      <h2>Catálogo</h2>
+      <span class="hint">Ordenado según tu perfil</span>
+    </div>
+    <div class="filters" id="filters"></div>
+    <div class="cards" id="cards"></div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <span><b>ComparaPortátil</b> · prototipo de prueba. Datos y fotos de ejemplo; las imágenes son ilustrativas y no corresponden necesariamente al modelo exacto.</span>
+    <span>Fotos de Unsplash (ilustrativas) · precios orientativos que varían según tienda y fecha.</span>
+  </div>
+</footer>
+
+<script>
+  /* =========================================================
+     DATOS (10 portátiles de ejemplo, precios en EUR)
+     ========================================================= */
+  const LAPTOPS = [
+    {
+      id: "mba-m4", name: "MacBook Air 13\" (M4)", brand: "Apple", price: 1199,
+      cpu: "Apple M4 · 10 núcleos", gpu: "GPU integrada de 10 núcleos",
+      ram: "16 GB unificada", storage: "512 GB SSD",
+      screen: "13,6\" Liquid Retina · 2560 × 1664", weight: 1.24, battery: 18, os: "macOS",
+      scores: { estudio: 92, trabajo: 95, gaming: 45, movilidad: 96 },
+      img: "img/laptop-09.jpg",
+      grad: "linear-gradient(135deg, #5b6cff, #a5b4fc)"
+    },
+    {
+      id: "mbp-14", name: "MacBook Pro 14\" (M4 Pro)", brand: "Apple", price: 2199,
+      cpu: "Apple M4 Pro · 12 núcleos", gpu: "GPU integrada de 16 núcleos",
+      ram: "24 GB unificada", storage: "512 GB SSD",
+      screen: "14,2\" Liquid Retina XDR · 120 Hz", weight: 1.60, battery: 17, os: "macOS",
+      scores: { estudio: 94, trabajo: 98, gaming: 60, movilidad: 82 },
+      img: "img/laptop-02.jpg",
+      grad: "linear-gradient(135deg, #3b3b4f, #9aa0b5)"
+    },
+    {
+      id: "pav-aero", name: "HP Pavilion Aero 13", brand: "HP", price: 799,
+      cpu: "AMD Ryzen 7 7735U", gpu: "Radeon 680M",
+      ram: "16 GB LPDDR5", storage: "512 GB SSD",
+      screen: "13,3\" IPS 2.5K", weight: 0.97, battery: 11, os: "Windows 11",
+      scores: { estudio: 84, trabajo: 82, gaming: 35, movilidad: 98 },
+      img: "img/extra-01.jpg",
+      grad: "linear-gradient(135deg, #0ea5a5, #7fe3d4)"
+    },
+    {
+      id: "zenbook-14", name: "ASUS Zenbook 14 OLED", brand: "ASUS", price: 1099,
+      cpu: "Intel Core Ultra 7 155H", gpu: "Intel Arc integrada",
+      ram: "16 GB LPDDR5X", storage: "1 TB SSD",
+      screen: "14\" OLED 3K · 120 Hz", weight: 1.22, battery: 12, os: "Windows 11",
+      scores: { estudio: 88, trabajo: 90, gaming: 48, movilidad: 94 },
+      img: "img/laptop-03.jpg",
+      grad: "linear-gradient(135deg, #1e3a8a, #60a5fa)"
+    },
+    {
+      id: "ideapad-3", name: "Lenovo IdeaPad Slim 3 15", brand: "Lenovo", price: 499,
+      cpu: "AMD Ryzen 5 7520U", gpu: "Radeon 610M",
+      ram: "16 GB LPDDR5", storage: "512 GB SSD",
+      screen: "15,6\" IPS Full HD", weight: 1.62, battery: 8, os: "Windows 11",
+      scores: { estudio: 78, trabajo: 72, gaming: 30, movilidad: 70 },
+      img: "img/laptop-01.jpg",
+      grad: "linear-gradient(135deg, #475569, #94a3b8)"
+    },
+    {
+      id: "aspire-5", name: "Acer Aspire 5 15", brand: "Acer", price: 649,
+      cpu: "Intel Core i5-12450H", gpu: "Intel UHD",
+      ram: "16 GB DDR4", storage: "512 GB SSD",
+      screen: "15,6\" IPS Full HD", weight: 1.78, battery: 7, os: "Windows 11",
+      scores: { estudio: 74, trabajo: 70, gaming: 38, movilidad: 58 },
+      img: "img/extra-07.jpg",
+      grad: "linear-gradient(135deg, #7c3aed, #c4b5fd)"
+    },
+    {
+      id: "zephyrus-g14", name: "ASUS ROG Zephyrus G14", brand: "ASUS", price: 1799,
+      cpu: "AMD Ryzen 9 8945HS", gpu: "NVIDIA RTX 4070 · 8 GB",
+      ram: "32 GB LPDDR5X", storage: "1 TB SSD",
+      screen: "14\" OLED 3K · 120 Hz", weight: 1.72, battery: 10, os: "Windows 11",
+      scores: { estudio: 85, trabajo: 86, gaming: 92, movilidad: 74 },
+      img: "img/laptop-08.jpg",
+      grad: "linear-gradient(135deg, #111827, #4b5563)"
+    },
+    {
+      id: "loq-15", name: "Lenovo LOQ 15", brand: "Lenovo", price: 999,
+      cpu: "Intel Core i7-13650HX", gpu: "NVIDIA RTX 4060 · 8 GB",
+      ram: "16 GB DDR5", storage: "512 GB SSD",
+      screen: "15,6\" IPS Full HD · 144 Hz", weight: 2.38, battery: 6, os: "Windows 11",
+      scores: { estudio: 76, trabajo: 78, gaming: 88, movilidad: 45 },
+      img: "img/laptop-07.jpg",
+      grad: "linear-gradient(135deg, #0f172a, #3b82f6)"
+    },
+    {
+      id: "xps-13", name: "Dell XPS 13", brand: "Dell", price: 1399,
+      cpu: "Intel Core Ultra 7 258V", gpu: "Intel Arc 140V",
+      ram: "16 GB LPDDR5X", storage: "512 GB SSD",
+      screen: "13,4\" OLED 3K", weight: 1.19, battery: 14, os: "Windows 11",
+      scores: { estudio: 90, trabajo: 92, gaming: 42, movilidad: 93 },
+      img: "img/laptop-10.jpg",
+      grad: "linear-gradient(135deg, #334155, #cbd5e1)"
+    },
+    {
+      id: "swift-go", name: "Acer Swift Go 14", brand: "Acer", price: 749,
+      cpu: "Intel Core Ultra 5 125H", gpu: "Intel Arc integrada",
+      ram: "16 GB LPDDR5", storage: "512 GB SSD",
+      screen: "14\" OLED 2.8K · 90 Hz", weight: 1.32, battery: 10, os: "Windows 11",
+      scores: { estudio: 82, trabajo: 80, gaming: 40, movilidad: 88 },
+      img: "img/extra-06.jpg",
+      grad: "linear-gradient(135deg, #b45309, #fcd34d)"
+    }
+  ];
+
+  const PROFILES = {
+    estudio:     { label: "Estudiante", w: { estudio: .50, trabajo: .20, movilidad: .20, gaming: .10 },
+                   hint: "Prioriza pantalla, autonomía y precio para apuntes y clases." },
+    trabajo:     { label: "Trabajo", w: { trabajo: .50, movilidad: .20, estudio: .20, gaming: .10 },
+                   hint: "Prioriza rendimiento sostenido, teclado y fiabilidad." },
+    gaming:      { label: "Gaming", w: { gaming: .60, trabajo: .20, estudio: .10, movilidad: .10 },
+                   hint: "Prioriza GPU, refrigeración y tasa de refresco." },
+    movilidad:   { label: "Movilidad", w: { movilidad: .50, trabajo: .25, estudio: .15, gaming: .10 },
+                   hint: "Prioriza peso, autonomía y tamaño compacto." },
+    equilibrado: { label: "Equilibrado", w: { estudio: .25, trabajo: .25, gaming: .25, movilidad: .25 },
+                   hint: "Reparto igualitario entre los cuatro ámbitos." }
+  };
+
+  const CATS = [
+    { key: "estudio",   label: "Estudiar" },
+    { key: "trabajo",   label: "Trabajar" },
+    { key: "gaming",    label: "Jugar" },
+    { key: "movilidad", label: "Moverse" }
+  ];
+
+  /* =========================================================
+     ESTADO
+     ========================================================= */
+  let profile = "equilibrado";
+  let idA = "mba-m4";
+  let idB = "zenbook-14";
+
+  const $ = (s) => document.querySelector(s);
+  const byId = (id) => LAPTOPS.find((l) => l.id === id);
+  const eur = (n) => n.toLocaleString("es-ES") + " €";
+  const kg = (n) => n.toLocaleString("es-ES", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + " kg";
+
+  function overall(l, p = profile) {
+    const w = PROFILES[p].w;
+    return Math.round(
+      Object.keys(w).reduce((acc, k) => acc + l.scores[k] * w[k], 0)
+    );
+  }
+  function valueIndex(l) {
+    return Math.round((overall(l) / l.price) * 1000);
+  }
+  function clampPct(n) {
+    return Math.max(0, Math.min(100, n));
+  }
+
+  /* =========================================================
+     SELECTS
+     ========================================================= */
+  function fillSelects() {
+    const opts = LAPTOPS.map(
+      (l) => `<option value="${l.id}">${l.brand} · ${l.name} — ${eur(l.price)}</option>`
+    ).join("");
+    $("#selA").innerHTML = opts;
+    $("#selB").innerHTML = opts;
+    $("#selA").value = idA;
+    $("#selB").value = idB;
+  }
+
+  function paintPick(which) {
+    const l = byId(which === "A" ? idA : idB);
+    const s = overall(l);
+    const ring = $("#ring" + which);
+    ring.style.setProperty("--p", clampPct(s));
+    $("#score" + which).textContent = s;
+    $("#price" + which).textContent = eur(l.price);
+    $("#sub" + which).textContent = `${l.cpu} · ${l.ram} · ${l.battery} h`;
+
+    const photo = $("#photo" + which);
+    photo.style.setProperty("--grad", l.grad);
+    const img = $("#img" + which);
+    img.src = l.img;
+    img.alt = `${l.name} (foto ilustrativa)`;
+  }
+
+  /* =========================================================
+     TABLA
+     ========================================================= */
+  const ROWS = [
+    { label: "Precio", get: (l) => l.price, fmt: eur, best: "low", num: true },
+    { label: "Procesador", get: (l) => l.cpu, best: null },
+    { label: "Gráfica", get: (l) => l.gpu, best: null },
+    { label: "Memoria RAM", get: (l) => l.ram, best: null },
+    { label: "Almacenamiento", get: (l) => l.storage, best: null },
+    { label: "Pantalla", get: (l) => l.screen, best: null },
+    { label: "Peso", get: (l) => l.weight, fmt: kg, best: "low", num: true },
+    { label: "Autonomía", get: (l) => l.battery, fmt: (n) => n + " h", best: "high", num: true },
+    { label: "Sistema", get: (l) => l.os, best: null },
+    { label: "Nota · estudiar", get: (l) => l.scores.estudio, best: "high", num: true, score: true },
+    { label: "Nota · trabajar", get: (l) => l.scores.trabajo, best: "high", num: true, score: true },
+    { label: "Nota · jugar", get: (l) => l.scores.gaming, best: "high", num: true, score: true },
+    { label: "Nota · movilidad", get: (l) => l.scores.movilidad, best: "high", num: true, score: true },
+    { label: "Calidad / precio", get: (l) => valueIndex(l), fmt: (n) => n, best: "high", num: true }
+  ];
+
+  function renderTable() {
+    const a = byId(idA), b = byId(idB);
+    $("#headA").textContent = a.name;
+    $("#headB").textContent = b.name;
+
+    const html = ROWS.map((r) => {
+      const va = r.get(a), vb = r.get(b);
+      let winA = false, winB = false;
+
+      if (r.best && va !== vb) {
+        if (r.best === "high") { winA = va > vb; winB = vb > va; }
+        else { winA = va < vb; winB = vb < va; }
+      }
+      const txtA = r.fmt ? r.fmt(va) : va;
+      const txtB = r.fmt ? r.fmt(vb) : vb;
+
+      return `<tr class="${r.score ? "score-row" : ""}">
+        <th scope="row">${r.label}</th>
+        <td class="val ${winA ? "win" : ""} ${r.num ? "num" : ""}">${txtA}</td>
+        <td class="val ${winB ? "win" : ""} ${r.num ? "num" : ""}">${txtB}</td>
+      </tr>`;
+    }).join("");
+
+    const oa = overall(a), ob = overall(b);
+    const finalRow = `<tr class="row-final">
+      <th scope="row">Nota final · ${PROFILES[profile].label}</th>
+      <td class="val ${oa > ob ? "win" : ""}">${oa} / 100</td>
+      <td class="val ${ob > oa ? "win" : ""}">${ob} / 100</td>
+    </tr>`;
+
+    $("#tbody").innerHTML = html + finalRow;
+  }
+
+  /* =========================================================
+     BANNER DE DIFERENCIA
+     ========================================================= */
+  function renderDiff() {
+    const a = byId(idA), b = byId(idB);
+    const oa = overall(a), ob = overall(b);
+    const diff = Math.abs(a.price - b.price);
+    const pct = Math.round((diff / Math.max(a.price, b.price)) * 100);
+    const cheaper = a.price <= b.price ? a : b;
+    const dearer = a.price <= b.price ? b : a;
+    const scoreDiff = overall(dearer) - overall(cheaper);
+    const sign = scoreDiff > 0 ? "+" : "";
+
+    let verdict;
+    if (diff === 0) {
+      verdict = "Cuestan lo mismo: decide por prestaciones y uso.";
+    } else if (scoreDiff > 0) {
+      verdict = `El <b>${dearer.name}</b> cuesta <b>${eur(diff)}</b> más (${pct} %) y consigue <b>${sign}${scoreDiff} puntos</b> para tu perfil.`;
+    } else if (scoreDiff === 0) {
+      verdict = `El <b>${cheaper.name}</b> es <b>${eur(diff)}</b> más barato y empata en nota para tu perfil.`;
+    } else {
+      verdict = `El <b>${cheaper.name}</b> es <b>${eur(diff)}</b> más barato y aun así gana por <b>${Math.abs(scoreDiff)} puntos</b>.`;
+    }
+
+    $("#diffBanner").innerHTML =
+      `<span class="pill">${PROFILES[profile].label}</span><span>${verdict}</span>`;
+  }
+
+  /* =========================================================
+     VEREDICTOS
+     ========================================================= */
+  function renderVerdicts() {
+    const a = byId(idA), b = byId(idB);
+    const html = CATS.map((c) => {
+      const sa = a.scores[c.key], sb = b.scores[c.key];
+      const winner = sa === sb ? null : (sa > sb ? a : b);
+      const diff = Math.abs(sa - sb);
+      let why;
+
+      if (!winner) {
+        why = `Empate técnico a ${sa} puntos. Elige por precio, peso o sistema operativo.`;
+      } else if (diff <= 4) {
+        why = `Gana por poco (${Math.max(sa, sb)} vs ${Math.min(sa, sb)}). La diferencia no justifica pagar mucho más.`;
+      } else if (diff <= 12) {
+        why = `Ventaja clara: ${Math.max(sa, sb)} frente a ${Math.min(sa, sb)} puntos. Se nota en el uso diario.`;
+      } else {
+        why = `Diferencia grande: ${Math.max(sa, sb)} frente a ${Math.min(sa, sb)}. Si este es tu uso principal, no hay duda.`;
+      }
+
+      return `<article class="vc">
+        <div class="label"><i></i>${c.label}</div>
+        <div class="winner">${winner ? winner.name : "Empate"}</div>
+        <div class="why">${why}</div>
+      </article>`;
+    }).join("");
+
+    const oa = overall(a), ob = overall(b);
+    const cheaper = a.price <= b.price ? a : b;
+    const best = oa === ob ? null : (oa > ob ? a : b);
+    let note;
+
+    if (!best) {
+      note = `<b>Conclusión:</b> para un perfil <b>${PROFILES[profile].label.toLowerCase()}</b>, están empatados.
+              Quédate con el más barato (<b>${cheaper.name}</b>, ${eur(cheaper.price)}) salvo que necesites algo concreto del otro.`;
+    } else {
+      const other = best.id === a.id ? b : a;
+      const extra = best.price - other.price;
+      if (extra > 0) {
+        note = `<b>Conclusión:</b> para un perfil <b>${PROFILES[profile].label.toLowerCase()}</b>, gana el
+                <b>${best.name}</b> (${overall(best)}/100), pero cuesta <b>${eur(extra)}</b> más.
+                Si ese extra no te duele, es la elección segura; si buscas valor, el <b>${other.name}</b> sigue siendo muy razonable.`;
+      } else {
+        note = `<b>Conclusión:</b> para un perfil <b>${PROFILES[profile].label.toLowerCase()}</b>, gana el
+                <b>${best.name}</b> (${overall(best)}/100) y además es <b>${eur(-extra)}</b> más barato. Compra fácil.`;
+      }
+    }
+    $("#finalNote").innerHTML = note;
+  }
+
+  /* =========================================================
+     CATÁLOGO
+     ========================================================= */
+  function renderFilters() {
+    $("#filters").innerHTML = Object.entries(PROFILES).map(
+      ([k, v]) => `<button class="chip ${k === profile ? "active" : ""}" data-profile="${k}">${v.label}</button>`
+    ).join("");
+  }
+
+  function renderCards() {
+    const sorted = [...LAPTOPS].sort((x, y) => overall(y) - overall(x));
+    $("#cards").innerHTML = sorted.map((l) => {
+      const sc = overall(l);
+      return `<article class="card">
+        <div class="thumb" style="--grad:${l.grad}">
+          <img src="${l.img}" alt="${l.name} (foto ilustrativa)" loading="lazy" onerror="this.style.display='none'" />
+          <span class="brand-chip">${l.brand}</span>
+        </div>
+        <div class="card-body">
+          <h3>${l.name}</h3>
+          <div class="specs">${l.cpu}<br>${l.ram} · ${l.storage}<br>${l.screen}</div>
+          <div class="bottom">
+            <div class="p">${eur(l.price)}</div>
+            <div class="score" title="Nota para ${PROFILES[profile].label}">${sc} / 100</div>
+          </div>
+          <div class="actions">
+            <button class="btn-mini" data-set="A" data-id="${l.id}">Comparar como A</button>
+            <button class="btn-mini" data-set="B" data-id="${l.id}">Comparar como B</button>
+          </div>
+        </div>
+      </article>`;
+    }).join("");
+  }
+
+  /* =========================================================
+     RENDER GLOBAL
+     ========================================================= */
+  function renderAll() {
+    paintPick("A");
+    paintPick("B");
+    renderTable();
+    renderDiff();
+    renderVerdicts();
+    renderFilters();
+    renderCards();
+    $("#profileHint").textContent = PROFILES[profile].hint;
+    document.querySelectorAll("#profiles .chip").forEach((c) =>
+      c.classList.toggle("active", c.dataset.profile === profile)
+    );
+  }
+
+  /* =========================================================
+     EVENTOS
+     ========================================================= */
+  function ensureDistinct(changed) {
+    if (idA === idB) {
+      if (changed === "A") {
+        idB = LAPTOPS.find((l) => l.id !== idA).id;
+        $("#selB").value = idB;
+      } else {
+        idA = LAPTOPS.find((l) => l.id !== idB).id;
+        $("#selA").value = idA;
+      }
+    }
+  }
+
+  $("#selA").addEventListener("change", (e) => {
+    idA = e.target.value; ensureDistinct("A"); renderAll(); save();
+  });
+  $("#selB").addEventListener("change", (e) => {
+    idB = e.target.value; ensureDistinct("B"); renderAll(); save();
+  });
+  $("#swap").addEventListener("click", () => {
+    [idA, idB] = [idB, idA];
+    $("#selA").value = idA;
+    $("#selB").value = idB;
+    renderAll(); save();
+  });
+
+  document.addEventListener("click", (e) => {
+    const p = e.target.closest("[data-profile]");
+    if (p) {
+      profile = p.dataset.profile;
+      renderAll();
+      save();
+      return;
+    }
+    const b = e.target.closest("[data-set]");
+    if (b) {
+      if (b.dataset.set === "A") { idA = b.dataset.id; $("#selA").value = idA; }
+      else { idB = b.dataset.id; $("#selB").value = idB; }
+      ensureDistinct(b.dataset.set);
+      renderAll(); save();
+      document.getElementById("comparador").scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  });
+
+  /* =========================================================
+     PERSISTENCIA
+     ========================================================= */
+  const KEY = "comparaportatil.v1";
+  function save() {
+    try {
+      localStorage.setItem(KEY, JSON.stringify({ profile, idA, idB }));
+    } catch (err) { /* modo privado: ignorar */ }
+  }
+  function load() {
+    try {
+      const raw = localStorage.getItem(KEY);
+      if (!raw) return;
+      const s = JSON.parse(raw);
+      if (s.profile && PROFILES[s.profile]) profile = s.profile;
+      if (s.idA && byId(s.idA)) idA = s.idA;
+      if (s.idB && byId(s.idB)) idB = s.idB;
+    } catch (err) { /* ignorar */ }
+  }
+
+  /* =========================================================
+     INIT
+     ========================================================= */
+  load();
+  fillSelects();
+  renderAll();
+</script>
+</body>
+</html>
