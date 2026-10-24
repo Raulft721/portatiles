@@ -20,6 +20,7 @@ Y visita `http://localhost:8000`.
 
 ```
 index.html   → interfaz, estilos y lógica (todo en uno)
+guias/       → dos guías de compra con su propia hoja de estilos
 img/         → fotos ilustrativas (Unsplash)
 404.html     → página de error
 ```

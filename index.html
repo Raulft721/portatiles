@@ -285,6 +285,26 @@
   }
   .btn-mini:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
 
+  /* GUÍAS */
+  .guides { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .guide-card {
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow);
+    display: flex; flex-direction: column;
+    transition: transform .35s var(--ease), box-shadow .35s;
+  }
+  .guide-card:hover { transform: translateY(-4px); box-shadow: 0 14px 40px rgba(0,0,0,.1); }
+  .g-top { height: 9px; background: linear-gradient(90deg, #0071e3, #67c1ff); }
+  .g-top.alt { background: linear-gradient(90deg, #ea580c, #fbbf24); }
+  .g-body { padding: 22px; display: flex; flex-direction: column; flex: 1; }
+  .g-kicker {
+    font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+    color: var(--accent); font-weight: 700;
+  }
+  .g-body h3 { margin: 7px 0 8px; font-size: 20px; line-height: 1.25; letter-spacing: -.025em; }
+  .g-body p { margin: 0 0 16px; font-size: 14px; color: var(--ink-2); line-height: 1.55; }
+  .g-link { margin-top: auto; font-size: 13.5px; font-weight: 650; color: var(--accent); }
+
   /* FOOTER */
   footer {
     margin-top: 44px; padding: 30px 0 40px;
@@ -304,6 +324,7 @@
   }
   @media (max-width: 600px) {
     .cards { grid-template-columns: 1fr; }
+    .guides { grid-template-columns: 1fr; }
     .hero { padding-top: 40px; }
     .pick-summary { flex-wrap: wrap; }
     .sec-head { flex-direction: column; align-items: flex-start; gap: 4px; }
@@ -331,6 +352,7 @@
       <a href="#comparador">Comparador</a>
       <a href="#veredicto">Veredicto</a>
       <a href="#catalogo">Catálogo</a>
+      <a href="#guias">Guías</a>
     </div>
     <span class="badge">Demo · precios orientativos</span>
   </div>
@@ -442,6 +464,34 @@
     <div class="cards" id="cards"></div>
   </section>
 
+  <!-- GUÍAS -->
+  <section class="sec" id="guias">
+    <div class="sec-head">
+      <h2>Guías</h2>
+      <span class="hint">Compra con criterio</span>
+    </div>
+    <div class="guides">
+      <a class="guide-card" href="guias/mejor-portatil-estudiar.html">
+        <div class="g-top"></div>
+        <div class="g-body">
+          <span class="g-kicker">Guía de compra</span>
+          <h3>Mejor portátil para estudiar por menos de 800 €</h3>
+          <p>Autonomía, peso y pantalla: cinco opciones que tienen sentido y cuándo merece la pena subir de precio.</p>
+          <span class="g-link">Leer guía →</span>
+        </div>
+      </a>
+      <a class="guide-card" href="guias/portatil-gaming-1000-euros.html">
+        <div class="g-top alt"></div>
+        <div class="g-body">
+          <span class="g-kicker">Guía de compra</span>
+          <h3>Portátil gaming por menos de 1.100 €</h3>
+          <p>GPU, refrigeración y pantalla: qué mirar de verdad y qué modelos aceptan menos compromisos.</p>
+          <span class="g-link">Leer guía →</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
 </main>
 
 <footer>
@@ -545,6 +595,60 @@
       scores: { estudio: 82, trabajo: 80, gaming: 40, movilidad: 88 },
       img: "img/extra-06.jpg",
       grad: "linear-gradient(135deg, #b45309, #fcd34d)"
+    },
+    {
+      id: "thinkpad-e14", name: "Lenovo ThinkPad E14 Gen 6", brand: "Lenovo", price: 899,
+      cpu: "AMD Ryzen 7 7735U", gpu: "Radeon 680M",
+      ram: "16 GB DDR5", storage: "512 GB SSD",
+      screen: "14\" WUXGA IPS", weight: 1.41, battery: 10, os: "Windows 11",
+      scores: { estudio: 86, trabajo: 90, gaming: 32, movilidad: 88 },
+      img: "img/laptop-12.jpg",
+      grad: "linear-gradient(135deg, #0f766e, #5eead4)"
+    },
+    {
+      id: "tuf-a15", name: "ASUS TUF Gaming A15", brand: "ASUS", price: 1099,
+      cpu: "AMD Ryzen 7 8845HS", gpu: "NVIDIA RTX 4060 · 8 GB",
+      ram: "16 GB DDR5", storage: "512 GB SSD",
+      screen: "15,6\" IPS Full HD · 144 Hz", weight: 2.30, battery: 7, os: "Windows 11",
+      scores: { estudio: 72, trabajo: 76, gaming: 90, movilidad: 42 },
+      img: "img/laptop-15.jpg",
+      grad: "linear-gradient(135deg, #171717, #f59e0b)"
+    },
+    {
+      id: "galaxy-book4", name: "Samsung Galaxy Book4 Pro", brand: "Samsung", price: 1399,
+      cpu: "Intel Core Ultra 7 155H", gpu: "Intel Arc integrada",
+      ram: "16 GB LPDDR5X", storage: "512 GB SSD",
+      screen: "14\" AMOLED 3K · 120 Hz", weight: 1.23, battery: 12, os: "Windows 11",
+      scores: { estudio: 89, trabajo: 91, gaming: 45, movilidad: 95 },
+      img: "img/laptop-13.jpg",
+      grad: "linear-gradient(135deg, #1e1b4b, #818cf8)"
+    },
+    {
+      id: "chromebook-515", name: "Acer Chromebook Plus 515", brand: "Acer", price: 449,
+      cpu: "Intel Core i3-1215U", gpu: "Intel UHD",
+      ram: "8 GB LPDDR5", storage: "128 GB SSD",
+      screen: "15,6\" IPS Full HD", weight: 1.68, battery: 10, os: "ChromeOS",
+      scores: { estudio: 82, trabajo: 62, gaming: 20, movilidad: 72 },
+      img: "img/laptop-14.jpg",
+      grad: "linear-gradient(135deg, #0369a1, #7dd3fc)"
+    },
+    {
+      id: "victus-15", name: "HP Victus 15", brand: "HP", price: 749,
+      cpu: "AMD Ryzen 5 8645HS", gpu: "NVIDIA RTX 4050 · 6 GB",
+      ram: "16 GB DDR5", storage: "512 GB SSD",
+      screen: "15,6\" IPS Full HD · 144 Hz", weight: 2.29, battery: 6, os: "Windows 11",
+      scores: { estudio: 70, trabajo: 72, gaming: 82, movilidad: 40 },
+      img: "img/laptop-16.jpg",
+      grad: "linear-gradient(135deg, #111827, #f97316)"
+    },
+    {
+      id: "surface-7", name: "Microsoft Surface Laptop 7", brand: "Microsoft", price: 1299,
+      cpu: "Snapdragon X Elite", gpu: "Adreno integrada",
+      ram: "16 GB LPDDR5X", storage: "512 GB SSD",
+      screen: "13,8\" PixelSense · 120 Hz", weight: 1.34, battery: 16, os: "Windows 11",
+      scores: { estudio: 88, trabajo: 90, gaming: 38, movilidad: 92 },
+      img: "img/laptop-11.jpg",
+      grad: "linear-gradient(135deg, #334155, #a5b4fc)"
     }
   ];
 
