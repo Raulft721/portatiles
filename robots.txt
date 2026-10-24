@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://raulft721.github.io/portatiles/sitemap.xml
