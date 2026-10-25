@@ -21,7 +21,7 @@ Y visita `http://localhost:8000`.
 ```
 index.html   → interfaz, estilos y lógica (todo en uno)
 guias/       → dos guías de compra con su propia hoja de estilos
-img/         → fotos de producto de los 16 modelos y dos imágenes de ambiente
+img/         → fotos de producto de los 22 modelos y dos imágenes de ambiente
 404.html     → página de error
 ```
 

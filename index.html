@@ -495,24 +495,72 @@
 
 <script>
   /* =========================================================
-     DATOS (16 portátiles de ejemplo, precios en EUR)
+     DATOS (22 portátiles de ejemplo, precios en EUR)
      ========================================================= */
   const LAPTOPS = [
     {
-      id: "mba-m4", img: "img/mba-m4.jpg", name: "MacBook Air 13\" (M4)", brand: "Apple", price: 1199,
-      cpu: "Apple M4 · 10 núcleos", gpu: "GPU integrada de 10 núcleos",
+      id: "macbook-neo", img: "img/macbook-neo.jpg", name: "MacBook Neo (A18 Pro)", brand: "Apple", price: 799,
+      cpu: "Apple A18 Pro · 6 núcleos", gpu: "GPU integrada de 5 núcleos",
+      ram: "8 GB unificada", storage: "256 GB SSD",
+      screen: "13\" Liquid Retina · 2408 × 1506", weight: 1.23, battery: 16, os: "macOS",
+      scores: { estudio: 84, trabajo: 66, gaming: 28, movilidad: 92 },
+      grad: "linear-gradient(135deg, #4f5d9e, #a5b4fc)"
+    },
+    {
+      id: "mba13-m5", img: "img/mba13-m5.jpg", name: "MacBook Air 13\" (M5)", brand: "Apple", price: 1429,
+      cpu: "Apple M5 · 10 núcleos", gpu: "GPU integrada de 8 núcleos",
       ram: "16 GB unificada", storage: "512 GB SSD",
-      screen: "13,6\" Liquid Retina · 2560 × 1664", weight: 1.24, battery: 18, os: "macOS",
-      scores: { estudio: 92, trabajo: 95, gaming: 45, movilidad: 96 },
+      screen: "13,6\" Liquid Retina · 2560 × 1664", weight: 1.23, battery: 18, os: "macOS",
+      scores: { estudio: 93, trabajo: 95, gaming: 46, movilidad: 96 },
       grad: "linear-gradient(135deg, #5b6cff, #a5b4fc)"
     },
     {
-      id: "mbp-14", img: "img/mbp-14.jpg", name: "MacBook Pro 14\" (M4 Pro)", brand: "Apple", price: 2199,
-      cpu: "Apple M4 Pro · 12 núcleos", gpu: "GPU integrada de 16 núcleos",
-      ram: "24 GB unificada", storage: "512 GB SSD",
-      screen: "14,2\" Liquid Retina XDR · 120 Hz", weight: 1.60, battery: 17, os: "macOS",
-      scores: { estudio: 94, trabajo: 98, gaming: 60, movilidad: 82 },
+      id: "mba15-m5", img: "img/mba15-m5.jpg", name: "MacBook Air 15\" (M5)", brand: "Apple", price: 1729,
+      cpu: "Apple M5 · 10 núcleos", gpu: "GPU integrada de 10 núcleos",
+      ram: "16 GB unificada", storage: "512 GB SSD",
+      screen: "15,3\" Liquid Retina · 2880 × 1864", weight: 1.51, battery: 18, os: "macOS",
+      scores: { estudio: 92, trabajo: 95, gaming: 47, movilidad: 90 },
+      grad: "linear-gradient(135deg, #5b6cff, #c7d2fe)"
+    },
+    {
+      id: "mbp14-m5", img: "img/mbp14-m5.jpg", name: "MacBook Pro 14\" (M5)", brand: "Apple", price: 2229,
+      cpu: "Apple M5 · 10 núcleos", gpu: "GPU integrada de 10 núcleos",
+      ram: "16 GB unificada", storage: "1 TB SSD",
+      screen: "14,2\" Liquid Retina XDR · 120 Hz", weight: 1.55, battery: 24, os: "macOS",
+      scores: { estudio: 96, trabajo: 97, gaming: 58, movilidad: 86 },
       grad: "linear-gradient(135deg, #3b3b4f, #9aa0b5)"
+    },
+    {
+      id: "mbp14-m5pro", img: "img/mbp14-m5pro.jpg", name: "MacBook Pro 14\" (M5 Pro)", brand: "Apple", price: 2949,
+      cpu: "Apple M5 Pro · 15 núcleos", gpu: "GPU integrada de 16 núcleos",
+      ram: "24 GB unificada", storage: "1 TB SSD",
+      screen: "14,2\" Liquid Retina XDR · 120 Hz", weight: 1.60, battery: 22, os: "macOS",
+      scores: { estudio: 97, trabajo: 99, gaming: 68, movilidad: 82 },
+      grad: "linear-gradient(135deg, #3b3b4f, #cbd5e1)"
+    },
+    {
+      id: "mbp14-m5max", img: "img/mbp14-m5max.jpg", name: "MacBook Pro 14\" (M5 Max)", brand: "Apple", price: 4849,
+      cpu: "Apple M5 Max · 18 núcleos", gpu: "GPU integrada de 32 núcleos",
+      ram: "36 GB unificada", storage: "1 TB SSD",
+      screen: "14,2\" Liquid Retina XDR · 120 Hz", weight: 1.62, battery: 20, os: "macOS",
+      scores: { estudio: 97, trabajo: 99, gaming: 78, movilidad: 80 },
+      grad: "linear-gradient(135deg, #27272a, #a1a1aa)"
+    },
+    {
+      id: "mbp16-m5pro", img: "img/mbp16-m5pro.jpg", name: "MacBook Pro 16\" (M5 Pro)", brand: "Apple", price: 3449,
+      cpu: "Apple M5 Pro · 18 núcleos", gpu: "GPU integrada de 20 núcleos",
+      ram: "24 GB unificada", storage: "1 TB SSD",
+      screen: "16,2\" Liquid Retina XDR · 120 Hz", weight: 2.14, battery: 24, os: "macOS",
+      scores: { estudio: 96, trabajo: 99, gaming: 70, movilidad: 70 },
+      grad: "linear-gradient(135deg, #3b3b4f, #94a3b8)"
+    },
+    {
+      id: "mbp16-m5max", img: "img/mbp16-m5max.jpg", name: "MacBook Pro 16\" (M5 Max)", brand: "Apple", price: 5149,
+      cpu: "Apple M5 Max · 18 núcleos", gpu: "GPU integrada de 32 núcleos",
+      ram: "36 GB unificada", storage: "1 TB SSD",
+      screen: "16,2\" Liquid Retina XDR · 120 Hz", weight: 2.15, battery: 22, os: "macOS",
+      scores: { estudio: 96, trabajo: 99, gaming: 80, movilidad: 68 },
+      grad: "linear-gradient(135deg, #18181b, #71717a)"
     },
     {
       id: "pav-aero", img: "img/pav-aero.jpg", name: "HP Pavilion Aero 13", brand: "HP", price: 799,
@@ -652,7 +700,7 @@
      ESTADO
      ========================================================= */
   let profile = "equilibrado";
-  let idA = "mba-m4";
+  let idA = "mba13-m5";
   let idB = "zenbook-14";
 
   const $ = (s) => document.querySelector(s);
