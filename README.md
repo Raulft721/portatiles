@@ -4,7 +4,7 @@ Prototipo de comparador de portátiles: elige un perfil de uso, compara dos mode
 
 ## Demo
 
-Página estática, sin backend ni dependencias. Los datos viven en `index.html` y las ilustraciones de los portátiles se generan con `art.js`.
+Página estática, sin backend ni dependencias. Los datos viven en `index.html` y cada modelo usa una fotografía de producto guardada en `img/`.
 
 ## Uso local
 
@@ -20,12 +20,11 @@ Y visita `http://localhost:8000`.
 
 ```
 index.html   → interfaz, estilos y lógica (todo en uno)
-art.js       → generador de ilustraciones SVG de los portátiles
 guias/       → dos guías de compra con su propia hoja de estilos
-img/         → dos fotos de ambiente (Unsplash)
+img/         → fotos de producto de los 16 modelos y dos imágenes de ambiente
 404.html     → página de error
 ```
 
 ## Aviso
 
-Proyecto de prueba. Precios orientativos. Las ilustraciones son dibujos genéricos y no representan el aspecto real de cada modelo. No es una recomendación de compra.
+Proyecto de prueba. Precios orientativos. Las fotografías son imágenes de producto de cada fabricante y se usan únicamente con fines informativos; los derechos pertenecen a sus respectivas marcas. No es una recomendación de compra.

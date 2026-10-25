@@ -122,14 +122,14 @@
     overflow: hidden; display: flex; flex-direction: column;
   }
   .pick-photo {
-    position: relative; height: 168px; flex: 0 0 auto;
-    background: var(--grad, #e3e6eb); overflow: hidden;
+    position: relative; height: 186px; flex: 0 0 auto;
+    background: #fff; overflow: hidden; border-bottom: 1px solid #f0f0f2;
   }
-  .pick-photo::before {
-    content: ""; position: absolute; inset: 0; pointer-events: none;
-    background: linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,255,255,.78));
+  .pick-photo .pick-shot {
+    width: 100%; height: 100%; object-fit: contain; display: block;
+    padding: 10px 14px; transition: transform .7s var(--ease);
   }
-  .pick-card:hover .art-slot svg { transform: scale(1.04); }
+  .pick-card:hover .pick-shot { transform: scale(1.03); }
   .pick-photo .tag {
     position: absolute; top: 10px; left: 10px; z-index: 2;
     font-size: 10.5px; font-weight: 700; letter-spacing: .1em;
@@ -244,18 +244,14 @@
   }
   .card:hover { transform: translateY(-4px); box-shadow: 0 14px 40px rgba(0,0,0,.1); }
   .thumb {
-    position: relative; height: 168px; background: var(--grad); overflow: hidden;
+    position: relative; height: 186px; background: #fff; overflow: hidden;
+    border-bottom: 1px solid #f0f0f2;
   }
-  .thumb::before {
-    content: ""; position: absolute; inset: 0; pointer-events: none;
-    background: linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,255,255,.78));
+  .thumb .shot {
+    width: 100%; height: 100%; object-fit: contain; display: block;
+    padding: 10px 14px; transition: transform .7s var(--ease);
   }
-  .art-slot { position: absolute; inset: 0; z-index: 1; }
-  .art-slot svg, .laptop-art {
-    width: 100%; height: 100%; display: block;
-    transition: transform .7s var(--ease);
-  }
-  .card:hover .art-slot svg { transform: scale(1.05); }
+  .card:hover .thumb .shot { transform: scale(1.04); }
   .thumb .brand-chip {
     position: absolute; left: 10px; bottom: 10px; z-index: 2;
     font-size: 10.5px; font-weight: 650; letter-spacing: .05em;
@@ -382,7 +378,7 @@
       <div class="pick-card">
         <div class="pick-photo" id="photoA">
           <span class="tag">A</span>
-          <div class="art-slot" id="artA"></div>
+          <img class="pick-shot" id="imgA" alt="" width="1000" height="750">
         </div>
         <div class="pick-body">
           <div class="pick-top"><span style="font-size:12.5px;color:var(--ink-2)">Primer portátil</span></div>
@@ -406,7 +402,7 @@
       <div class="pick-card">
         <div class="pick-photo" id="photoB">
           <span class="tag">B</span>
-          <div class="art-slot" id="artB"></div>
+          <img class="pick-shot" id="imgB" alt="" width="1000" height="750">
         </div>
         <div class="pick-body">
           <div class="pick-top"><span style="font-size:12.5px;color:var(--ink-2)">Segundo portátil</span></div>
@@ -492,19 +488,18 @@
 
 <footer>
   <div class="wrap foot">
-    <span><b>ComparaPortátil</b> · prototipo de prueba. Datos de ejemplo y dibujos genéricos: no representan el aspecto real de cada modelo.</span>
+    <span><b>ComparaPortátil</b> · prototipo de prueba. Datos y precios de ejemplo. Las imágenes son fotografías de producto de cada fabricante y se usan solo con fines informativos; los derechos pertenecen a sus marcas.</span>
     <span>Precios orientativos que varían según tienda y fecha.</span>
   </div>
 </footer>
 
-<script src="art.js"></script>
 <script>
   /* =========================================================
      DATOS (16 portátiles de ejemplo, precios en EUR)
      ========================================================= */
   const LAPTOPS = [
     {
-      id: "mba-m4", name: "MacBook Air 13\" (M4)", brand: "Apple", price: 1199,
+      id: "mba-m4", img: "img/mba-m4.jpg", name: "MacBook Air 13\" (M4)", brand: "Apple", price: 1199,
       cpu: "Apple M4 · 10 núcleos", gpu: "GPU integrada de 10 núcleos",
       ram: "16 GB unificada", storage: "512 GB SSD",
       screen: "13,6\" Liquid Retina · 2560 × 1664", weight: 1.24, battery: 18, os: "macOS",
@@ -512,7 +507,7 @@
       grad: "linear-gradient(135deg, #5b6cff, #a5b4fc)"
     },
     {
-      id: "mbp-14", name: "MacBook Pro 14\" (M4 Pro)", brand: "Apple", price: 2199,
+      id: "mbp-14", img: "img/mbp-14.jpg", name: "MacBook Pro 14\" (M4 Pro)", brand: "Apple", price: 2199,
       cpu: "Apple M4 Pro · 12 núcleos", gpu: "GPU integrada de 16 núcleos",
       ram: "24 GB unificada", storage: "512 GB SSD",
       screen: "14,2\" Liquid Retina XDR · 120 Hz", weight: 1.60, battery: 17, os: "macOS",
@@ -520,7 +515,7 @@
       grad: "linear-gradient(135deg, #3b3b4f, #9aa0b5)"
     },
     {
-      id: "pav-aero", name: "HP Pavilion Aero 13", brand: "HP", price: 799,
+      id: "pav-aero", img: "img/pav-aero.jpg", name: "HP Pavilion Aero 13", brand: "HP", price: 799,
       cpu: "AMD Ryzen 7 7735U", gpu: "Radeon 680M",
       ram: "16 GB LPDDR5", storage: "512 GB SSD",
       screen: "13,3\" IPS 2.5K", weight: 0.97, battery: 11, os: "Windows 11",
@@ -528,7 +523,7 @@
       grad: "linear-gradient(135deg, #0ea5a5, #7fe3d4)"
     },
     {
-      id: "zenbook-14", name: "ASUS Zenbook 14 OLED", brand: "ASUS", price: 1099,
+      id: "zenbook-14", img: "img/zenbook-14.jpg", name: "ASUS Zenbook 14 OLED", brand: "ASUS", price: 1099,
       cpu: "Intel Core Ultra 7 155H", gpu: "Intel Arc integrada",
       ram: "16 GB LPDDR5X", storage: "1 TB SSD",
       screen: "14\" OLED 3K · 120 Hz", weight: 1.22, battery: 12, os: "Windows 11",
@@ -536,7 +531,7 @@
       grad: "linear-gradient(135deg, #1e3a8a, #60a5fa)"
     },
     {
-      id: "ideapad-3", name: "Lenovo IdeaPad Slim 3 15", brand: "Lenovo", price: 499,
+      id: "ideapad-3", img: "img/ideapad-3.jpg", name: "Lenovo IdeaPad Slim 3 15", brand: "Lenovo", price: 499,
       cpu: "AMD Ryzen 5 7520U", gpu: "Radeon 610M",
       ram: "16 GB LPDDR5", storage: "512 GB SSD",
       screen: "15,6\" IPS Full HD", weight: 1.62, battery: 8, os: "Windows 11",
@@ -544,7 +539,7 @@
       grad: "linear-gradient(135deg, #475569, #94a3b8)"
     },
     {
-      id: "aspire-5", name: "Acer Aspire 5 15", brand: "Acer", price: 649,
+      id: "aspire-5", img: "img/aspire-5.jpg", name: "Acer Aspire 5 15", brand: "Acer", price: 649,
       cpu: "Intel Core i5-12450H", gpu: "Intel UHD",
       ram: "16 GB DDR4", storage: "512 GB SSD",
       screen: "15,6\" IPS Full HD", weight: 1.78, battery: 7, os: "Windows 11",
@@ -552,7 +547,7 @@
       grad: "linear-gradient(135deg, #7c3aed, #c4b5fd)"
     },
     {
-      id: "zephyrus-g14", name: "ASUS ROG Zephyrus G14", brand: "ASUS", price: 1799,
+      id: "zephyrus-g14", img: "img/zephyrus-g14.jpg", name: "ASUS ROG Zephyrus G14", brand: "ASUS", price: 1799,
       cpu: "AMD Ryzen 9 8945HS", gpu: "NVIDIA RTX 4070 · 8 GB",
       ram: "32 GB LPDDR5X", storage: "1 TB SSD",
       screen: "14\" OLED 3K · 120 Hz", weight: 1.72, battery: 10, os: "Windows 11",
@@ -560,7 +555,7 @@
       grad: "linear-gradient(135deg, #111827, #4b5563)"
     },
     {
-      id: "loq-15", name: "Lenovo LOQ 15", brand: "Lenovo", price: 999,
+      id: "loq-15", img: "img/loq-15.jpg", name: "Lenovo LOQ 15", brand: "Lenovo", price: 999,
       cpu: "Intel Core i7-13650HX", gpu: "NVIDIA RTX 4060 · 8 GB",
       ram: "16 GB DDR5", storage: "512 GB SSD",
       screen: "15,6\" IPS Full HD · 144 Hz", weight: 2.38, battery: 6, os: "Windows 11",
@@ -568,7 +563,7 @@
       grad: "linear-gradient(135deg, #0f172a, #3b82f6)"
     },
     {
-      id: "xps-13", name: "Dell XPS 13", brand: "Dell", price: 1399,
+      id: "xps-13", img: "img/xps-13.jpg", name: "Dell XPS 13", brand: "Dell", price: 1399,
       cpu: "Intel Core Ultra 7 258V", gpu: "Intel Arc 140V",
       ram: "16 GB LPDDR5X", storage: "512 GB SSD",
       screen: "13,4\" OLED 3K", weight: 1.19, battery: 14, os: "Windows 11",
@@ -576,7 +571,7 @@
       grad: "linear-gradient(135deg, #334155, #cbd5e1)"
     },
     {
-      id: "swift-go", name: "Acer Swift Go 14", brand: "Acer", price: 749,
+      id: "swift-go", img: "img/swift-go.jpg", name: "Acer Swift Go 14", brand: "Acer", price: 749,
       cpu: "Intel Core Ultra 5 125H", gpu: "Intel Arc integrada",
       ram: "16 GB LPDDR5", storage: "512 GB SSD",
       screen: "14\" OLED 2.8K · 90 Hz", weight: 1.32, battery: 10, os: "Windows 11",
@@ -584,7 +579,7 @@
       grad: "linear-gradient(135deg, #b45309, #fcd34d)"
     },
     {
-      id: "thinkpad-e14", name: "Lenovo ThinkPad E14 Gen 6", brand: "Lenovo", price: 899,
+      id: "thinkpad-e14", img: "img/thinkpad-e14.jpg", name: "Lenovo ThinkPad E14 Gen 6", brand: "Lenovo", price: 899,
       cpu: "AMD Ryzen 7 7735U", gpu: "Radeon 680M",
       ram: "16 GB DDR5", storage: "512 GB SSD",
       screen: "14\" WUXGA IPS", weight: 1.41, battery: 10, os: "Windows 11",
@@ -592,7 +587,7 @@
       grad: "linear-gradient(135deg, #0f766e, #5eead4)"
     },
     {
-      id: "tuf-a15", name: "ASUS TUF Gaming A15", brand: "ASUS", price: 1099,
+      id: "tuf-a15", img: "img/tuf-a15.jpg", name: "ASUS TUF Gaming A15", brand: "ASUS", price: 1099,
       cpu: "AMD Ryzen 7 8845HS", gpu: "NVIDIA RTX 4060 · 8 GB",
       ram: "16 GB DDR5", storage: "512 GB SSD",
       screen: "15,6\" IPS Full HD · 144 Hz", weight: 2.30, battery: 7, os: "Windows 11",
@@ -600,7 +595,7 @@
       grad: "linear-gradient(135deg, #171717, #f59e0b)"
     },
     {
-      id: "galaxy-book4", name: "Samsung Galaxy Book4 Pro", brand: "Samsung", price: 1399,
+      id: "galaxy-book4", img: "img/galaxy-book4.jpg", name: "Samsung Galaxy Book4 Pro", brand: "Samsung", price: 1399,
       cpu: "Intel Core Ultra 7 155H", gpu: "Intel Arc integrada",
       ram: "16 GB LPDDR5X", storage: "512 GB SSD",
       screen: "14\" AMOLED 3K · 120 Hz", weight: 1.23, battery: 12, os: "Windows 11",
@@ -608,7 +603,7 @@
       grad: "linear-gradient(135deg, #1e1b4b, #818cf8)"
     },
     {
-      id: "chromebook-515", name: "Acer Chromebook Plus 515", brand: "Acer", price: 449,
+      id: "chromebook-515", img: "img/chromebook-515.jpg", name: "Acer Chromebook Plus 515", brand: "Acer", price: 449,
       cpu: "Intel Core i3-1215U", gpu: "Intel UHD",
       ram: "8 GB LPDDR5", storage: "128 GB SSD",
       screen: "15,6\" IPS Full HD", weight: 1.68, battery: 10, os: "ChromeOS",
@@ -616,7 +611,7 @@
       grad: "linear-gradient(135deg, #0369a1, #7dd3fc)"
     },
     {
-      id: "victus-15", name: "HP Victus 15", brand: "HP", price: 749,
+      id: "victus-15", img: "img/victus-15.jpg", name: "HP Victus 15", brand: "HP", price: 749,
       cpu: "AMD Ryzen 5 8645HS", gpu: "NVIDIA RTX 4050 · 6 GB",
       ram: "16 GB DDR5", storage: "512 GB SSD",
       screen: "15,6\" IPS Full HD · 144 Hz", weight: 2.29, battery: 6, os: "Windows 11",
@@ -624,7 +619,7 @@
       grad: "linear-gradient(135deg, #111827, #f97316)"
     },
     {
-      id: "surface-7", name: "Microsoft Surface Laptop 7", brand: "Microsoft", price: 1299,
+      id: "surface-7", img: "img/surface-7.jpg", name: "Microsoft Surface Laptop 7", brand: "Microsoft", price: 1299,
       cpu: "Snapdragon X Elite", gpu: "Adreno integrada",
       ram: "16 GB LPDDR5X", storage: "512 GB SSD",
       screen: "13,8\" PixelSense · 120 Hz", weight: 1.34, battery: 16, os: "Windows 11",
@@ -700,9 +695,9 @@
     $("#price" + which).textContent = eur(l.price);
     $("#sub" + which).textContent = `${l.cpu} · ${l.ram} · ${l.battery} h`;
 
-    const photo = $("#photo" + which);
-    photo.style.setProperty("--grad", l.grad);
-    $("#art" + which).innerHTML = laptopArt.fromLaptop(l, "pick" + which);
+    const photo = $("#img" + which);
+    photo.src = l.img;
+    photo.alt = l.name;
   }
 
   /* =========================================================
@@ -851,8 +846,8 @@
     $("#cards").innerHTML = sorted.map((l) => {
       const sc = overall(l);
       return `<article class="card">
-        <div class="thumb" style="--grad:${l.grad}">
-          <div class="art-slot">${laptopArt.fromLaptop(l, "c-" + l.id)}</div>
+        <div class="thumb">
+          <img class="shot" src="${l.img}" alt="${l.name}" loading="lazy" width="1000" height="750">
           <span class="brand-chip">${l.brand}</span>
         </div>
         <div class="card-body">
