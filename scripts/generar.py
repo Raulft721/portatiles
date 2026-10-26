@@ -224,10 +224,10 @@ def build_ficha(l, laptops, hoy):
     price_rank = 1 + sum(1 for x in laptops if x["price"] < l["price"])
 
     if lighter_rank == 1:
-        weight_line = "Es el más ligero de los 22 modelos."
+        weight_line = f"Es el más ligero de los {len(laptops)} modelos."
     elif lighter_rank <= 4:
-        weight_line = f"Con {kg(l['weight'])} es el {lighter_rank}.º más ligero de los 22 modelos."
-    elif lighter_rank >= 19:
+        weight_line = f"Con {kg(l['weight'])} es el {lighter_rank}.º más ligero de los {len(laptops)} modelos."
+    elif lighter_rank > len(laptops) - 4:
         weight_line = f"Con {kg(l['weight'])} está entre los más pesados del catálogo."
     else:
         weight_line = f"Pesa {kg(l['weight'])}."
@@ -379,7 +379,7 @@ def build_ficha(l, laptops, hoy):
       <a href="../guias/mejor-portatil-estudiar.html">Estudiar</a>
       <a href="../guias/portatil-gaming-1000-euros.html">Gaming</a>
     </div>
-    <a href="../index.html#catalogo" class="nav-spacer" style="font-size:13.5px;font-weight:600;">Ver los 22 modelos</a>
+    <a href="../index.html#catalogo" class="nav-spacer" style="font-size:13.5px;font-weight:600;">Ver los {len(laptops)} modelos</a>
   </div>
 </nav>
 
@@ -454,7 +454,7 @@ def build_ficha(l, laptops, hoy):
 
   <div class="cta">
     <h2>Compáralo con otro modelo</h2>
-    <p>Abre el comparador con este portátil ya cargado y enfréntalo a cualquiera de los 22.</p>
+    <p>Abre el comparador con este portátil ya cargado y enfréntalo a cualquiera de los {len(laptops)}.</p>
     <a class="btn" href="../index.html?a={l['id']}#comparador">Abrir el comparador</a>
   </div>
 {extra}
@@ -475,6 +475,20 @@ def build_ficha(l, laptops, hoy):
 # --------------------------------------------------------------------------
 # Sitemap
 # --------------------------------------------------------------------------
+
+def actualizar_conteos(source, laptops):
+    """Sustituye los números escritos a mano por el recuento real del catálogo."""
+    total = len(laptops)
+    marcas = len({l["brand"] for l in laptops})
+    for patron, nuevo in (
+        (r"Compara \d+ portátiles", f"Compara {total} portátiles"),
+        (r"\d+ portátiles de \d+ marcas", f"{total} portátiles de {marcas} marcas"),
+        (r"DATOS \(\d+ portátiles", f"DATOS ({total} portátiles"),
+        (r"Ver los \d+ modelos", f"Ver los {total} modelos"),
+    ):
+        source = re.sub(patron, nuevo, source)
+    return source
+
 
 def build_sitemap(laptops, hoy):
     urls = [(SITE, "1.0"),
@@ -520,6 +534,7 @@ def main():
     source = patch_between(source, "<!-- catalogo:inicio -->", "<!-- catalogo:fin -->", cards)
     source = patch_between(source, "<!-- itemlist:inicio -->", "<!-- itemlist:fin -->",
                            itemlist_ld(laptops))
+    source = actualizar_conteos(source, laptops)
     INDEX.write_text(source, encoding="utf-8", newline="\n")
 
     # Fichas
