@@ -152,5 +152,26 @@
     "price": "1299 €",
     "brand": "Microsoft",
     "img": "img/surface-7.jpg"
+  },
+  {
+    "slug": "asus-tuf-gaming-a16",
+    "name": "ASUS TUF Gaming A16",
+    "price": "1249 €",
+    "brand": "ASUS",
+    "img": "img/tuf-a16.jpg"
+  },
+  {
+    "slug": "lenovo-loq-15irx10",
+    "name": "Lenovo LOQ 15IRX10",
+    "price": "1099 €",
+    "brand": "Lenovo",
+    "img": "img/loq-irx10.jpg"
+  },
+  {
+    "slug": "acer-swift-go-14-ai",
+    "name": "Acer Swift Go 14 AI",
+    "price": "823 €",
+    "brand": "Acer",
+    "img": "img/swift-go-ai.jpg"
   }
 ]

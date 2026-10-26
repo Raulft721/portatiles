@@ -260,6 +260,12 @@ def build_ficha(l, laptops, hoy):
         for key, label in CATS
     )
 
+    # Los equipos que se venden sin sistema operativo necesitan un aviso explícito.
+    sin_so = l["os"].strip().lower().startswith(("freedos", "sin sistema", "sin so"))
+    aviso_so = ("" if not sin_so else
+                "\n  <p class=\"caption\">Se vende sin sistema operativo: hay que "
+                "instalar Windows o Linux y contar con la licencia.</p>")
+
     cercanos = sorted((x for x in laptops if x["id"] != l["id"]),
                       key=lambda x: abs(x["price"] - l["price"]))[:3]
     alts = []
@@ -435,6 +441,7 @@ def build_ficha(l, laptops, hoy):
     <li><strong>Encaja</strong> si lo que más te importa es {USE[best]}, y el presupuesto llega a {eur(l['price'])}.</li>
     <li><strong>Busca otra opción</strong> si lo que prima es {SIN[worst]}: aquí saca {scores[worst]} de 100.</li>
   </ul>
+{aviso_so}
 
   <h2>Notas por uso</h2>
 
