@@ -78,7 +78,17 @@ def eur(n):
 
 
 def kg(n):
+    if n is None:
+        return "sin dato"
     return f"{n:.2f}".replace(".", ",") + " kg"
+
+
+def horas(l):
+    """Autonomía declarada, con la capacidad si el fabricante no da horas."""
+    if l.get("battery") is None:
+        return ("Sin dato del fabricante"
+                + (f" (batería de {str(l['wh']).replace('.', ',')} Wh)" if l.get("wh") else ""))
+    return f"{l['battery']} h según el fabricante"
 
 
 def overall(laptop):
@@ -265,6 +275,8 @@ def build_ficha(l, laptops, hoy):
     aviso_so = ("" if not sin_so else
                 "\n  <p class=\"caption\">Se vende sin sistema operativo: hay que "
                 "instalar Windows o Linux y contar con la licencia.</p>")
+    if l.get("aviso"):
+        aviso_so += f"\n  <p class=\"caption\">{esc(l['aviso'])}</p>"
 
     cercanos = sorted((x for x in laptops if x["id"] != l["id"]),
                       key=lambda x: abs(x["price"] - l["price"]))[:3]
@@ -426,7 +438,7 @@ def build_ficha(l, laptops, hoy):
         <tr><th scope="row">Almacenamiento</th><td>{esc(l['storage'])}</td></tr>
         <tr><th scope="row">Pantalla</th><td>{esc(l['screen'])}</td></tr>
         <tr><th scope="row">Peso</th><td>{kg(l['weight'])}</td></tr>
-        <tr><th scope="row">Autonomía</th><td>{l['battery']} h según el fabricante</td></tr>
+        <tr><th scope="row">Autonomía</th><td>{horas(l)}</td></tr>
         <tr><th scope="row">Sistema operativo</th><td>{esc(l['os'])}</td></tr>
         <tr><th scope="row">Precio</th><td>{eur(l['price'])} orientativo</td></tr>
       </tbody>

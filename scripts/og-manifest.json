@@ -173,5 +173,68 @@
     "price": "823 €",
     "brand": "Acer",
     "img": "img/swift-go-ai.jpg"
+  },
+  {
+    "slug": "acer-nitro-v-15",
+    "name": "Acer Nitro V 15",
+    "price": "1199 €",
+    "brand": "Acer",
+    "img": "img/nitro-v15.jpg"
+  },
+  {
+    "slug": "asus-vivobook-16",
+    "name": "ASUS Vivobook 16",
+    "price": "749 €",
+    "brand": "ASUS",
+    "img": "img/vivobook-16.jpg"
+  },
+  {
+    "slug": "lenovo-ideapad-slim-3-15irh10",
+    "name": "Lenovo IdeaPad Slim 3 15IRH10",
+    "price": "579 €",
+    "brand": "Lenovo",
+    "img": "img/ideapad-slim-3-15irh10.jpg"
+  },
+  {
+    "slug": "hp-omnibook-5-14",
+    "name": "HP OmniBook 5 14",
+    "price": "1249 €",
+    "brand": "HP",
+    "img": "img/omnibook-5.jpg"
+  },
+  {
+    "slug": "dell-14-dc14250",
+    "name": "Dell 14 (DC14250)",
+    "price": "900 €",
+    "brand": "Dell",
+    "img": "img/dell-14.jpg"
+  },
+  {
+    "slug": "lenovo-ideapad-slim-5-13",
+    "name": "Lenovo IdeaPad Slim 5 13",
+    "price": "799 €",
+    "brand": "Lenovo",
+    "img": "img/ideapad-slim-5-13.jpg"
+  },
+  {
+    "slug": "macbook-neo",
+    "name": "MacBook Neo (A18 Pro)",
+    "price": "799 €",
+    "brand": "Apple",
+    "img": "img/macbook-neo.jpg"
+  },
+  {
+    "slug": "samsung-galaxy-book5-pro-14",
+    "name": "Samsung Galaxy Book5 Pro 14\"",
+    "price": "1699 €",
+    "brand": "Samsung",
+    "img": "img/galaxy-book5.jpg"
+  },
+  {
+    "slug": "msi-thin-15",
+    "name": "MSI Thin 15",
+    "price": "1279 €",
+    "brand": "MSI",
+    "img": "img/msi-thin-15.jpg"
   }
 ]
