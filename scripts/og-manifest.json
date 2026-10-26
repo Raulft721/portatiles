@@ -1,0 +1,156 @@
+[
+  {
+    "slug": "macbook-air-13-m4",
+    "name": "MacBook Air 13\" (M4)",
+    "price": "1199 €",
+    "brand": "Apple",
+    "img": "img/mba13-m4.jpg"
+  },
+  {
+    "slug": "macbook-air-13-m5",
+    "name": "MacBook Air 13\" (M5)",
+    "price": "1429 €",
+    "brand": "Apple",
+    "img": "img/mba13-m5.jpg"
+  },
+  {
+    "slug": "macbook-air-15-m5",
+    "name": "MacBook Air 15\" (M5)",
+    "price": "1729 €",
+    "brand": "Apple",
+    "img": "img/mba15-m5.jpg"
+  },
+  {
+    "slug": "macbook-pro-14-m5",
+    "name": "MacBook Pro 14\" (M5)",
+    "price": "2229 €",
+    "brand": "Apple",
+    "img": "img/mbp14-m5.jpg"
+  },
+  {
+    "slug": "macbook-pro-14-m5-pro",
+    "name": "MacBook Pro 14\" (M5 Pro)",
+    "price": "2949 €",
+    "brand": "Apple",
+    "img": "img/mbp14-m5pro.jpg"
+  },
+  {
+    "slug": "macbook-pro-14-m5-max",
+    "name": "MacBook Pro 14\" (M5 Max)",
+    "price": "4849 €",
+    "brand": "Apple",
+    "img": "img/mbp14-m5max.jpg"
+  },
+  {
+    "slug": "macbook-pro-16-m5-pro",
+    "name": "MacBook Pro 16\" (M5 Pro)",
+    "price": "3449 €",
+    "brand": "Apple",
+    "img": "img/mbp16-m5pro.jpg"
+  },
+  {
+    "slug": "macbook-pro-16-m5-max",
+    "name": "MacBook Pro 16\" (M5 Max)",
+    "price": "5149 €",
+    "brand": "Apple",
+    "img": "img/mbp16-m5max.jpg"
+  },
+  {
+    "slug": "hp-pavilion-aero-13",
+    "name": "HP Pavilion Aero 13",
+    "price": "799 €",
+    "brand": "HP",
+    "img": "img/pav-aero.jpg"
+  },
+  {
+    "slug": "asus-zenbook-14-oled",
+    "name": "ASUS Zenbook 14 OLED",
+    "price": "1099 €",
+    "brand": "ASUS",
+    "img": "img/zenbook-14.jpg"
+  },
+  {
+    "slug": "lenovo-ideapad-slim-3-15",
+    "name": "Lenovo IdeaPad Slim 3 15",
+    "price": "499 €",
+    "brand": "Lenovo",
+    "img": "img/ideapad-3.jpg"
+  },
+  {
+    "slug": "acer-aspire-5-15",
+    "name": "Acer Aspire 5 15",
+    "price": "649 €",
+    "brand": "Acer",
+    "img": "img/aspire-5.jpg"
+  },
+  {
+    "slug": "asus-rog-zephyrus-g14",
+    "name": "ASUS ROG Zephyrus G14",
+    "price": "1799 €",
+    "brand": "ASUS",
+    "img": "img/zephyrus-g14.jpg"
+  },
+  {
+    "slug": "lenovo-loq-15",
+    "name": "Lenovo LOQ 15",
+    "price": "999 €",
+    "brand": "Lenovo",
+    "img": "img/loq-15.jpg"
+  },
+  {
+    "slug": "dell-xps-13",
+    "name": "Dell XPS 13",
+    "price": "1399 €",
+    "brand": "Dell",
+    "img": "img/xps-13.jpg"
+  },
+  {
+    "slug": "acer-swift-go-14",
+    "name": "Acer Swift Go 14",
+    "price": "749 €",
+    "brand": "Acer",
+    "img": "img/swift-go.jpg"
+  },
+  {
+    "slug": "lenovo-thinkpad-e14-gen-6",
+    "name": "Lenovo ThinkPad E14 Gen 6",
+    "price": "899 €",
+    "brand": "Lenovo",
+    "img": "img/thinkpad-e14.jpg"
+  },
+  {
+    "slug": "asus-tuf-gaming-a15",
+    "name": "ASUS TUF Gaming A15",
+    "price": "1099 €",
+    "brand": "ASUS",
+    "img": "img/tuf-a15.jpg"
+  },
+  {
+    "slug": "samsung-galaxy-book4-pro",
+    "name": "Samsung Galaxy Book4 Pro",
+    "price": "1399 €",
+    "brand": "Samsung",
+    "img": "img/galaxy-book4.jpg"
+  },
+  {
+    "slug": "acer-chromebook-plus-515",
+    "name": "Acer Chromebook Plus 515",
+    "price": "449 €",
+    "brand": "Acer",
+    "img": "img/chromebook-515.jpg"
+  },
+  {
+    "slug": "hp-victus-15",
+    "name": "HP Victus 15",
+    "price": "749 €",
+    "brand": "HP",
+    "img": "img/victus-15.jpg"
+  },
+  {
+    "slug": "microsoft-surface-laptop-7",
+    "name": "Microsoft Surface Laptop 7",
+    "price": "1299 €",
+    "brand": "Microsoft",
+    "img": "img/surface-7.jpg"
+  }
+]

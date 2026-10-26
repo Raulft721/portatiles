@@ -1,0 +1,52 @@
+/* Estilos propios de las fichas de portátil.
+   Se cargan después de contenido.css, que aporta la base tipográfica. */
+
+.crumbs {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 6px;
+  font-size: 12.5px; color: var(--ink-2); margin: 0 0 18px;
+}
+.crumbs a { color: var(--ink-2); }
+.crumbs a:hover { color: var(--ink); text-decoration: none; }
+.crumbs .sep { opacity: .5; }
+
+.hero .price-strong { color: var(--ink); font-weight: 650; }
+
+.ficha-photo {
+  margin: 30px 0 8px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+.ficha-photo img { width: 100%; height: auto; }
+
+.spec-wrap table { min-width: 0; }
+.spec-wrap th { width: 34%; }
+
+.bars { display: grid; gap: 14px; margin: 24px 0 12px; }
+.bar {
+  display: grid; grid-template-columns: 96px 1fr 40px;
+  align-items: center; gap: 14px; font-size: 14px;
+}
+.bar-track {
+  height: 9px; border-radius: 999px;
+  background: #e8e8ed; overflow: hidden;
+}
+.bar-track i {
+  display: block; height: 100%; border-radius: 999px;
+  background: linear-gradient(90deg, #0071e3, #42a5ff);
+}
+.bar-val { text-align: right; font-weight: 650; font-variant-numeric: tabular-nums; }
+
+.alts { list-style: none; padding: 0; margin: 6px 0 24px; }
+.alts li {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 14px;
+  padding: 11px 0; border-bottom: 1px solid var(--line); font-size: 14.5px;
+}
+.alts li:last-child { border-bottom: 0; }
+.alts .delta { color: var(--ink-2); white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+@media (max-width: 560px) {
+  .bar { grid-template-columns: 78px 1fr 34px; gap: 10px; font-size: 13px; }
+  .ficha-photo { padding: 10px; }
+}
