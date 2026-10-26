@@ -37,7 +37,7 @@ No editar a mano los bloques generados de `index.html`:
 <!-- itemlist:inicio --> ... <!-- itemlist:fin -->
 ```
 
-Tampoco los contadores escritos en el HTML («Compara 34 portátiles», «34 portátiles de 9 marcas»):
+Tampoco los contadores escritos en el HTML («Compara N portátiles», «N portátiles de M marcas»):
 los reescribe `generar.py` a partir del catálogo real.
 
 ## Flujo tras cambiar modelos o precios
