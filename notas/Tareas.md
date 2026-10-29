@@ -56,13 +56,25 @@ ha necesitado investigación. Lo urgente va arriba; lo demás, en orden de prior
 - **Rastreada, actualmente no indexada**: no es un error técnico. Revisar contenido,
   enlaces internos y autoridad; insistir con el tiempo.
 
+## Medición — antes de invertir en dominio
+
+- [ ] Revisar **Search Console → Rendimiento** el **28/11/2026**, **28/12/2026** y
+  **27/01/2027** (30, 60 y 90 días).
+- [ ] Anotar clics, impresiones, CTR, posición media y consultas principales.
+- [ ] Localizar páginas sin impresiones (contenido o enlazado) y páginas con clics
+  (candidatas a ampliar).
+- [ ] Decidir si se compra dominio con los criterios de [[Contexto/Medicion|Medición]].
+- [ ] Opcional: añadir analítica sin cookies si se quiere el total de visitas, no solo
+  las de Google.
+
 ## Prioridad alta — profesionalización y AdSense
 
 Plan detallado en [[Mejoras/Plan|Plan de profesionalización]]. Bloqueantes en
 [[Mejoras/AdSense|AdSense]] y obligaciones en [[Mejoras/Legal|Legal]].
 
-- [ ] Decidir el dominio propio antes de pedir AdSense (o, como mínimo, crear el repo
-  `Raulft721.github.io` para servir `ads.txt` en la raíz).
+- [ ] Decidir el dominio propio **cuando los datos de tráfico lo justifiquen** (o antes
+  de AdSense, por `ads.txt`; como mínimo, crear el repo `Raulft721.github.io` para
+  servirlo en la raíz).
 - [ ] Crear aviso legal, privacidad, cookies y términos, y enlazarlos en el pie de todas
   las páginas ([[Mejoras/Legal|Legal]]).
 - [ ] Activar el CMP de Google y probar aceptar, rechazar y cambiar de opinión.

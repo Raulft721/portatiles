@@ -42,6 +42,11 @@ Si no responde a ninguna, es ruido.
 
 ### 1. Dominio propio
 
+**Decisión del 29/10/2026**: no comprarlo todavía. Primero se mide el tráfico con
+Search Console y se decide con datos; el dominio no genera visitas por sí solo. Ver
+[[Contexto/Medicion|Medición de tráfico]]. Sigue siendo imprescindible **antes de pedir
+AdSense**, porque `ads.txt` tiene que estar en la raíz.
+
 Es la mejora con más efecto sobre la percepción de seriedad y desbloquea cosas que en
 GitHub Pages no se pueden hacer:
 
@@ -171,10 +176,11 @@ Google; los anuncios no influyen en las notas ni en el orden del catálogo».
 
 ## Orden recomendado
 
-1. Dominio y correo ([[Mejoras/AdSense|AdSense]] depende de ello).
-2. Legal y cookies ([[Mejoras/Legal|Legal]]).
-3. Autoría y política editorial.
-4. Ampliar 10 fichas y escribir 4 comparativas.
-5. Producto: buscador, filtros y accesibilidad.
-6. Seguridad y exclusión de notas ([[Mejoras/Seguridad|Seguridad]]).
-7. Solicitud de AdSense.
+1. Medir el tráfico 2–3 meses con Search Console ([[Contexto/Medicion|Medición]]).
+2. Decidir dominio con esos datos; correo profesional si se compra.
+3. Legal y cookies ([[Mejoras/Legal|Legal]]).
+4. Autoría y política editorial.
+5. Ampliar 10 fichas y escribir 4 comparativas.
+6. Producto: buscador, filtros y accesibilidad.
+7. Seguridad y exclusión de notas ([[Mejoras/Seguridad|Seguridad]]).
+8. Solicitud de AdSense.

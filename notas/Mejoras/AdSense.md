@@ -108,9 +108,23 @@ solicitud:
 - **Nada de** anuncios que parezcan menús, botones de descarga o contenido editorial.
 - **Nunca** hacer clic en los anuncios propios, ni pedir clics, ni comprar tráfico.
 
+## Cuándo solicitar
+
+No hay prisa. Solicitar antes de tiempo suele acabar en rechazo y en una segunda
+revisión más lenta. Señales de que toca:
+
+- 2–3 meses de datos en Search Console y al menos ~100 clics/mes sostenidos, o una
+  decisión consciente de invertir en el proyecto aunque el tráfico aún sea bajo.
+- 10–15 fichas ampliadas y 4–6 comparativas publicadas.
+- Legal, cookies y CMP funcionando.
+- Dominio decidido y `ads.txt` accesible.
+
+Si el tráfico es muy bajo, AdSense no compensa el esfuerzo: primero contenido. Ver
+[[Contexto/Medicion|Medición de tráfico]].
+
 ## Plan por fases
 
-### Fase 0 — Decidir el dominio (1 semana)
+### Fase 0 — Decidir el dominio (solo si los datos lo justifican)
 
 - [ ] Elegir dominio y comprarlo.
 - [ ] Configurarlo en GitHub Pages con HTTPS.
