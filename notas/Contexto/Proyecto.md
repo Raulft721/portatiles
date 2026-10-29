@@ -12,7 +12,10 @@ Comparador de portátiles en español, estático y sin backend. Se publica en Gi
 
 - Web: <https://raulft721.github.io/portatiles/>
 - Repositorio: <https://github.com/Raulft721/portatiles> (rama `main`)
-- Local: `python -m http.server 8000` y abrir <http://127.0.0.1:8000>
+- Local: `python -m http.server 8000 --bind 127.0.0.1` y abrir <http://127.0.0.1:8000>
+- Search Console: propiedad de prefijo `https://raulft721.github.io/portatiles/`,
+  verificada. Línea base del 27/10/2026: 0 clics, 3 impresiones, CTR 0 %, posición
+  media 38. Ver [[Contexto/Medicion|Medición]].
 
 ## Stack
 

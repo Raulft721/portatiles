@@ -31,6 +31,22 @@ Conclusión: no hay un bloqueo técnico evidente. Las causas más probables son 
 antiguas que devolvieron 404 antes de que existieran las fichas, variantes duplicadas
 descubiertas por Google o errores 5xx puntuales de GitHub Pages.
 
+## Search Console
+
+- **Propiedad**: prefijo de URL `https://raulft721.github.io/portatiles/`, ya
+  verificada. Cubre solo esa ruta; si se cambia al dominio propio habrá que crear otra
+  y usar «Cambio de dirección».
+- **Sitemap enviado**: `https://raulft721.github.io/portatiles/sitemap.xml`.
+- **Línea base** (captura del 27/10/2026, periodo de 3 meses): **0 clics, 3
+  impresiones, CTR 0 %, posición media 38**. El sitio se publicó el 25/10, así que es
+  el primer dato y no permite conclusiones.
+- **Informes de mejoras**: «Fragmentos de productos» y «Fichas de comerciantes». Los
+  avisos se corrigieron el 29/10; falta pulsar «Validar corrección» y esperar.
+- **Indexación → Páginas**: es donde está el motivo exacto de los correos. Pendiente de
+  revisar y anotar.
+
+Detalle y criterios de seguimiento en [[Contexto/Medicion|Medición de tráfico]].
+
 ## Datos estructurados de las fichas
 
 Las capturas de Search Console mostraban dos avisos **no críticos** en las fichas:

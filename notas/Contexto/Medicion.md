@@ -10,6 +10,42 @@ tags:
 
 # Medición de tráfico
 
+## Primer dato real (captura del 27/10/2026)
+
+Search Console ya está configurada con la propiedad de prefijo de URL
+`https://raulft721.github.io/portatiles/`. La captura de **Rendimiento** con el periodo
+de **3 meses** muestra:
+
+| Métrica | Valor |
+| --- | --- |
+| Clics | 0 |
+| Impresiones | 3 |
+| CTR | 0 % |
+| Posición media | 38 |
+| Días con datos visibles | 24–27/10/2026 |
+| Última actualización | hacía 4,5 horas (según la captura) |
+
+### Cómo interpretarlo
+
+- El sitio se publicó el 25/10/2026, así que **3 impresiones no son una muestra**: es
+  el primer día de vida. No sirven para decidir nada todavía.
+- Que haya impresiones significa que **alguna página ya se muestra**; el resto aún no.
+- La posición 38 con 3 impresiones es ruido estadístico, no un problema de SEO.
+- **No justifica comprar dominio**: el cuello de botella es visibilidad y contenido, no
+  la marca.
+- El CTR del 0 % tampoco dice nada con 3 impresiones.
+
+### Qué hacer con estos datos
+
+1. Ir a **Indexación → Páginas** y anotar cuántas URLs están indexadas y cuántas no.
+2. Solicitar indexación de las 10 fichas principales y de las dos guías.
+3. Publicar contenido nuevo con enlaces internos hacia las fichas.
+4. Volver a mirar a los 30, 60 y 90 días, no antes.
+
+La propiedad es de **prefijo de URL**, así que solo cubre
+`https://raulft721.github.io/portatiles/`. Si algún día se cambia al dominio propio,
+habrá que crear una propiedad nueva y usar «Cambio de dirección».
+
 ## Decisión (29/10/2026)
 
 Antes de comprar dominio u hosting, medir. El dominio no hace que llegue gente por sí
@@ -87,6 +123,9 @@ mencionarlo en la política de privacidad.
 | 20–100 clics/mes | Seguir midiendo; dominio cuando se acerque a 100 o antes de AdSense |
 | Más de 100 clics/mes sostenidos 2 meses | Comprar dominio y preparar AdSense |
 | Se va a solicitar AdSense antes | Dominio (por `ads.txt`) o repo `Raulft721.github.io` |
+
+Con la línea base del 27/10/2026 (0 clics y 3 impresiones), el escenario es claramente
+«no comprar todavía»: primero hay que conseguir que Google muestre el sitio.
 
 No es una regla matemática: si el proyecto gusta y se quiere consolidar, el dominio
 cuesta poco. Pero con 5 visitas al mes no arregla nada.

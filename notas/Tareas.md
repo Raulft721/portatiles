@@ -28,6 +28,9 @@ ha necesitado investigación. Lo urgente va arriba; lo demás, en orden de prior
 - [x] Cambiar los enlaces internos de `index.html` a `./` y `../` para no crear una URL
   duplicada de la portada (29/10/2026).
 - [x] Añadir `scripts/auditar-seo.py` y documentar su uso (29/10/2026).
+- [x] Confirmar que Search Console está configurada con la propiedad de prefijo
+  `https://raulft721.github.io/portatiles/` y anotar la línea base: 0 clics, 3
+  impresiones, CTR 0 %, posición media 38 (27/10/2026).
 - [ ] Abrir **Search Console → Indexación → Páginas**, filtrar por «No indexada» y anotar
   el motivo exacto y las URLs afectadas de los correos. Sin ese dato solo se pueden
   descartar causas técnicas.
@@ -60,6 +63,8 @@ ha necesitado investigación. Lo urgente va arriba; lo demás, en orden de prior
 
 - [ ] Revisar **Search Console → Rendimiento** el **28/11/2026**, **28/12/2026** y
   **27/01/2027** (30, 60 y 90 días).
+- [ ] Revisar **Indexación → Páginas** y anotar cuántas URLs están indexadas y cuántas
+  no, con su motivo.
 - [ ] Anotar clics, impresiones, CTR, posición media y consultas principales.
 - [ ] Localizar páginas sin impresiones (contenido o enlazado) y páginas con clics
   (candidatas a ampliar).

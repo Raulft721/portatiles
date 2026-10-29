@@ -14,6 +14,9 @@ Para abrirlo en Obsidian: **Abrir carpeta como vault** y elegir la carpeta `nota
 ## Ahora mismo
 
 - Catálogo de **34 portátiles** y **40 URLs indexables**.
+- Search Console ya está configurada (propiedad de prefijo
+  `https://raulft721.github.io/portatiles/`). Línea base del 27/10/2026: **0 clics, 3
+  impresiones, CTR 0 %, posición media 38**. Es el primer dato; no permite conclusiones.
 - Auditoría SEO del 29/10/2026: todas las URLs responden 200 y el canonical es correcto.
 - Datos estructurados corregidos: las fichas ya no declaran una oferta de venta y llevan
   una reseña editorial con la nota global. Rich Results Test sin avisos.
