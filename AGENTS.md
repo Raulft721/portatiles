@@ -6,6 +6,12 @@ Comparador de portátiles en español, estático y sin backend. Se publica en Gi
 - Repo: https://github.com/Raulft721/portatiles (rama `main`)
 - Local: `python -m http.server 8000` y abrir http://127.0.0.1:8000
 
+## Contexto y tareas
+
+El vault de Obsidian está en `notas/`. Antes de empezar, consulta `notas/Tareas.md` y
+`notas/Contexto/Proyecto.md`; al terminar, marca lo completado y añade una entrada al
+diario si ha habido cambios importantes.
+
 ## Reglas de contenido
 
 - Todo en español, tono claro y directo. Nada de lenguaje de marketing.
@@ -46,6 +52,7 @@ los reescribe `generar.py` a partir del catálogo real.
 python scripts/generar.py
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts/og.ps1
 python scripts/comprobar-enlaces.py
+python scripts/auditar-seo.py
 ```
 
 - `generar.py` crea las fichas de `portatil/`, las tarjetas del catálogo, el ItemList, el
@@ -53,14 +60,18 @@ python scripts/comprobar-enlaces.py
 - `og.ps1` genera las imágenes sociales de `img/og/` a partir del manifiesto. **Debe conservar el
   BOM UTF-8**; si se guarda sin BOM, los acentos salen mal.
 - `comprobar-enlaces.py` valida las páginas y todos los recursos locales.
+- `auditar-seo.py` comprueba sitemap, canonical, metadatos y JSON-LD. Con `--live` consulta las
+  URLs publicadas. No modifica archivos.
 
 Después: revisar el resultado, `git commit`, `git push origin main` y, cuando Pages ya sirva la
-versión nueva, `python scripts/indexnow.py` (envía las 40 URLs a IndexNow).
+versión nueva, `python scripts/auditar-seo.py --live` y `python scripts/indexnow.py` (envía las
+40 URLs a IndexNow).
 
 ## Comprobaciones recomendadas
 
 - Que las fichas nuevas y sus OG respondan 200 en local y en producción.
-- Que todos los bloques `<script type="application/ld+json">` parseen (son 40).
+- Que todos los bloques `<script type="application/ld+json">` parseen y que
+  `python scripts/auditar-seo.py --live` termine sin errores.
 - Capturas para revisar el diseño. `browser.screenshot` falla en este entorno: usar Chrome
   headless con `--headless=new --virtual-time-budget=4000 --screenshot=...`.
 
@@ -72,5 +83,6 @@ caracteres.
 
 ## Pendiente (manual, fuera del repo)
 
-- Enviar `sitemap.xml` en Search Console y pedir indexación de las fichas nuevas.
+- Revisar en Search Console el motivo exacto de los correos de indexación, reenviar
+  `sitemap.xml` y pedir validación. El detalle está en `notas/Tareas.md`.
 - Mantener las fotos: las de tienda se aceptan, pero siempre que se vea el producto correcto.

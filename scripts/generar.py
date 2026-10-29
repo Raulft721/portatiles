@@ -383,7 +383,7 @@ def build_ficha(l, laptops, hoy):
 
 <nav class="nav">
   <div class="wrap nav-in">
-    <a href="../index.html" class="logo">
+    <a href="../" class="logo">
       <span class="logo-mark">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <rect x="3" y="4" width="18" height="12" rx="2"/><path d="M2 20h20"/>
@@ -392,20 +392,20 @@ def build_ficha(l, laptops, hoy):
       ComparaPortátil
     </a>
     <div class="nav-links">
-      <a href="../index.html#comparador">Comparador</a>
-      <a href="../index.html#catalogo">Catálogo</a>
+      <a href="../#comparador">Comparador</a>
+      <a href="../#catalogo">Catálogo</a>
       <a href="../guias/mejor-portatil-estudiar.html">Estudiar</a>
       <a href="../guias/portatil-gaming-1000-euros.html">Gaming</a>
     </div>
-    <a href="../index.html#catalogo" class="nav-spacer" style="font-size:13.5px;font-weight:600;">Ver los {len(laptops)} modelos</a>
+    <a href="../#catalogo" class="nav-spacer" style="font-size:13.5px;font-weight:600;">Ver los {len(laptops)} modelos</a>
   </div>
 </nav>
 
 <header class="hero wrap read">
   <nav class="crumbs" aria-label="Ruta de navegación">
-    <a href="../index.html">Inicio</a>
+    <a href="../">Inicio</a>
     <span class="sep" aria-hidden="true">›</span>
-    <a href="../index.html#catalogo">Catálogo</a>
+    <a href="../#catalogo">Catálogo</a>
     <span class="sep" aria-hidden="true">›</span>
     <span aria-current="page">{esc(name)}</span>
   </nav>
@@ -474,7 +474,7 @@ def build_ficha(l, laptops, hoy):
   <div class="cta">
     <h2>Compáralo con otro modelo</h2>
     <p>Abre el comparador con este portátil ya cargado y enfréntalo a cualquiera de los {len(laptops)}.</p>
-    <a class="btn" href="../index.html?a={l['id']}#comparador">Abrir el comparador</a>
+    <a class="btn" href="../?a={l['id']}#comparador">Abrir el comparador</a>
   </div>
 {extra}
 </article>
@@ -482,7 +482,7 @@ def build_ficha(l, laptops, hoy):
 <footer>
   <div class="wrap foot">
     <span><b>ComparaPortátil</b> · Precios orientativos de referencia: varían según tienda y disponibilidad, y algún modelo puede estar descatalogado. Fotografía de producto del fabricante, usada con fines informativos. Sin anuncios ni enlaces de afiliado.</span>
-    <span><a href="../index.html">Inicio</a> · <a href="../index.html#catalogo">Catálogo</a> · <a href="../metodologia.html">Metodología</a> · <a href="../sobre.html">Sobre</a> · <a href="../contacto.html">Contacto</a></span>
+    <span><a href="../">Inicio</a> · <a href="../#catalogo">Catálogo</a> · <a href="../metodologia.html">Metodología</a> · <a href="../sobre.html">Sobre</a> · <a href="../contacto.html">Contacto</a></span>
   </div>
 </footer>
 
