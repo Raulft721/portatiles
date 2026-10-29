@@ -56,6 +56,26 @@ ha necesitado investigación. Lo urgente va arriba; lo demás, en orden de prior
 - **Rastreada, actualmente no indexada**: no es un error técnico. Revisar contenido,
   enlaces internos y autoridad; insistir con el tiempo.
 
+## Prioridad alta — profesionalización y AdSense
+
+Plan detallado en [[Mejoras/Plan|Plan de profesionalización]]. Bloqueantes en
+[[Mejoras/AdSense|AdSense]] y obligaciones en [[Mejoras/Legal|Legal]].
+
+- [ ] Decidir el dominio propio antes de pedir AdSense (o, como mínimo, crear el repo
+  `Raulft721.github.io` para servir `ads.txt` en la raíz).
+- [ ] Crear aviso legal, privacidad, cookies y términos, y enlazarlos en el pie de todas
+  las páginas ([[Mejoras/Legal|Legal]]).
+- [ ] Activar el CMP de Google y probar aceptar, rechazar y cambiar de opinión.
+- [ ] Sustituir los textos «sin anuncios» de portada, sobre, metodología, contacto,
+  guías y fichas (incluido `scripts/generar.py`).
+- [ ] Página de autor y política editorial.
+- [ ] Ampliar 10 fichas a 700–900 palabras y escribir 4 comparativas.
+- [ ] Eliminar el correo personal de los commits futuros (usar el noreply de GitHub).
+- [ ] Añadir `_config.yml` para no publicar `notas/` ni `scripts/` ([[Mejoras/Seguridad|Seguridad]]).
+- [ ] Revisar la licencia de las fotos de fabricante.
+- [ ] Solicitar AdSense solo cuando la checklist de [[Mejoras/AdSense|AdSense]] esté
+  completa.
+
 ## Prioridad media — contenido y catálogo
 
 - [ ] Revisar los precios orientativos de los modelos más antiguos y añadir `aviso` si
@@ -85,13 +105,18 @@ ha necesitado investigación. Lo urgente va arriba; lo demás, en orden de prior
 
 ## Ideas para más adelante
 
+Todo el detalle está en [[Mejoras/Plan|Plan de profesionalización]].
+
+- [ ] Buscador por nombre o marca y filtros por precio, peso y RAM.
+- [ ] Comparar tres modelos y copiar el enlace de la comparación.
 - [ ] Añadir un pequeño resumen de «mejor por presupuesto» en la portada.
-- [ ] Enlazar cada ficha con la guía que le corresponda de forma más específica.
-- [ ] Estudiar un dominio propio para no depender de `github.io`.
-- [ ] Medir rendimiento con Lighthouse y corregir el contraste de color detectado.
+- [ ] Enlazar cada ficha con su comparativa directa.
+- [ ] Páginas de categoría con contenido propio, no solo listados.
+- [ ] Medir rendimiento con Lighthouse y corregir el contraste de `.pill` y `.score`.
 
 ## Historial
 
 - **29/10/2026**: auditoría completa, enlaces internos corregidos, script de auditoría
   y creación de este vault. Después, datos estructurados corregidos: `Offer` fuera y
-  `Review` editorial en su lugar. Ver [[Diario/2026-10-29]].
+  `Review` editorial en su lugar. Revisión de seguridad (sin claves ni APIs expuestas) y
+  plan de profesionalización y AdSense. Ver [[Diario/2026-10-29]].

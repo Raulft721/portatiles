@@ -10,7 +10,8 @@ Comparador de portátiles en español, estático y sin backend. Se publica en Gi
 
 El vault de Obsidian está en `notas/`. Antes de empezar, consulta `notas/Tareas.md` y
 `notas/Contexto/Proyecto.md`; al terminar, marca lo completado y añade una entrada al
-diario si ha habido cambios importantes.
+diario si ha habido cambios importantes. El plan de profesionalización, seguridad,
+legal y AdSense está en `notas/Mejoras/`.
 
 ## Reglas de contenido
 
@@ -23,6 +24,9 @@ diario si ha habido cambios importantes.
 - Las fotos deben ser del producto real. Preferencia: CDN del fabricante; si no hay, foto de
   tienda especializada. Formato 1000×750 JPEG, fondo blanco, sin recortes raros.
 - Nada se publica sin comprobarlo antes (enlaces, JSON-LD y revisión visual).
+- Nunca poner claves, tokens ni datos personales en el repositorio: GitHub Pages publica
+  todo lo que hay en `main`. El sitio es estático y no debe llamar a APIs con secretos
+  desde el navegador.
 - Las fichas **no llevan `Offer`**: el sitio no vende, así que no puede declarar precio,
   envíos ni devoluciones. En su lugar llevan una `Review` editorial (nota global como
   `reviewRating` y el párrafo «Para quién es» como `reviewBody`). No añadir

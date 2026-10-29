@@ -20,6 +20,8 @@ Para abrirlo en Obsidian: **Abrir carpeta como vault** y elegir la carpeta `nota
 - Pendiente principal: en Search Console, pulsar **Validar corrección** en «Fichas de
   comerciantes» y «Fragmentos de productos», y mirar el motivo exacto de los correos de
   indexación.
+- Siguiente etapa: profesionalizar el sitio y prepararlo para AdSense. El plan está en
+  [[Mejoras/Plan]]; los bloqueantes, en [[Mejoras/AdSense]].
 
 ## Accesos rápidos
 
@@ -28,6 +30,10 @@ Para abrirlo en Obsidian: **Abrir carpeta como vault** y elegir la carpeta `nota
 - [[Contexto/SEO|SEO]] — diagnóstico de indexación y cómo usar la auditoría.
 - [[Contexto/Publicacion|Publicación]] — flujo de generar, comprobar, publicar y avisar.
 - [[Contexto/Catalogo|Catálogo]] — cómo añadir o actualizar un portátil.
+- [[Mejoras/Plan|Plan de profesionalización]] — qué mejorar y en qué orden.
+- [[Mejoras/AdSense|AdSense]] — requisitos, bloqueantes y plan de solicitud.
+- [[Mejoras/Legal|Legal]] — aviso legal, privacidad, cookies y términos.
+- [[Mejoras/Seguridad|Seguridad]] — revisión técnica y cosas que no deben publicarse.
 - [[Diario/2026-10-29|Diario: 29/10/2026]] — qué se hizo en la última sesión.
 
 ## Convenciones
