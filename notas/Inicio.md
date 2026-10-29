@@ -38,6 +38,7 @@ Para abrirlo en Obsidian: **Abrir carpeta como vault** y elegir la carpeta `nota
 - [[Contexto/Publicacion|Publicación]] — flujo de generar, comprobar, publicar y avisar.
 - [[Contexto/Catalogo|Catálogo]] — cómo añadir o actualizar un portátil.
 - [[Contexto/Medicion|Medición]] — qué medir y cuándo comprar el dominio.
+- [[Contexto/Hosting|Hosting]] — GitHub Pages frente a Vercel y alternativas.
 - [[Mejoras/Plan|Plan de profesionalización]] — qué mejorar y en qué orden.
 - [[Mejoras/AdSense|AdSense]] — requisitos, bloqueantes y plan de solicitud.
 - [[Mejoras/Legal|Legal]] — aviso legal, privacidad, cookies y términos.

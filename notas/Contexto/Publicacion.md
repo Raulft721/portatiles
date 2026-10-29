@@ -68,3 +68,9 @@ Y en el navegador:
 
 Si algo sale mal, `git revert <commit>` y volver a publicar. No reescribir la historia
 de `main` si ya está desplegada.
+
+## Hosting
+
+GitHub Pages se queda por ahora. La comparación con Vercel y Cloudflare Pages está en
+[[Contexto/Hosting|Hosting]]; no se migra sin dominio y sin una necesidad técnica que lo
+justifique.

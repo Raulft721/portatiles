@@ -84,6 +84,10 @@ ha necesitado investigación. Lo urgente va arriba; lo demás, en orden de prior
 - [ ] Localizar páginas sin impresiones (contenido o enlazado) y páginas con clics
   (candidatas a ampliar).
 - [ ] Decidir si se compra dominio con los criterios de [[Contexto/Medicion|Medición]].
+- [x] Evaluar Vercel frente a GitHub Pages: no migrar ahora (29/10/2026). Ver
+  [[Contexto/Hosting|Hosting]].
+- [ ] Revisar la decisión de hosting cuando haya dominio, tráfico o una necesidad
+  técnica (funciones, redirecciones, cabeceras).
 - [ ] Opcional: añadir analítica sin cookies si se quiere el total de visitas, no solo
   las de Google.
 
