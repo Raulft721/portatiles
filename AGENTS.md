@@ -16,6 +16,10 @@ El vault de Obsidian está en `notas/`. Antes de empezar, consulta `notas/Tareas
 diario si ha habido cambios importantes. El plan de profesionalización, seguridad,
 legal y AdSense está en `notas/Mejoras/`.
 
+**`notas/` es privado y no se versiona.** Está en `.gitignore`: no añadirlo al repo ni
+forzarlo con `git add -f`. Se queda solo en el equipo del autor. El contenido sigue
+disponible en el historial de Git antiguo, pero no se publica ni se actualiza.
+
 ## Reglas de contenido
 
 - Todo en español, tono claro y directo. Nada de lenguaje de marketing.

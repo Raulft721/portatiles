@@ -1,0 +1,14 @@
+# Configuración de GitHub Pages (Jekyll)
+#
+# El sitio son archivos estáticos ya generados: aquí solo se excluye lo que no debe
+# publicarse. Los .md de la raíz y la carpeta de scripts son herramientas de trabajo,
+# no contenido de la web.
+
+exclude:
+  - AGENTS.md
+  - README.md
+  - scripts/
+  - notas/
+
+# No procesar los .md como páginas: el contenido publicado es el HTML.
+plugins: []
