@@ -318,13 +318,23 @@ def build_ficha(l, laptops, hoy):
                                 f"{l['storage']} y pantalla {l['screen']}."),
                 "brand": {"@type": "Brand", "name": l["brand"]},
                 "category": "Portátiles",
-                "offers": {
-                    "@type": "Offer",
-                    "url": url,
-                    "priceCurrency": "EUR",
-                    "price": str(l["price"]),
-                    "availability": "https://schema.org/InStock",
-                    "itemCondition": "https://schema.org/NewCondition",
+                # No hay oferta de venta: el precio es orientativo y el sitio no
+                # vende ni gestiona envíos o devoluciones. La valoración es la
+                # reseña editorial que se ve en «Para quién es».
+                "review": {
+                    "@type": "Review",
+                    "author": {
+                        "@type": "Organization",
+                        "name": "ComparaPortátil",
+                        "url": SITE,
+                    },
+                    "reviewRating": {
+                        "@type": "Rating",
+                        "ratingValue": str(overall(l)),
+                        "bestRating": "100",
+                        "worstRating": "0",
+                    },
+                    "reviewBody": parrafo,
                 },
             },
             {
@@ -457,7 +467,8 @@ def build_ficha(l, laptops, hoy):
 
   <h2>Notas por uso</h2>
 
-  <p class="caption">Escala de 0 a 100. En el comparador se recalculan según el perfil que elijas.</p>
+  <p class="caption">Escala de 0 a 100. En el comparador se recalculan según el perfil que elijas.
+  La nota global es <strong>{overall(l)} / 100</strong>, la media de los cuatro apartados.</p>
 
   <div class="bars">
 {bars}
