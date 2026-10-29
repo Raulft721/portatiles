@@ -16,25 +16,25 @@ desde unos días hasta varias semanas.
 
 ## Estado actual frente a los requisitos
 
-| Requisito | Estado |
-| --- | --- |
-| HTTPS | ✅ GitHub Pages lo fuerza |
-| Sitio accesible y navegable | ✅ 40 URLs, menú y pie |
+| Requisito                      | Estado                                  |
+| ------------------------------ | --------------------------------------- |
+| HTTPS                          | ✅ GitHub Pages lo fuerza                |
+| Sitio accesible y navegable    | ✅ 40 URLs, menú y pie                   |
 | Contenido original y con valor | ⚠️ 34 fichas de ~350 palabras y 2 guías |
-| Página «Sobre» | ✅ existe |
-| Contacto | ⚠️ solo GitHub Issues, sin correo |
-| Autoría identificable | ❌ no hay nombre ni página de autor |
-| Política de privacidad | ❌ no existe |
-| Política de cookies | ❌ no existe |
-| Consentimiento (CMP) | ❌ no existe |
-| Aviso legal | ❌ no existe |
-| Términos de uso | ❌ no existe |
-| `ads.txt` en la raíz | ❌ no existe |
-| Dominio propio | ❌ `github.io/portatiles` |
-| Coherencia: «sin anuncios» | ❌ se afirma en todo el sitio |
-| Contenido prohibido | ✅ no hay |
-| Móvil y velocidad | ⚠️ funciona, pero 2,9 MB de imágenes |
-| Copyright de imágenes | ⚠️ fotos de fabricante |
+| Página «Sobre»                 | ✅ existe                                |
+| Contacto                       | ⚠️ solo GitHub Issues, sin correo       |
+| Autoría identificable          | ❌ no hay nombre ni página de autor      |
+| Política de privacidad         | ❌ no existe                             |
+| Política de cookies            | ❌ no existe                             |
+| Consentimiento (CMP)           | ❌ no existe                             |
+| Aviso legal                    | ❌ no existe                             |
+| Términos de uso                | ❌ no existe                             |
+| `ads.txt` en la raíz           | ❌ no existe                             |
+| Dominio propio                 | ❌ `github.io/portatiles`                |
+| Coherencia: «sin anuncios»     | ❌ se afirma en todo el sitio            |
+| Contenido prohibido            | ✅ no hay                                |
+| Móvil y velocidad              | ⚠️ funciona, pero 2,9 MB de imágenes    |
+| Copyright de imágenes          | ⚠️ fotos de fabricante                  |
 
 ## Los cuatro bloqueantes duros
 

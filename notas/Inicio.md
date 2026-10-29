@@ -20,9 +20,12 @@ Para abrirlo en Obsidian: **Abrir carpeta como vault** y elegir la carpeta `nota
 - Auditoría SEO del 29/10/2026: todas las URLs responden 200 y el canonical es correcto.
 - Datos estructurados corregidos: las fichas ya no declaran una oferta de venta y llevan
   una reseña editorial con la nota global. Rich Results Test sin avisos.
-- Pendiente principal: en Search Console, pulsar **Validar corrección** en «Fichas de
-  comerciantes» y «Fragmentos de productos», y mirar el motivo exacto de los correos de
-  indexación.
+- Pendiente principal: el 29/10 se pidió **Validar corrección** en el informe de
+  indexación y se enviaron varias URLs a indexar; toca comprobar el resultado a partir
+  del **3–5/11** y revisar la indexación el **12/11** y el **26/11**.
+- Sigue pendiente pulsar **Validar corrección** en «Fichas de comerciantes» y
+  «Fragmentos de productos» (datos estructurados) y mirar el motivo exacto de los
+  correos de indexación.
 - Siguiente etapa: medir el tráfico con Search Console antes de decidir dominio u
   hosting ([[Contexto/Medicion]]); después, profesionalizar y preparar AdSense.
   El plan está en [[Mejoras/Plan]]; los bloqueantes, en [[Mejoras/AdSense]].

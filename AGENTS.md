@@ -94,6 +94,7 @@ caracteres.
 
 ## Pendiente (manual, fuera del repo)
 
-- Revisar en Search Console el motivo exacto de los correos de indexación, reenviar
-  `sitemap.xml` y pedir validación. El detalle está en `notas/Tareas.md`.
+- Seguimiento en Search Console: la validación de indexación se pidió el 29/10 y se
+  enviaron varias URLs a indexar. Comprobar el estado el 3–5/11 y la indexación el
+  12/11 y el 26/11. El detalle está en `notas/Tareas.md`.
 - Mantener las fotos: las de tienda se aceptan, pero siempre que se vea el producto correcto.

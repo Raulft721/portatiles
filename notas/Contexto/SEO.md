@@ -44,6 +44,11 @@ descubiertas por Google o errores 5xx puntuales de GitHub Pages.
   avisos se corrigieron el 29/10; falta pulsar «Validar corrección» y esperar.
 - **Indexación → Páginas**: es donde está el motivo exacto de los correos. Pendiente de
   revisar y anotar.
+- **29/10/2026**: se pidió **«Validar corrección»** en el informe de indexación y se
+  enviaron varias URLs con **«Solicitar indexación»**. Ahora toca esperar: la validación
+  puede tardar días o semanas y no garantiza que todo se indexe.
+- **Comprobación del 29/10**: `python scripts/auditar-seo.py --live` sigue sin errores;
+  las 40 URLs responden 200 y el `lastmod` del sitemap es del 29/10.
 
 Detalle y criterios de seguimiento en [[Contexto/Medicion|Medición de tráfico]].
 

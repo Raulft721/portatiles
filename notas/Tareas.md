@@ -37,13 +37,16 @@ ha necesitado investigación. Lo urgente va arriba; lo demás, en orden de prior
 - [ ] Confirmar que el sitemap enviado es
   `https://raulft721.github.io/portatiles/sitemap.xml` (no el de la raíz del host).
 - [ ] Reenviar `sitemap.xml` en Search Console después de publicar esta versión.
-- [ ] Pedir **Validar corrección** en el informe de indexación y esperar el resultado.
+- [x] Pedir **Validar corrección** en el informe de indexación (29/10/2026).
+- [x] Solicitar indexación de las páginas principales con **Inspeccionar URL → Solicitar
+  indexación** (29/10/2026).
 - [ ] En **Mejoras → Fichas de comerciantes** y **Fragmentos de productos**, pulsar
   **Validar corrección** tras el cambio a `Review` y comprobar en 2–4 semanas que los
   avisos han desaparecido.
 - [ ] Inspeccionar una o dos URLs afectadas con «Inspeccionar URL» y comprobar que
   Google ve la versión nueva (canonical y contenido).
-- [ ] Volver a revisar la indexación en 2–4 semanas.
+- [ ] Volver a revisar la indexación el **12/11/2026** (2 semanas) y el **26/11/2026**
+  (4 semanas).
 - [ ] Opcional: crear el repositorio `Raulft721.github.io` con un `robots.txt` en la raíz
   del host. GitHub Pages no sirve el `robots.txt` de un project site en la raíz, así que
   el actual `portatiles/robots.txt` no lo lee Google; el sitemap se envía a mano.
@@ -58,6 +61,18 @@ ha necesitado investigación. Lo urgente va arriba; lo demás, en orden de prior
   200. GitHub Pages puede devolver 5xx puntuales.
 - **Rastreada, actualmente no indexada**: no es un error técnico. Revisar contenido,
   enlaces internos y autoridad; insistir con el tiempo.
+
+### Seguimiento de la validación
+
+- **29/10/2026**: validación solicitada y varias URLs enviadas a indexar.
+- **3–5/11/2026**: mirar el estado en el informe. Puede seguir «Iniciada»; es normal.
+  - «Correcta»: Google acepta que el problema está resuelto, pero **no** garantiza que
+    todas las URLs se indexen.
+  - «Fallida»: el informe dirá qué URLs siguen mal; revisarlas una a una.
+- **12/11/2026** y **26/11/2026**: revisar «Indexación → Páginas».
+- No volver a pulsar «Validar corrección» mientras esté en curso. No acelera nada y
+  reinicia la espera.
+- «Solicitar indexación» tiene un cupo diario. No repetir la misma URL cada día.
 
 ## Medición — antes de invertir en dominio
 
