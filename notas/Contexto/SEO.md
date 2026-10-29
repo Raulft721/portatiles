@@ -22,7 +22,7 @@ técnica completa:
 | Sitemap vs. páginas locales | 40 y 40, sin faltas ni sobrantes |
 | Títulos y descripciones | Únicos en todas las páginas |
 | JSON-LD | Parsea en todas las páginas |
-| Rich Results Test (ficha) | 3 elementos válidos, solo avisos no críticos |
+| Rich Results Test (ficha) | 3 elementos válidos, sin avisos (29/10, tras el cambio) |
 | Rich Results Test (portada) | Carrusel válido |
 | `robots` de páginas indexables | `index, follow` |
 | `404.html` | `noindex, follow` |
@@ -31,6 +31,31 @@ Conclusión: no hay un bloqueo técnico evidente. Las causas más probables son 
 antiguas que devolvieron 404 antes de que existieran las fichas, variantes duplicadas
 descubiertas por Google o errores 5xx puntuales de GitHub Pages.
 
+## Datos estructurados de las fichas
+
+Las capturas de Search Console mostraban dos avisos **no críticos** en las fichas:
+
+- **Fichas de comerciantes**: faltaban `hasMerchantReturnPolicy` y `shippingDetails`.
+- **Fragmentos de productos**: faltaban `review` y `aggregateRating`.
+
+El sitio es un comparador, no una tienda: no puede declarar envíos, devoluciones ni
+reseñas de clientes sin inventarlas. Por eso se tomó esta decisión:
+
+- Se retiró el `Offer`. Sin oferta de venta, Google deja de tratar la ficha como ficha
+  de comerciante y el informe deja de aplicar.
+- Se añadió una `Review` editorial: `reviewRating` es la nota global del modelo y
+  `reviewBody` es el párrafo «Para quién es» que ya se ve en la página. El autor es la
+  propia Organización.
+- La ficha muestra ahora «La nota global es N / 100» junto a las barras, para que el
+  dato del JSON-LD esté también visible.
+
+Resultado en Rich Results Test (29/10/2026): Producto, Migas y Fragmentos de reseñas
+válidos, **sin problemas críticos ni no críticos**. Verificado sobre
+`portatil/macbook-air-13-m4.html`; el resto de fichas usa la misma plantilla.
+
+No se añadió `aggregateRating`: exigiría reseñas reales de usuarios que el sitio no
+tiene.
+
 ## Qué se ha corregido
 
 - Los enlaces internos ya no apuntan a `index.html`: usan `./` desde la raíz y `../`
@@ -38,6 +63,7 @@ descubiertas por Google o errores 5xx puntuales de GitHub Pages.
 - Se añadió `scripts/auditar-seo.py`, que comprueba sitemap, canonical, metadatos,
   JSON-LD y, con `--live`, el estado HTTP de las URLs publicadas.
 - El generador usa el mismo criterio en las fichas nuevas.
+- `Offer` sustituido por `Review` editorial en las 34 fichas (commit `d50f636`).
 
 ## Qué hacer ahora en Search Console
 
@@ -50,8 +76,11 @@ descubiertas por Google o errores 5xx puntuales de GitHub Pages.
    - **Error de servidor (5xx)**: fallo puntual de GitHub Pages; reintentar.
    - **Rastreada, actualmente no indexada**: no es un error técnico; influyen contenido,
      enlaces y autoridad.
-4. Reenviar `sitemap.xml` y pulsar **Validar corrección** en el informe.
-5. Inspeccionar una o dos URLs afectadas con **Inspeccionar URL**.
+4. En **Mejoras → Fichas de comerciantes** y **Fragmentos de productos**, pulsar
+   **Validar corrección**. Google volverá a rastrear y, si todo va bien, los avisos
+   desaparecen en 2–4 semanas.
+5. Reenviar `sitemap.xml` y, si alguna URL concreta importa, usar **Inspeccionar URL →
+   Solicitar indexación**.
 
 El sitemap correcto es:
 

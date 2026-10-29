@@ -23,6 +23,10 @@ diario si ha habido cambios importantes.
 - Las fotos deben ser del producto real. Preferencia: CDN del fabricante; si no hay, foto de
   tienda especializada. Formato 1000×750 JPEG, fondo blanco, sin recortes raros.
 - Nada se publica sin comprobarlo antes (enlaces, JSON-LD y revisión visual).
+- Las fichas **no llevan `Offer`**: el sitio no vende, así que no puede declarar precio,
+  envíos ni devoluciones. En su lugar llevan una `Review` editorial (nota global como
+  `reviewRating` y el párrafo «Para quién es» como `reviewBody`). No añadir
+  `aggregateRating` sin reseñas reales.
 
 ## Dónde están los datos
 

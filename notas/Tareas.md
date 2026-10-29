@@ -19,6 +19,12 @@ ha necesitado investigación. Lo urgente va arriba; lo demás, en orden de prior
   sobrantes (29/10/2026).
 - [x] Validar los datos estructurados con Rich Results Test: ficha de portátil y portada
   sin errores críticos (29/10/2026).
+- [x] Sustituir el `Offer` por una `Review` editorial en las 34 fichas, para no declarar
+  envíos ni devoluciones que el sitio no gestiona (29/10/2026, commit `d50f636`).
+- [x] Mostrar la nota global (`N / 100`) en la ficha, para que coincida con el
+  `reviewRating` del JSON-LD (29/10/2026).
+- [x] Revalidar en Rich Results Test: Producto, Migas y Reseñas válidos, sin avisos
+  críticos ni no críticos (29/10/2026).
 - [x] Cambiar los enlaces internos de `index.html` a `./` y `../` para no crear una URL
   duplicada de la portada (29/10/2026).
 - [x] Añadir `scripts/auditar-seo.py` y documentar su uso (29/10/2026).
@@ -29,6 +35,9 @@ ha necesitado investigación. Lo urgente va arriba; lo demás, en orden de prior
   `https://raulft721.github.io/portatiles/sitemap.xml` (no el de la raíz del host).
 - [ ] Reenviar `sitemap.xml` en Search Console después de publicar esta versión.
 - [ ] Pedir **Validar corrección** en el informe de indexación y esperar el resultado.
+- [ ] En **Mejoras → Fichas de comerciantes** y **Fragmentos de productos**, pulsar
+  **Validar corrección** tras el cambio a `Review` y comprobar en 2–4 semanas que los
+  avisos han desaparecido.
 - [ ] Inspeccionar una o dos URLs afectadas con «Inspeccionar URL» y comprobar que
   Google ve la versión nueva (canonical y contenido).
 - [ ] Volver a revisar la indexación en 2–4 semanas.
@@ -65,11 +74,12 @@ ha necesitado investigación. Lo urgente va arriba; lo demás, en orden de prior
 - [x] Ejecutar `python scripts/generar.py` tras los cambios (29/10/2026).
 - [x] Ejecutar `python scripts/comprobar-enlaces.py` (29/10/2026).
 - [x] Ejecutar `python scripts/auditar-seo.py --live` (29/10/2026).
-- [ ] Volver a ejecutar `python scripts/auditar-seo.py --live` cuando Pages sirva la
-  versión nueva.
+- [x] Volver a ejecutar `python scripts/auditar-seo.py --live` con la versión de datos
+  estructurados publicada: sin errores (29/10/2026).
 - [ ] Ejecutar `python scripts/generar.py` y `scripts/og.ps1` solo cuando cambien
   modelos o imágenes sociales.
-- [ ] Ejecutar `python scripts/indexnow.py` cuando GitHub Pages ya sirva la versión nueva.
+- [x] Ejecutar `python scripts/indexnow.py` cuando GitHub Pages ya sirve la versión nueva
+  (29/10/2026, 200 OK con 40 URLs).
 - [ ] Revisar Search Console: sitemap, indexación y posibles acciones manuales.
 - [ ] Mantener el diario del vault al terminar cada sesión.
 
@@ -83,4 +93,5 @@ ha necesitado investigación. Lo urgente va arriba; lo demás, en orden de prior
 ## Historial
 
 - **29/10/2026**: auditoría completa, enlaces internos corregidos, script de auditoría
-  y creación de este vault. Ver [[Diario/2026-10-29]].
+  y creación de este vault. Después, datos estructurados corregidos: `Offer` fuera y
+  `Review` editorial en su lugar. Ver [[Diario/2026-10-29]].

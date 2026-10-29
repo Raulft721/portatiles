@@ -15,8 +15,11 @@ Para abrirlo en Obsidian: **Abrir carpeta como vault** y elegir la carpeta `nota
 
 - Catálogo de **34 portátiles** y **40 URLs indexables**.
 - Auditoría SEO del 29/10/2026: todas las URLs responden 200 y el canonical es correcto.
-- Pendiente principal: mirar en Search Console el motivo exacto de los correos de indexación
-  y pedir validación después de los cambios.
+- Datos estructurados corregidos: las fichas ya no declaran una oferta de venta y llevan
+  una reseña editorial con la nota global. Rich Results Test sin avisos.
+- Pendiente principal: en Search Console, pulsar **Validar corrección** en «Fichas de
+  comerciantes» y «Fragmentos de productos», y mirar el motivo exacto de los correos de
+  indexación.
 
 ## Accesos rápidos
 
