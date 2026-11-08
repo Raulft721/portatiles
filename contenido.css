@@ -126,6 +126,9 @@ strong { font-weight: 650; }
 .pick .link { font-size: 13.5px; font-weight: 600; }
 .pick .link { display: inline-block; white-space: nowrap; }
 .pick .link + .link { margin-left: 16px; }
+.duelo { margin: 6px 0 34px; display: grid; gap: 6px; }
+.duelo .par { display: flex; flex-wrap: wrap; gap: 4px 18px; }
+.duelo .link { font-size: 13.5px; font-weight: 600; white-space: nowrap; }
 
 /* TABLE */
 .table-wrap { overflow-x: auto; margin: 26px 0; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); }

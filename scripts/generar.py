@@ -35,6 +35,10 @@ FICHAS_DIR = ROOT / "portatil"
 OG_DIR = ROOT / "img" / "og"
 MANIFEST = ROOT / "scripts" / "og-manifest.json"
 
+# Rivales con Windows que aparecen en la guía «MacBook o Windows».
+MAC_O_WINDOWS = {"hp-pavilion-aero-13", "asus-zenbook-14-oled", "dell-xps-13",
+                 "asus-rog-zephyrus-g14"}
+
 # Amazon Afiliados. Pon aquí tu ID de afiliado (el «tag», termina en -21) y vuelve a
 # ejecutar el script. Mientras esté vacío, las fichas no muestran el botón de compra ni
 # el aviso de afiliación. El tag no es un secreto: aparece en todos los enlaces.
@@ -332,6 +336,9 @@ def build_ficha(l, laptops, hoy):
     if scores["gaming"] >= 60:
         guias.append(('<li><a href="../guias/portatil-gaming-1000-euros.html">'
                       'Portátil gaming por menos de 1.100 €</a></li>'))
+    if l["os"] == "macOS" or slug in MAC_O_WINDOWS:
+        guias.append(('<li><a href="../guias/macbook-o-windows.html">'
+                      'MacBook o Windows: cuál elegir según tu presupuesto</a></li>'))
     if l["weight"] < 1.4:
         guias.append(('<li><a href="../guias/portatil-ligero.html">'
                       'Mejor portátil ligero por menos de 1,4 kg</a></li>'))
@@ -562,6 +569,7 @@ def build_sitemap(laptops, hoy):
             (f"{SITE}guias/mejor-portatil-estudiar.html", "0.8"),
             (f"{SITE}guias/portatil-gaming-1000-euros.html", "0.8"),
             (f"{SITE}guias/portatil-ligero.html", "0.8"),
+            (f"{SITE}guias/macbook-o-windows.html", "0.8"),
             (f"{SITE}metodologia.html", "0.6"),
             (f"{SITE}sobre.html", "0.5"),
             (f"{SITE}contacto.html", "0.4")]
