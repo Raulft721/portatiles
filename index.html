@@ -543,7 +543,7 @@
   .btn-mini:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
 
   /* GUÍAS */
-  .guides { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .guides { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
   .guide-card {
     background: var(--surface); border: 1px solid var(--line);
     border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow);
@@ -553,6 +553,7 @@
   .guide-card:hover { transform: translateY(-4px); box-shadow: 0 14px 40px rgba(0,0,0,.1); }
   .g-top { height: 9px; background: linear-gradient(90deg, #0071e3, #67c1ff); }
   .g-top.alt { background: linear-gradient(90deg, #ea580c, #fbbf24); }
+  .g-top.verde { background: linear-gradient(90deg, #0f9d74, #5fd3a8); }
   .g-body { padding: 22px; display: flex; flex-direction: column; flex: 1; }
   .g-kicker {
     font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
@@ -574,6 +575,7 @@
   /* RESPONSIVE */
   @media (max-width: 900px) {
     .cards { grid-template-columns: 1fr 1fr; }
+    .guides { grid-template-columns: 1fr; }
     .picker { grid-template-columns: 1fr; }
     .swap { justify-self: center; transform: rotate(90deg); }
     .swap:hover { transform: rotate(270deg); }
@@ -1393,6 +1395,15 @@
           <span class="g-kicker">Guía de compra</span>
           <h3>Portátil gaming por menos de 1.100 €</h3>
           <p>GPU, refrigeración y pantalla: qué mirar de verdad y qué modelos aceptan menos compromisos.</p>
+          <span class="g-link">Leer guía →</span>
+        </div>
+      </a>
+      <a class="guide-card" href="guias/portatil-ligero.html">
+        <div class="g-top verde"></div>
+        <div class="g-body">
+          <span class="g-kicker">Guía de compra</span>
+          <h3>Mejor portátil ligero por menos de 1,4 kg</h3>
+          <p>Peso real, autonomía y pantalla: cinco modelos para llevar encima a diario, desde 749 €.</p>
           <span class="g-link">Leer guía →</span>
         </div>
       </a>

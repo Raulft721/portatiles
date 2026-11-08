@@ -77,8 +77,8 @@ python scripts/auditar-seo.py
   URLs publicadas. No modifica archivos.
 
 Después: revisar el resultado, `git commit`, `git push origin main` y, cuando Pages ya sirva la
-versión nueva, `python scripts/auditar-seo.py --live` y `python scripts/indexnow.py` (envía las
-40 URLs a IndexNow).
+versión nueva, `python scripts/auditar-seo.py --live` y `python scripts/indexnow.py` (envía todas
+las URLs del sitemap a IndexNow).
 
 ## Comprobaciones recomendadas
 

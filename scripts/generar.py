@@ -332,6 +332,9 @@ def build_ficha(l, laptops, hoy):
     if scores["gaming"] >= 60:
         guias.append(('<li><a href="../guias/portatil-gaming-1000-euros.html">'
                       'Portátil gaming por menos de 1.100 €</a></li>'))
+    if l["weight"] < 1.4:
+        guias.append(('<li><a href="../guias/portatil-ligero.html">'
+                      'Mejor portátil ligero por menos de 1,4 kg</a></li>'))
     if guias:
         extra = ('\n  <h2>Guías relacionadas</h2>\n\n  <ul>\n    '
                  + "\n    ".join(guias) + "\n  </ul>\n")
@@ -558,6 +561,7 @@ def build_sitemap(laptops, hoy):
     urls = [(SITE, "1.0"),
             (f"{SITE}guias/mejor-portatil-estudiar.html", "0.8"),
             (f"{SITE}guias/portatil-gaming-1000-euros.html", "0.8"),
+            (f"{SITE}guias/portatil-ligero.html", "0.8"),
             (f"{SITE}metodologia.html", "0.6"),
             (f"{SITE}sobre.html", "0.5"),
             (f"{SITE}contacto.html", "0.4")]

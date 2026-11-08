@@ -51,6 +51,7 @@ def expected_pages(laptops):
         SITE: INDEX,
         f"{SITE}guias/mejor-portatil-estudiar.html": ROOT / "guias" / "mejor-portatil-estudiar.html",
         f"{SITE}guias/portatil-gaming-1000-euros.html": ROOT / "guias" / "portatil-gaming-1000-euros.html",
+        f"{SITE}guias/portatil-ligero.html": ROOT / "guias" / "portatil-ligero.html",
         f"{SITE}metodologia.html": ROOT / "metodologia.html",
         f"{SITE}sobre.html": ROOT / "sobre.html",
         f"{SITE}contacto.html": ROOT / "contacto.html",
