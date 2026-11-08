@@ -255,6 +255,519 @@ def compra_html(l):
 """
 
 
+# --------------------------------------------------------------------------
+# Contenido propio de cada ficha: puntos fuertes y débiles, rival y preguntas.
+# Todo sale de los datos del catálogo; nada se escribe a mano por modelo.
+# --------------------------------------------------------------------------
+
+def best_cat(l):
+    s = l["scores"]
+    return next(k for k, _ in CATS if s[k] == max(s.values()))
+
+
+def gb(texto):
+    """Primera cantidad en GB de un texto («16 GB LPDDR5», «1 TB SSD»)."""
+    m = re.search(r"(\d+(?:[.,]\d+)?)\s*(TB|GB)", texto)
+    if not m:
+        return None
+    n = float(m.group(1).replace(",", "."))
+    return n * 1024 if m.group(2) == "TB" else n
+
+
+def hz(texto):
+    m = re.search(r"(\d+)\s*Hz", texto)
+    return int(m.group(1)) if m else None
+
+
+def es_arm(l):
+    return "snapdragon" in l["cpu"].lower()
+
+
+def rank(l, laptops, key, reverse=False):
+    """Puesto de l (1 = mejor) según key; reverse=True si más es mejor."""
+    vals = [key(x) for x in laptops if key(x) is not None]
+    v = key(l)
+    if v is None:
+        return None
+    return 1 + sum(1 for x in vals if (x > v if reverse else x < v))
+
+
+def puntos(l, laptops):
+    n = len(laptops)
+    s = l["scores"]
+    fuertes, debiles = [], []
+
+    r_peso = rank(l, laptops, lambda x: x["weight"])
+    r_bat = rank(l, laptops, lambda x: x.get("battery"), reverse=True)
+    r_precio = rank(l, laptops, lambda x: x["price"])
+    ram, alm, refresco = gb(l["ram"]), gb(l["storage"]), hz(l["screen"])
+    pantalla = l["screen"].lower()
+
+    if r_peso <= 6:
+        fuertes.append(f"<strong>Ligero:</strong> {kg(l['weight'])}, el {r_peso}.º más ligero de los {n} modelos.")
+    if r_bat is not None and r_bat <= 6:
+        fuertes.append(f"<strong>Mucha autonomía:</strong> {l['battery']} h según el fabricante, de las seis mejores cifras del catálogo.")
+    if r_precio <= 6:
+        fuertes.append(f"<strong>Precio bajo:</strong> {eur(l['price'])}, entre los seis más baratos del catálogo.")
+    if "oled" in pantalla or "xdr" in pantalla:
+        fuertes.append(f"<strong>Pantalla de gama alta:</strong> {esc(l['screen'])}.")
+    elif refresco and refresco >= 120:
+        fuertes.append(f"<strong>Pantalla fluida:</strong> {refresco} Hz.")
+    if "rtx" in l["gpu"].lower():
+        fuertes.append(f"<strong>Gráfica dedicada:</strong> {esc(l['gpu'])}.")
+    if ram and ram >= 32:
+        fuertes.append(f"<strong>Mucha memoria:</strong> {esc(l['ram'])}.")
+    if alm and alm >= 1024:
+        fuertes.append("<strong>Almacenamiento amplio:</strong> 1 TB.")
+    for k, label in CATS:
+        if s[k] >= 90:
+            fuertes.append(f"<strong>Nota alta para {VERB[k]}:</strong> {s[k]} de 100.")
+            break
+
+    if l["weight"] >= 2.0:
+        debiles.append(f"<strong>Pesado:</strong> {kg(l['weight'])}, poco práctico para llevarlo a diario.")
+    if l.get("battery") is None:
+        debiles.append("<strong>Autonomía sin dato:</strong> el fabricante no publica las horas.")
+    elif l["battery"] <= 7:
+        debiles.append(f"<strong>Autonomía corta:</strong> {l['battery']} h según el fabricante.")
+    if ram and ram <= 8:
+        debiles.append(f"<strong>Memoria justa:</strong> {esc(l['ram'])}, se queda corta con muchas aplicaciones abiertas.")
+    if alm and alm <= 256:
+        debiles.append(f"<strong>Almacenamiento justo:</strong> {esc(l['storage'])}.")
+    os_ = l["os"].lower()
+    if os_.startswith("freedos"):
+        debiles.append("<strong>Sin sistema operativo:</strong> hay que instalar Windows o Linux y contar con la licencia.")
+    if os_.startswith("chromeos"):
+        debiles.append("<strong>ChromeOS:</strong> no instala programas de Windows.")
+    if es_arm(l):
+        debiles.append("<strong>Procesador ARM:</strong> algunos programas antiguos, controladores y juegos con antitrampas no funcionan.")
+    if r_precio > n - 6:
+        debiles.append(f"<strong>Precio alto:</strong> {eur(l['price'])}, entre los seis más caros del catálogo.")
+    if s["gaming"] < 40:
+        debiles.append(f"<strong>No es para jugar:</strong> {s['gaming']} de 100 en juegos.")
+
+    if not fuertes:
+        k = best_cat(l)
+        fuertes.append(f"<strong>Su mejor apartado:</strong> {SIN[k]}, con {s[k]} de 100.")
+    if not debiles:
+        k = next(k for k, _ in CATS if s[k] == min(s.values()))
+        debiles.append(f"<strong>Su apartado más flojo:</strong> {SIN[k]}, con {s[k]} de 100.")
+    return fuertes[:4], debiles[:4]
+
+
+def rival_de(l, laptops):
+    """El modelo más cercano en precio con el mismo uso principal."""
+    mismos = [x for x in laptops if x["id"] != l["id"] and best_cat(x) == best_cat(l)]
+    pool = mismos or [x for x in laptops if x["id"] != l["id"]]
+    return min(pool, key=lambda x: (abs(x["price"] - l["price"]), x["price"]))
+
+
+def preguntas(l):
+    name, s = l["name"], l["scores"]
+    g = s["gaming"]
+    if g >= 80:
+        jugar = f"Sí. Saca {g} de 100 para jugar gracias a su {l['gpu']}, de las mejores notas del catálogo en este apartado."
+    elif g >= 50:
+        jugar = f"Para juegos ligeros y eSports, sí. En juegos exigentes se queda corto: {g} de 100 para jugar, con {l['gpu']}."
+    else:
+        jugar = (f"No es su punto fuerte: {g} de 100 para jugar, con gráfica integrada ({l['gpu']}). "
+                 "Sirve para juegos sencillos o en la nube.")
+    if l.get("battery") is None:
+        bat = ("El fabricante no publica la autonomía"
+               + (f"; la batería es de {str(l['wh']).replace('.', ',')} Wh." if l.get("wh") else "."))
+    else:
+        bat = (f"{l['battery']} horas según el fabricante. Esa cifra se mide con brillo bajo y tareas "
+               "suaves; con uso normal, cuenta con algo más de la mitad.")
+    w = l["weight"]
+    if w < 1.4:
+        llevar = f"Sí. Con {kg(w)} se lleva en la mochila todos los días sin notarlo."
+    elif w < 2.0:
+        llevar = f"Se puede: {kg(w)} es un peso normal, aunque al final del día se nota más que en un ultraligero."
+    else:
+        llevar = f"No es lo ideal. Con {kg(w)}, más el cargador, es un equipo para mover de vez en cuando, no a diario."
+    return [
+        (f"¿Sirve el {name} para jugar?", jugar),
+        (f"¿Cuánto dura la batería del {name}?", bat),
+        (f"¿Es buena opción para llevarlo a clase o al trabajo cada día?", llevar),
+    ]
+
+
+def faq_html(qs):
+    items = "\n".join(
+        f"    <details>\n      <summary>{esc(q)}</summary>\n      <p>{esc(a)}</p>\n    </details>"
+        for q, a in qs)
+    return f'  <div class="faq">\n{items}\n  </div>'
+
+
+def faq_ld(qs, url):
+    return {
+        "@type": "FAQPage",
+        "@id": f"{url}#preguntas",
+        "mainEntity": [
+            {"@type": "Question", "name": q,
+             "acceptedAnswer": {"@type": "Answer", "text": a}}
+            for q, a in qs
+        ],
+    }
+
+
+# --------------------------------------------------------------------------
+# Comparativas «A vs B»
+# --------------------------------------------------------------------------
+
+VS_PAIRS = [
+    ("macbook-air-13-m4", "macbook-air-13-m5"),
+    ("hp-victus-15", "lenovo-loq-15"),
+    ("lenovo-loq-15", "asus-tuf-gaming-a15"),
+    ("macbook-air-13-m5", "dell-xps-13"),
+    ("macbook-air-13-m4", "asus-zenbook-14-oled"),
+    ("macbook-neo", "hp-pavilion-aero-13"),
+    ("lenovo-ideapad-slim-3-15", "acer-aspire-5-15"),
+    ("acer-swift-go-14", "asus-zenbook-14-oled"),
+    ("samsung-galaxy-book4-pro", "samsung-galaxy-book5-pro-14"),
+    ("macbook-air-15-m5", "macbook-pro-14-m5"),
+]
+
+
+def vs_slug(a, b):
+    return f"{a['slug']}-vs-{b['slug']}"
+
+
+def vs_de(l, laptops):
+    """Comparativas en las que aparece l: lista de (rival, slug de la página)."""
+    por = {x["slug"]: x for x in laptops}
+    out = []
+    for sa, sb in VS_PAIRS:
+        if l["slug"] in (sa, sb):
+            otro = por[sb if l["slug"] == sa else sa]
+            out.append((otro, vs_slug(por[sa], por[sb])))
+    return out
+
+
+def corto(name):
+    """Nombre sin la coletilla entre paréntesis para títulos largos."""
+    return re.sub(r"\s*\((A18 Pro)\)", "", name)
+
+
+def build_vs(a, b, laptops, hoy):
+    slug = vs_slug(a, b)
+    url = f"{SITE}vs/{slug}.html"
+    na, nb = a["name"], b["name"]
+    ca, cb = corto(na), corto(nb)
+    sa, sb = a["scores"], b["scores"]
+    ga, gb_ = overall(a), overall(b)
+
+    title = f"{ca} vs {cb}: cuál comprar"
+    if len(title) > 65:
+        title = f"{ca} vs {cb}"
+    desc = (f"{ca} contra {cb}: precio, peso, autonomía, pantalla y notas por uso, "
+            f"con un veredicto claro según para qué lo quieras.")
+    if len(esc(desc, True)) > 160:
+        desc = f"{ca} contra {cb}: precio, peso, autonomía y notas por uso, con veredicto claro."
+
+    def win(va, vb, mas_es_mejor=True, umbral=0):
+        if va is None or vb is None or abs(va - vb) <= umbral:
+            return "", ""
+        mejor_a = (va > vb) if mas_es_mejor else (va < vb)
+        return (' class="win"', "") if mejor_a else ("", ' class="win"')
+
+    filas = []
+    def fila(label, ta, tb, w=("", "")):
+        filas.append(f'        <tr><th scope="row">{label}</th><td{w[0]}>{ta}</td><td{w[1]}>{tb}</td></tr>')
+
+    fila("Precio", eur(a["price"]), eur(b["price"]), win(a["price"], b["price"], False))
+    fila("Procesador", esc(a["cpu"]), esc(b["cpu"]))
+    fila("Gráficos", esc(a["gpu"]), esc(b["gpu"]))
+    fila("Memoria", esc(a["ram"]), esc(b["ram"]), win(gb(a["ram"]), gb(b["ram"])))
+    fila("Almacenamiento", esc(a["storage"]), esc(b["storage"]), win(gb(a["storage"]), gb(b["storage"])))
+    fila("Pantalla", esc(a["screen"]), esc(b["screen"]))
+    fila("Peso", kg(a["weight"]), kg(b["weight"]), win(a["weight"], b["weight"], False))
+    fila("Autonomía", horas(a), horas(b), win(a.get("battery"), b.get("battery")))
+    fila("Sistema operativo", esc(a["os"]), esc(b["os"]))
+    for k, label in CATS:
+        fila(f"Nota para {VERB[k]}", f"{sa[k]} / 100", f"{sb[k]} / 100", win(sa[k], sb[k]))
+    fila("Nota global", f"{ga} / 100", f"{gb_} / 100", win(ga, gb_))
+    tabla = "\n".join(filas)
+
+    # Veredicto: quién gana cada uso (diferencia de 3 puntos o más) y en global.
+    gana_a = [k for k, _ in CATS if sa[k] - sb[k] >= 3]
+    gana_b = [k for k, _ in CATS if sb[k] - sa[k] >= 3]
+    dif = b["price"] - a["price"]
+    if dif > 0:
+        precio_txt = f"El {ca} cuesta {eur(dif)} menos."
+    elif dif < 0:
+        precio_txt = f"El {cb} cuesta {eur(-dif)} menos."
+    else:
+        precio_txt = "Cuestan lo mismo."
+
+    def lista(ks):
+        nombres = [VERB[k] for k in ks]
+        return nombres[0] if len(nombres) == 1 else ", ".join(nombres[:-1]) + " y " + nombres[-1]
+
+    partes = []
+    if gana_a:
+        partes.append(f"el {ca} es mejor para {lista(gana_a)}")
+    if gana_b:
+        partes.append(f"el {cb} es mejor para {lista(gana_b)}")
+    if partes:
+        usos_txt = "Por notas, " + "; ".join(partes) + "."
+    else:
+        usos_txt = "En las notas por uso están prácticamente empatados (menos de 3 puntos en cada apartado)."
+
+    if ga - gb_ >= 2:
+        global_txt = f"En la nota global gana el {ca} ({ga} frente a {gb_})."
+    elif gb_ - ga >= 2:
+        global_txt = f"En la nota global gana el {cb} ({gb_} frente a {ga})."
+    else:
+        global_txt = f"En la nota global están empatados ({ga} y {gb_})."
+
+    # Recomendación: si uno gana en global y no es más caro, gana claro.
+    if (ga - gb_ >= 2 and a["price"] <= b["price"]):
+        rec = f"Si dudas entre los dos, el {ca}: tiene mejor nota y no cuesta más."
+    elif (gb_ - ga >= 2 and b["price"] <= a["price"]):
+        rec = f"Si dudas entre los dos, el {cb}: tiene mejor nota y no cuesta más."
+    elif abs(ga - gb_) < 2:
+        barato = ca if a["price"] < b["price"] else cb
+        rec = (f"Si dudas entre los dos, el {barato}: rinden parecido y es el más barato."
+               if a["price"] != b["price"] else
+               "Elige según el apartado que más te importe.")
+    else:
+        mejor, peor = (ca, cb) if ga > gb_ else (cb, ca)
+        rec = (f"El {mejor} es mejor en conjunto, pero el {peor} cuesta menos: "
+               f"elige el {mejor} si te llega el presupuesto.")
+    rapida = f"{precio_txt} {usos_txt} {global_txt} {rec}"
+
+    def ventajas(x, sx, o, so):
+        """Ventajas concretas de x frente a o: (frase para el título, frase con datos)."""
+        v = []
+        mejor = [k for k, _ in CATS if sx[k] - so[k] >= 3]
+        if mejor:
+            v.append((f"si lo que más te importa es {lista(mejor)}",
+                      "<strong>Mejor nota para " + lista(mejor) + ":</strong> "
+                      + (f"{sx[mejor[0]]} frente a {so[mejor[0]]}" if len(mejor) == 1 else
+                         ", ".join(f"{VERB[k]} {sx[k]} frente a {so[k]}" for k in mejor)) + "."))
+        if o["price"] - x["price"] >= 50:
+            v.append(("si quieres gastar menos",
+                      f"<strong>Más barato:</strong> cuesta {eur(o['price'] - x['price'])} menos."))
+        if o["weight"] - x["weight"] >= 0.1:
+            v.append(("si buscas el más ligero",
+                      f"<strong>Más ligero:</strong> {kg(x['weight'])} frente a {kg(o['weight'])}."))
+        bx, bo = x.get("battery"), o.get("battery")
+        if bx is not None and bo is not None and bx - bo >= 2:
+            v.append(("si quieres más autonomía",
+                      f"<strong>Más autonomía:</strong> {bx} h frente a {bo} h según los fabricantes."))
+        ax, ao = gb(x["storage"]), gb(o["storage"])
+        if ax and ao and ax > ao:
+            v.append(("si necesitas más almacenamiento",
+                      f"<strong>Más almacenamiento:</strong> {esc(x['storage'])} frente a {esc(o['storage'])}."))
+        rx, ro = gb(x["ram"]), gb(o["ram"])
+        if rx and ro and rx > ro:
+            v.append(("si trabajas con muchas aplicaciones a la vez",
+                      f"<strong>Más memoria:</strong> {esc(x['ram'])} frente a {esc(o['ram'])}."))
+        px, po = x["screen"].lower(), o["screen"].lower()
+        if ("oled" in px or "xdr" in px) and not ("oled" in po or "xdr" in po):
+            v.append(("si quieres mejor pantalla",
+                      f"<strong>Mejor pantalla:</strong> {esc(x['screen'])}."))
+        if "táctil" in px and "táctil" not in po:
+            v.append(("si quieres pantalla táctil",
+                      f"<strong>Pantalla táctil:</strong> {esc(x['screen'])}."))
+        if x["os"] != o["os"]:
+            v.append((f"si prefieres {x['os'].replace(' 11', '')}",
+                      f"<strong>Sistema operativo:</strong> {esc(x['os'])}."))
+        return v
+
+    def bloque(x, sx, otro, so):
+        v = ventajas(x, sx, otro, so)
+        if v:
+            motivo = v[0][0]
+            li = "\n".join(f"      <li>{t}</li>" for _, t in v[:4])
+        else:
+            motivo = "si lo encuentras más barato"
+            li = (f"      <li>Frente al {esc(corto(otro['name']))} no tiene ninguna ventaja clara en los datos: "
+                  "solo compensa con una buena oferta.</li>")
+        compra = (f'\n      <a class="link amazon" href="{esc(amazon_url(x), True)}" '
+                  f'rel="sponsored nofollow noopener" target="_blank">Ver precio en Amazon →</a>'
+                  if AMAZON_TAG else "")
+        return f"""  <h2>Elige el {esc(corto(x['name']))} {motivo}</h2>
+
+  <ul>
+{li}
+  </ul>
+
+  <div class="duelo">
+    <div class="par"><a class="link" href="../portatil/{x['slug']}.html">Ficha del {esc(x['name'])} →</a>{compra}</div>
+  </div>
+"""
+
+    otras = []
+    for sa_, sb_ in VS_PAIRS:
+        if (sa_, sb_) == (a["slug"], b["slug"]):
+            continue
+        por = {x["slug"]: x for x in laptops}
+        xa, xb = por[sa_], por[sb_]
+        otras.append(f'    <li><a href="{vs_slug(xa, xb)}.html">{esc(corto(xa["name"]))} vs {esc(corto(xb["name"]))}</a></li>')
+    otras = "\n".join(otras[:5])
+
+    ld = {
+        "@context": "https://schema.org",
+        "@graph": [
+            organizacion_ld(),
+            {
+                "@type": "Article",
+                "@id": f"{url}#articulo",
+                "headline": f"{ca} vs {cb}: diferencias y cuál comprar",
+                "description": desc,
+                "image": f"{SITE}img/og/default.jpg",
+                "datePublished": "2026-11-08",
+                "dateModified": hoy.isoformat(),
+                "inLanguage": "es",
+                "author": {"@id": f"{SITE}#organizacion"},
+                "publisher": {"@id": f"{SITE}#organizacion"},
+                "mainEntityOfPage": url,
+                "about": [
+                    {"@type": "Product", "name": na, "brand": {"@type": "Brand", "name": a["brand"]},
+                     "url": f"{SITE}portatil/{a['slug']}.html"},
+                    {"@type": "Product", "name": nb, "brand": {"@type": "Brand", "name": b["brand"]},
+                     "url": f"{SITE}portatil/{b['slug']}.html"},
+                ],
+            },
+            {
+                "@type": "BreadcrumbList",
+                "@id": f"{url}#migas",
+                "itemListElement": [
+                    {"@type": "ListItem", "position": 1, "name": "Inicio", "item": SITE},
+                    {"@type": "ListItem", "position": 2, "name": "Comparativas",
+                     "item": f"{SITE}#comparativas"},
+                    {"@type": "ListItem", "position": 3, "name": f"{ca} vs {cb}", "item": url},
+                ],
+            },
+        ],
+    }
+    pie = AVISO_AFILIADO if AMAZON_TAG else PIE_SIN
+
+    return f"""<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>{esc(title)}</title>
+<meta name="description" content="{esc(desc, True)}" />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1" />
+<link rel="canonical" href="{url}" />
+<link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="../contenido.css" />
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="ComparaPortátil" />
+<meta property="og:locale" content="es_ES" />
+<meta property="og:title" content="{esc(ca, True)} vs {esc(cb, True)}" />
+<meta property="og:description" content="{esc(desc, True)}" />
+<meta property="og:url" content="{url}" />
+<meta property="og:image" content="{SITE}img/og/default.jpg" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<script type="application/ld+json">
+{json.dumps(ld, ensure_ascii=False, indent=2)}
+</script>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap nav-in">
+    <a href="../" class="logo">
+      <span class="logo-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="4" width="18" height="12" rx="2"/><path d="M2 20h20"/>
+        </svg>
+      </span>
+      ComparaPortátil
+    </a>
+    <div class="nav-links">
+      <a href="../#comparador">Comparador</a>
+      <a href="../#catalogo">Catálogo</a>
+      <a href="../#comparativas">Comparativas</a>
+      <a href="../#guias">Guías</a>
+    </div>
+    <a href="../" class="nav-spacer" style="font-size:13.5px;font-weight:600;">Volver al inicio</a>
+  </div>
+</nav>
+
+<header class="hero wrap read">
+  <nav class="crumbs" aria-label="Ruta de navegación">
+    <a href="../">Inicio</a>
+    <span class="sep" aria-hidden="true">›</span>
+    <a href="../#comparativas">Comparativas</a>
+    <span class="sep" aria-hidden="true">›</span>
+    <span aria-current="page">{esc(ca)} vs {esc(cb)}</span>
+  </nav>
+  <div class="kicker">Comparativa</div>
+  <h1>{esc(ca)} vs {esc(cb)}</h1>
+  <div class="meta">
+    <span>Actualizada el {fecha_larga(hoy)}</span>
+    <span>·</span>
+    <span>precios orientativos</span>
+  </div>
+</header>
+
+<article class="wrap read">
+
+  <div class="callout">
+    <strong>Respuesta rápida.</strong> {esc(rapida)}
+  </div>
+
+  <h2>Especificaciones lado a lado</h2>
+
+  <div class="table-wrap vs-table">
+    <table>
+      <thead>
+        <tr><th></th><th>{esc(ca)}</th><th>{esc(cb)}</th></tr>
+      </thead>
+      <tbody>
+{tabla}
+      </tbody>
+    </table>
+  </div>
+  <p class="caption">En azul, el mejor dato de cada fila cuando la diferencia es clara. Autonomía según el fabricante; las notas son las del comparador (0 a 100).</p>
+
+{bloque(a, sa, b, sb)}
+{bloque(b, sb, a, sa)}
+  <div class="cta">
+    <h2>Compáralos con tu perfil</h2>
+    <p>En el comparador puedes cambiar el perfil de uso y ver cómo cambia el resultado.</p>
+    <a class="btn" href="../?a={a['id']}&amp;b={b['id']}#comparador">Abrir el comparador</a>
+  </div>
+
+  <h2>Otras comparativas</h2>
+
+  <ul>
+{otras}
+  </ul>
+
+</article>
+
+<footer>
+  <div class="wrap foot">
+    <span><b>ComparaPortátil</b> · Comparativa con precios orientativos de referencia; varían según tienda y disponibilidad. {pie}</span>
+    <span><a href="../">Inicio</a> · <a href="../#comparativas">Comparativas</a> · <a href="../#guias">Guías</a> · <a href="../metodologia.html">Metodología</a> · <a href="../contacto.html">Contacto</a></span>
+  </div>
+</footer>
+
+</body>
+</html>
+"""
+
+
+def comparativas_html(laptops):
+    """Lista de comparativas para la portada (entre marcadores)."""
+    por = {x["slug"]: x for x in laptops}
+    items = []
+    for sa, sb in VS_PAIRS:
+        a, b = por[sa], por[sb]
+        items.append(f'      <li><a href="vs/{vs_slug(a, b)}.html">{esc(corto(a["name"]))} '
+                     f'<span>vs</span> {esc(corto(b["name"]))}</a></li>')
+    return "\n".join(items)
+
+
 def build_ficha(l, laptops, hoy):
     name = l["name"]
     slug = l["slug"]
@@ -282,7 +795,7 @@ def build_ficha(l, laptops, hoy):
         price_line = f"Es el más barato del catálogo, con {eur(l['price'])}."
     elif price_rank <= 4:
         price_line = f"Cuesta {eur(l['price'])}, entre los cuatro más baratos del catálogo."
-    elif price_rank >= 19:
+    elif price_rank > len(laptops) - 4:
         price_line = f"Cuesta {eur(l['price'])}, entre los cuatro más caros del catálogo."
     else:
         price_line = f"Cuesta {eur(l['price'])}, en la mitad de la tabla de precios."
@@ -320,9 +833,10 @@ def build_ficha(l, laptops, hoy):
     for x in cercanos:
         delta = x["price"] - l["price"]
         signo = "+" if delta > 0 else "−"
+        texto = "mismo precio" if delta == 0 else f"{signo}{eur(abs(delta))}"
         alts.append(
             f'    <li><a href="{x["slug"]}.html">{esc(x["name"])}</a>'
-            f'<span class="delta">{signo}{eur(abs(delta))}</span></li>'
+            f'<span class="delta">{texto}</span></li>'
         )
     alts = "\n".join(alts)
 
@@ -345,6 +859,63 @@ def build_ficha(l, laptops, hoy):
     if guias:
         extra = ('\n  <h2>Guías relacionadas</h2>\n\n  <ul>\n    '
                  + "\n    ".join(guias) + "\n  </ul>\n")
+
+    # Contenido propio de la ficha.
+    fuertes, debiles = puntos(l, laptops)
+    li_f = "\n".join(f"    <li>{t}</li>" for t in fuertes)
+    li_d = "\n".join(f"    <li>{t}</li>" for t in debiles)
+    puntos_html = f"""
+  <h2>Puntos fuertes y débiles</h2>
+
+  <div class="pros-cons">
+    <div>
+      <h3>A favor</h3>
+      <ul>
+{li_f}
+      </ul>
+    </div>
+    <div>
+      <h3>En contra</h3>
+      <ul>
+{li_d}
+      </ul>
+    </div>
+  </div>
+"""
+    rv = rival_de(l, laptops)
+    comparativas = vs_de(l, laptops)
+    vs_rival = next((s for o, s in comparativas if o["id"] == rv["id"]), None)
+    rs = rv["scores"]
+    k = best
+    enlace_vs = (f' <a href="../vs/{vs_rival}.html">Ver la comparativa completa</a>.'
+                 if vs_rival else "")
+    rival_html = f"""
+  <h2>Rival directo: {esc(rv['name'])}</h2>
+
+  <p>Es el modelo del catálogo más cercano en precio que también destaca para {VERB[k]}.{enlace_vs}</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th></th><th>{esc(name)}</th><th><a href="{rv['slug']}.html">{esc(rv['name'])}</a></th></tr>
+      </thead>
+      <tbody>
+        <tr><th scope="row">Precio</th><td>{eur(l['price'])}</td><td>{eur(rv['price'])}</td></tr>
+        <tr><th scope="row">Peso</th><td>{kg(l['weight'])}</td><td>{kg(rv['weight'])}</td></tr>
+        <tr><th scope="row">Autonomía</th><td>{horas(l)}</td><td>{horas(rv)}</td></tr>
+        <tr><th scope="row">Nota para {VERB[k]}</th><td>{scores[k]} / 100</td><td>{rs[k]} / 100</td></tr>
+        <tr><th scope="row">Nota global</th><td>{overall(l)} / 100</td><td>{overall(rv)} / 100</td></tr>
+      </tbody>
+    </table>
+  </div>
+"""
+    qs = preguntas(l)
+    faq_bloque = f"\n  <h2>Preguntas frecuentes</h2>\n\n{faq_html(qs)}\n"
+    if comparativas:
+        extra += ('\n  <h2>Comparativas</h2>\n\n  <ul>\n    '
+                  + "\n    ".join(f'<li><a href="../vs/{s}.html">{esc(corto(name))} vs {esc(corto(o["name"]))}</a></li>'
+                                  for o, s in comparativas)
+                  + "\n  </ul>\n")
 
     title = f"{name}: precio y ficha técnica"
     desc = (f"{name} por {eur(l['price'])}: {l['cpu']}, {l['ram']} y {l['storage']}. "
@@ -403,6 +974,7 @@ def build_ficha(l, laptops, hoy):
                 "dateModified": hoy.isoformat(),
                 "publisher": {"@id": f"{SITE}#organizacion"},
             },
+            faq_ld(qs, url),
         ],
     }
 
@@ -508,7 +1080,7 @@ def build_ficha(l, laptops, hoy):
     <li><strong>Busca otra opción</strong> si lo que prima es {SIN[worst]}: aquí saca {scores[worst]} de 100.</li>
   </ul>
 {aviso_so}
-{compra_html(l)}
+{puntos_html}{compra_html(l)}
   <h2>Notas por uso</h2>
 
   <p class="caption">Escala de 0 a 100. En el comparador se recalculan según el perfil que elijas.
@@ -525,7 +1097,7 @@ def build_ficha(l, laptops, hoy):
   <ul class="alts">
 {alts}
   </ul>
-
+{rival_html}{faq_bloque}
   <div class="cta">
     <h2>Compáralo con otro modelo</h2>
     <p>Abre el comparador con este portátil ya cargado y enfréntalo a cualquiera de los {len(laptops)}.</p>
@@ -574,6 +1146,8 @@ def build_sitemap(laptops, hoy):
             (f"{SITE}sobre.html", "0.5"),
             (f"{SITE}contacto.html", "0.4")]
     urls += [(f"{SITE}portatil/{l['slug']}.html", "0.7") for l in laptops]
+    por = {l["slug"]: l for l in laptops}
+    urls += [(f"{SITE}vs/{vs_slug(por[a], por[b])}.html", "0.7") for a, b in VS_PAIRS]
     cuerpo = "\n".join(
         f"""  <url>
     <loc>{u}</loc>
@@ -643,8 +1217,19 @@ def main():
     source = patch_between(source, "<!-- catalogo:inicio -->", "<!-- catalogo:fin -->", cards)
     source = patch_between(source, "<!-- itemlist:inicio -->", "<!-- itemlist:fin -->",
                            itemlist_ld(laptops))
+    source = patch_between(source, "<!-- comparativas:inicio -->", "<!-- comparativas:fin -->",
+                           comparativas_html(laptops))
     source = actualizar_conteos(source, laptops)
     INDEX.write_text(source, encoding="utf-8", newline="\n")
+
+    # Comparativas A vs B
+    por = {l["slug"]: l for l in laptops}
+    VS_DIR = ROOT / "vs"
+    VS_DIR.mkdir(exist_ok=True)
+    for sa, sb in VS_PAIRS:
+        a, b = por[sa], por[sb]
+        (VS_DIR / f"{vs_slug(a, b)}.html").write_text(
+            build_vs(a, b, laptops, hoy), encoding="utf-8", newline="\n")
 
     # Fichas
     FICHAS_DIR.mkdir(parents=True, exist_ok=True)

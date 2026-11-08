@@ -130,6 +130,20 @@ strong { font-weight: 650; }
 .duelo .par { display: flex; flex-wrap: wrap; gap: 4px 18px; }
 .duelo .link { font-size: 13.5px; font-weight: 600; white-space: nowrap; }
 
+/* PUNTOS FUERTES Y DÉBILES */
+.pros-cons { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 18px 0 26px; }
+.pros-cons > div { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; }
+.pros-cons h3 { margin: 0 0 8px; font-size: 15px; }
+.pros-cons > div:first-child h3 { color: #0f8a5f; }
+.pros-cons > div:last-child h3 { color: #b4441f; }
+.pros-cons ul { margin: 0; padding-left: 18px; font-size: 14.5px; }
+@media (max-width: 640px) { .pros-cons { grid-template-columns: 1fr; } }
+
+/* COMPARATIVAS */
+.vs-table table { min-width: 480px; }
+.vs-table td.win { color: var(--accent); font-weight: 650; }
+.vs-table th[scope="row"] { width: 28%; }
+
 /* TABLE */
 .table-wrap { overflow-x: auto; margin: 26px 0; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); }
 table { width: 100%; border-collapse: collapse; min-width: 560px; font-size: 13.5px; }

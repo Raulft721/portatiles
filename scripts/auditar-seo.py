@@ -59,6 +59,8 @@ def expected_pages(laptops):
     }
     for laptop in laptops:
         pages[f"{SITE}portatil/{laptop['slug']}.html"] = ROOT / "portatil" / f"{laptop['slug']}.html"
+    for vs in sorted((ROOT / "vs").glob("*.html")):
+        pages[f"{SITE}vs/{vs.name}"] = vs
     return pages
 
 

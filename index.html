@@ -555,6 +555,13 @@
   .g-top.alt { background: linear-gradient(90deg, #ea580c, #fbbf24); }
   .g-top.verde { background: linear-gradient(90deg, #0f9d74, #5fd3a8); }
   .g-top.gris { background: linear-gradient(90deg, #4b5563, #9ca3af); }
+  .vs-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .vs-list a {
+    display: block; background: var(--surface); border: 1px solid var(--line);
+    border-radius: 12px; padding: 14px 16px; font-weight: 600; font-size: 14.5px; color: var(--ink);
+  }
+  .vs-list a:hover { border-color: var(--accent); text-decoration: none; }
+  .vs-list span { color: var(--ink-2); font-weight: 500; margin: 0 4px; }
   .g-body { padding: 22px; display: flex; flex-direction: column; flex: 1; }
   .g-kicker {
     font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
@@ -584,6 +591,7 @@
   @media (max-width: 600px) {
     .cards { grid-template-columns: 1fr; }
     .guides { grid-template-columns: 1fr; }
+    .vs-list { grid-template-columns: 1fr; }
     .hero { padding-top: 40px; }
     .pick-summary { flex-wrap: wrap; }
     .sec-head { flex-direction: column; align-items: flex-start; gap: 4px; }
@@ -612,6 +620,7 @@
       <a href="#veredicto">Veredicto</a>
       <a href="#catalogo">Catálogo</a>
       <a href="#guias">Guías</a>
+      <a href="#comparativas">Comparativas</a>
     </div>
     <span class="badge">Precios orientativos</span>
   </div>
@@ -1417,6 +1426,27 @@
         </div>
       </a>
     </div>
+  </section>
+
+  <section class="sec" id="comparativas">
+    <div class="sec-head">
+      <h2>Comparativas</h2>
+      <span class="hint">Dos modelos, un veredicto</span>
+    </div>
+    <ul class="vs-list">
+<!-- comparativas:inicio -->
+      <li><a href="vs/macbook-air-13-m4-vs-macbook-air-13-m5.html">MacBook Air 13" (M4) <span>vs</span> MacBook Air 13" (M5)</a></li>
+      <li><a href="vs/hp-victus-15-vs-lenovo-loq-15.html">HP Victus 15 <span>vs</span> Lenovo LOQ 15</a></li>
+      <li><a href="vs/lenovo-loq-15-vs-asus-tuf-gaming-a15.html">Lenovo LOQ 15 <span>vs</span> ASUS TUF Gaming A15</a></li>
+      <li><a href="vs/macbook-air-13-m5-vs-dell-xps-13.html">MacBook Air 13" (M5) <span>vs</span> Dell XPS 13</a></li>
+      <li><a href="vs/macbook-air-13-m4-vs-asus-zenbook-14-oled.html">MacBook Air 13" (M4) <span>vs</span> ASUS Zenbook 14 OLED</a></li>
+      <li><a href="vs/macbook-neo-vs-hp-pavilion-aero-13.html">MacBook Neo <span>vs</span> HP Pavilion Aero 13</a></li>
+      <li><a href="vs/lenovo-ideapad-slim-3-15-vs-acer-aspire-5-15.html">Lenovo IdeaPad Slim 3 15 <span>vs</span> Acer Aspire 5 15</a></li>
+      <li><a href="vs/acer-swift-go-14-vs-asus-zenbook-14-oled.html">Acer Swift Go 14 <span>vs</span> ASUS Zenbook 14 OLED</a></li>
+      <li><a href="vs/samsung-galaxy-book4-pro-vs-samsung-galaxy-book5-pro-14.html">Samsung Galaxy Book4 Pro <span>vs</span> Samsung Galaxy Book5 Pro 14"</a></li>
+      <li><a href="vs/macbook-air-15-m5-vs-macbook-pro-14-m5.html">MacBook Air 15" (M5) <span>vs</span> MacBook Pro 14" (M5)</a></li>
+<!-- comparativas:fin -->
+    </ul>
   </section>
 
 </main>

@@ -94,6 +94,17 @@ Windows, PowerShell. Python 3.14 con Pillow y numpy; no hay Node. PowerShell mue
 como mojibake al imprimir por consola, pero los archivos están en UTF-8: no «arreglar» esos
 caracteres.
 
+## Contenido generado
+
+- **Fichas:** además de la ficha técnica, `generar.py` calcula a partir de los datos los
+  puntos fuertes y débiles, el rival directo (el más cercano en precio con el mismo uso
+  principal) y tres preguntas frecuentes con su `FAQPage`. No se escriben a mano.
+- **Comparativas `vs/`:** la lista de parejas está en `VS_PAIRS` de `generar.py`. Cada
+  página sale de los datos (tabla, respuesta rápida y ventajas de cada modelo). Para añadir
+  una, se añade la pareja y se vuelve a generar: sitemap, portada y fichas se actualizan solos.
+- **Guías nuevas:** hay que añadirlas a `build_sitemap` en `generar.py` y a
+  `expected_pages` en `scripts/auditar-seo.py`.
+
 ## Amazon Afiliados
 
 El tag va en la constante `AMAZON_TAG` de `scripts/generar.py`. Con el tag puesto,

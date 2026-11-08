@@ -13,7 +13,7 @@ ROOT = Path(__file__).resolve().parent.parent
 
 PAGES = sorted(ROOT.glob("*.html")) \
     + sorted((ROOT / "guias").glob("*.html")) \
-    + sorted((ROOT / "portatil").glob("*.html"))
+    + sorted((ROOT / "portatil").glob("*.html"))     + sorted((ROOT / "vs").glob("*.html"))
 
 ATTR = re.compile(r'(?:href|src)="([^"]+)"')
 
