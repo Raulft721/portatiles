@@ -25,6 +25,7 @@ import re
 import sys
 import unicodedata
 from datetime import date
+from urllib.parse import quote_plus
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -33,6 +34,14 @@ INDEX = ROOT / "index.html"
 FICHAS_DIR = ROOT / "portatil"
 OG_DIR = ROOT / "img" / "og"
 MANIFEST = ROOT / "scripts" / "og-manifest.json"
+
+# Amazon Afiliados. Pon aquí tu ID de afiliado (el «tag», termina en -21) y vuelve a
+# ejecutar el script. Mientras esté vacío, las fichas no muestran el botón de compra ni
+# el aviso de afiliación. El tag no es un secreto: aparece en todos los enlaces.
+AMAZON_TAG = "comparaportat-21"
+AVISO_AFILIADO = ("Como afiliado de Amazon, ComparaPortátil obtiene ingresos por las "
+                  "compras adscritas que cumplen los requisitos aplicables. No cambia lo "
+                  "que pagas ni las notas del comparador.")
 
 CATS = (("estudio", "Estudiar"), ("trabajo", "Trabajar"),
         ("gaming", "Jugar"), ("movilidad", "Moverse"))
@@ -219,6 +228,29 @@ def itemlist_ld(laptops):
 # Fichas
 # --------------------------------------------------------------------------
 
+def amazon_url(l):
+    """Búsqueda del modelo en Amazon.es con el tag de afiliado.
+
+    Se usa la búsqueda y no un producto concreto porque cada modelo tiene varias
+    configuraciones y vendedores; así el enlace no se rompe si una se agota.
+    """
+    return f"https://www.amazon.es/s?k={quote_plus(l['name'])}&tag={AMAZON_TAG}"
+
+
+def compra_html(l):
+    if not AMAZON_TAG:
+        return ""
+    return f"""
+  <div class="cta compra">
+    <h2>Dónde comprarlo</h2>
+    <p>El precio cambia a menudo y puede haber varias configuraciones: comprueba
+    procesador, memoria y almacenamiento antes de comprar.</p>
+    <a class="btn" href="{esc(amazon_url(l), True)}" rel="sponsored nofollow noopener" target="_blank">Ver precio actual en Amazon</a>
+    <p class="caption">{AVISO_AFILIADO}</p>
+  </div>
+"""
+
+
 def build_ficha(l, laptops, hoy):
     name = l["name"]
     slug = l["slug"]
@@ -289,6 +321,8 @@ def build_ficha(l, laptops, hoy):
             f'<span class="delta">{signo}{eur(abs(delta))}</span></li>'
         )
     alts = "\n".join(alts)
+
+    pie_afiliado = AVISO_AFILIADO if AMAZON_TAG else PIE_SIN
 
     extra = ""
     guias = []
@@ -464,7 +498,7 @@ def build_ficha(l, laptops, hoy):
     <li><strong>Busca otra opción</strong> si lo que prima es {SIN[worst]}: aquí saca {scores[worst]} de 100.</li>
   </ul>
 {aviso_so}
-
+{compra_html(l)}
   <h2>Notas por uso</h2>
 
   <p class="caption">Escala de 0 a 100. En el comparador se recalculan según el perfil que elijas.
@@ -492,7 +526,7 @@ def build_ficha(l, laptops, hoy):
 
 <footer>
   <div class="wrap foot">
-    <span><b>ComparaPortátil</b> · Precios orientativos de referencia: varían según tienda y disponibilidad, y algún modelo puede estar descatalogado. Fotografía de producto del fabricante, usada con fines informativos. Sin anuncios ni enlaces de afiliado.</span>
+    <span><b>ComparaPortátil</b> · Precios orientativos de referencia: varían según tienda y disponibilidad, y algún modelo puede estar descatalogado. Fotografía de producto del fabricante, usada con fines informativos. {pie_afiliado}</span>
     <span><a href="../">Inicio</a> · <a href="../#catalogo">Catálogo</a> · <a href="../metodologia.html">Metodología</a> · <a href="../sobre.html">Sobre</a> · <a href="../contacto.html">Contacto</a></span>
   </div>
 </footer>
@@ -543,6 +577,39 @@ def build_sitemap(laptops, hoy):
 
 
 # --------------------------------------------------------------------------
+# Guías: enlace de compra junto a cada «Ficha del …» y aviso en el pie
+# --------------------------------------------------------------------------
+
+PIE_SIN = "Sin anuncios ni enlaces de afiliado."
+RE_GUIA_LINK = re.compile(
+    r'(<a class="link" href="\.\./portatil/([a-z0-9-]+)\.html">[^<]*</a>)'
+    r'(\s*<a class="link amazon"[^>]*>[^<]*</a>)?')
+
+
+def patch_guias(laptops):
+    """Añade (o quita, si no hay tag) el enlace a Amazon en las guías. Es idempotente."""
+    por_slug = {l["slug"]: l for l in laptops}
+    for guia in sorted((ROOT / "guias").glob("*.html")):
+        texto = guia.read_text(encoding="utf-8")
+
+        def enlace(m):
+            l = por_slug.get(m.group(2))
+            if not AMAZON_TAG or l is None:
+                return m.group(1)
+            return (m.group(1) + "\n      "
+                    f'<a class="link amazon" href="{esc(amazon_url(l), True)}" '
+                    f'rel="sponsored nofollow noopener" target="_blank">Ver precio en Amazon →</a>')
+
+        nuevo = RE_GUIA_LINK.sub(enlace, texto)
+        if AMAZON_TAG:
+            nuevo = nuevo.replace(PIE_SIN, AVISO_AFILIADO)
+        else:
+            nuevo = nuevo.replace(AVISO_AFILIADO, PIE_SIN)
+        if nuevo != texto:
+            guia.write_text(nuevo, encoding="utf-8", newline="\n")
+
+
+# --------------------------------------------------------------------------
 # Main
 # --------------------------------------------------------------------------
 
@@ -572,6 +639,8 @@ def main():
     for l in laptops:
         (FICHAS_DIR / f"{l['slug']}.html").write_text(
             build_ficha(l, laptops, hoy), encoding="utf-8", newline="\n")
+
+    patch_guias(laptops)
 
     # Sitemap
     (ROOT / "sitemap.xml").write_text(build_sitemap(laptops, hoy),

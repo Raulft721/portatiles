@@ -11,10 +11,8 @@ Comparador de portátiles en español, estático y sin backend. Se publica en Gi
 
 ## Contexto y tareas
 
-El vault de Obsidian está en `notas/`. Antes de empezar, consulta `notas/Tareas.md` y
-`notas/Contexto/Proyecto.md`; al terminar, marca lo completado y añade una entrada al
-diario si ha habido cambios importantes. El plan de profesionalización, seguridad,
-legal y AdSense está en `notas/Mejoras/`.
+El vault de Obsidian de `notas/` es contexto antiguo: se puede consultar si hace falta,
+pero **no hay que actualizarlo** (ni tareas, ni diario, ni registro de cambios).
 
 **`notas/` es privado y no se versiona.** Está en `.gitignore`: no añadirlo al repo ni
 forzarlo con `git add -f`. Se queda solo en el equipo del autor. El contenido sigue
@@ -95,6 +93,15 @@ versión nueva, `python scripts/auditar-seo.py --live` y `python scripts/indexno
 Windows, PowerShell. Python 3.14 con Pillow y numpy; no hay Node. PowerShell muestra los acentos
 como mojibake al imprimir por consola, pero los archivos están en UTF-8: no «arreglar» esos
 caracteres.
+
+## Amazon Afiliados
+
+El tag va en la constante `AMAZON_TAG` de `scripts/generar.py`. Con el tag puesto,
+`generar.py` añade el bloque «Dónde comprarlo» a cada ficha y el enlace a Amazon en las
+guías, con `rel="sponsored nofollow"` y el aviso obligatorio de afiliación. Con la
+constante vacía, lo quita. Los textos fijos de `index.html`, `sobre.html`,
+`metodologia.html` y `contacto.html` que dicen «sin enlaces de afiliado» se cambian a mano.
+No mostrar precios «de Amazon»: los precios del sitio son orientativos y propios.
 
 ## Pendiente (manual, fuera del repo)
 
