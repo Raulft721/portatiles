@@ -130,6 +130,10 @@ strong { font-weight: 650; }
 .duelo .par { display: flex; flex-wrap: wrap; gap: 4px 18px; }
 .duelo .link { font-size: 13.5px; font-weight: 600; white-space: nowrap; }
 
+/* COMPRA VISIBLE ARRIBA */
+.compra-top { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 18px 0 6px; }
+.compra-top .caption { flex-basis: 100%; margin: 0; }
+
 /* PUNTOS FUERTES Y DÉBILES */
 .pros-cons { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 18px 0 26px; }
 .pros-cons > div { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; }

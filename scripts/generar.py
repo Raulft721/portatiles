@@ -241,6 +241,37 @@ def amazon_url(l):
     return f"https://www.amazon.es/s?k={quote_plus(l['name'])}&tag={AMAZON_TAG}"
 
 
+NOTA_AFILIADO_CORTA = ("Enlace de afiliado: si compras, ComparaPortátil recibe una comisión "
+                       "y tú pagas lo mismo.")
+
+
+def compra_arriba(l):
+    """Botón de compra visible nada más abrir la ficha, junto al precio."""
+    if not AMAZON_TAG:
+        return ""
+    return f"""
+  <div class="compra-top">
+    <a class="btn" href="{esc(amazon_url(l), True)}" rel="sponsored nofollow noopener" target="_blank">Ver precio actual en Amazon</a>
+    <span class="caption">{NOTA_AFILIADO_CORTA}</span>
+  </div>"""
+
+
+def compra_vs(a, b):
+    """Un botón por modelo justo después de la respuesta rápida de una comparativa."""
+    if not AMAZON_TAG:
+        return ""
+    botones = "\n".join(
+        f'    <a class="btn" href="{esc(amazon_url(x), True)}" rel="sponsored nofollow noopener" '
+        f'target="_blank">Ver el {esc(corto(x["name"]))} en Amazon</a>'
+        for x in (a, b))
+    return f"""
+  <div class="compra-top">
+{botones}
+    <span class="caption">Enlaces de afiliado: si compras, ComparaPortátil recibe una comisión y tú pagas lo mismo.</span>
+  </div>
+"""
+
+
 def compra_html(l):
     if not AMAZON_TAG:
         return ""
@@ -714,7 +745,7 @@ def build_vs(a, b, laptops, hoy):
   <div class="callout">
     <strong>Respuesta rápida.</strong> {esc(rapida)}
   </div>
-
+{compra_vs(a, b)}
   <h2>Especificaciones lado a lado</h2>
 
   <div class="table-wrap vs-table">
@@ -1044,7 +1075,7 @@ def build_ficha(l, laptops, hoy):
     <span>·</span>
     <span>Ficha actualizada el {fecha_larga(hoy)}</span>
   </div>
-  <p class="lead">{esc(lead)}</p>
+  <p class="lead">{esc(lead)}</p>{compra_arriba(l)}
 </header>
 
 <article class="wrap read">
@@ -1220,6 +1251,10 @@ def main():
     source = patch_between(source, "<!-- comparativas:inicio -->", "<!-- comparativas:fin -->",
                            comparativas_html(laptops))
     source = actualizar_conteos(source, laptops)
+    # El comparador de la portada usa el mismo tag de afiliado.
+    source, n = re.subn(r'const AMAZON_TAG = "[^"]*";', f'const AMAZON_TAG = "{AMAZON_TAG}";', source)
+    if n != 1:
+        raise SystemExit("No encuentro const AMAZON_TAG en index.html")
     INDEX.write_text(source, encoding="utf-8", newline="\n")
 
     # Comparativas A vs B

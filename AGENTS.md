@@ -109,8 +109,10 @@ caracteres.
 
 El tag va en la constante `AMAZON_TAG` de `scripts/generar.py`. Con el tag puesto,
 `generar.py` añade el bloque «Dónde comprarlo» a cada ficha y el enlace a Amazon en las
-guías, con `rel="sponsored nofollow"` y el aviso obligatorio de afiliación. Con la
-constante vacía, lo quita. Los textos fijos de `index.html`, `sobre.html`,
+guías, con `rel="sponsored nofollow"` y el aviso obligatorio de afiliación. También pone el botón de
+compra junto al precio en cada ficha, los botones tras la respuesta rápida de las
+comparativas y escribe el tag en `const AMAZON_TAG` del comparador de `index.html` (botones
+en el veredicto). Con la constante vacía, lo quita. Los textos fijos de `index.html`, `sobre.html`,
 `metodologia.html` y `contacto.html` que dicen «sin enlaces de afiliado» se cambian a mano.
 No mostrar precios «de Amazon»: los precios del sitio son orientativos y propios.
 
