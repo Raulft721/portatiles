@@ -457,6 +457,17 @@ VS_PAIRS = [
     ("acer-swift-go-14", "asus-zenbook-14-oled"),
     ("samsung-galaxy-book4-pro", "samsung-galaxy-book5-pro-14"),
     ("macbook-air-15-m5", "macbook-pro-14-m5"),
+    # Segunda tanda (11/11/2026), tras el primer clic en una comparativa.
+    ("macbook-air-13-m4", "dell-xps-13"),
+    ("hp-victus-15", "asus-tuf-gaming-a15"),
+    ("lenovo-loq-15", "lenovo-loq-15irx10"),
+    ("acer-nitro-v-15", "lenovo-loq-15irx10"),
+    ("macbook-neo", "macbook-air-13-m4"),
+    ("macbook-air-13-m5", "macbook-air-15-m5"),
+    ("asus-zenbook-14-oled", "samsung-galaxy-book4-pro"),
+    ("microsoft-surface-laptop-7", "macbook-air-13-m5"),
+    ("acer-chromebook-plus-515", "lenovo-ideapad-slim-3-15"),
+    ("asus-rog-zephyrus-g14", "asus-tuf-gaming-a16"),
 ]
 
 
@@ -602,7 +613,31 @@ def build_vs(a, b, laptops, hoy):
         if "táctil" in px and "táctil" not in po:
             v.append(("si quieres pantalla táctil",
                       f"<strong>Pantalla táctil:</strong> {esc(x['screen'])}."))
-        if x["os"] != o["os"]:
+        # Gráfica: solo cuando la comparación es clara (misma gama y generación más
+        # nueva, o misma generación y gama superior). Ej.: RTX 4060 → 5060, 5050 → 5060.
+        gx, go_ = re.search(r"RTX (\d)0(\d)0", x["gpu"]), re.search(r"RTX (\d)0(\d)0", o["gpu"])
+        if gx and go_:
+            genx, gamx, geno, gamo = int(gx[1]), int(gx[2]), int(go_[1]), int(go_[2])
+            if gamx == gamo and genx > geno:
+                v.append(("si quieres la gráfica más nueva",
+                          f"<strong>Gráfica de generación más nueva:</strong> {esc(x['gpu'])} frente a {esc(o['gpu'])}."))
+            elif genx == geno and gamx > gamo:
+                v.append(("si quieres más potencia gráfica",
+                          f"<strong>Gráfica de gama superior:</strong> {esc(x['gpu'])} frente a {esc(o['gpu'])}."))
+        # Pantalla más grande (al menos una pulgada).
+        sx, so_ = re.search(r'(\d+(?:,\d)?)"', x["screen"]), re.search(r'(\d+(?:,\d)?)"', o["screen"])
+        if sx and so_:
+            px_, po_ = float(sx[1].replace(",", ".")), float(so_[1].replace(",", "."))
+            if px_ - po_ >= 1:
+                v.append(("si quieres una pantalla más grande",
+                          f"<strong>Pantalla más grande:</strong> {sx[1]}\" frente a {so_[1]}\"."))
+        # Sistema operativo. «FreeDOS» significa que viene sin sistema: no es una
+        # preferencia, es una desventaja del otro modelo.
+        sin_x, sin_o = x["os"].lower().startswith("freedos"), o["os"].lower().startswith("freedos")
+        if sin_o and not sin_x:
+            v.append((f"si no quieres instalar el sistema operativo",
+                      f"<strong>Incluye {esc(x['os'])}:</strong> el otro se vende sin sistema operativo."))
+        elif x["os"] != o["os"] and not sin_x and not sin_o:
             v.append((f"si prefieres {x['os'].replace(' 11', '')}",
                       f"<strong>Sistema operativo:</strong> {esc(x['os'])}."))
         return v
