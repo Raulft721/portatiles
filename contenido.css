@@ -62,7 +62,7 @@ img { max-width: 100%; display: block; }
 .crumbs .sep { opacity: .5; }
 
 /* HERO */
-.hero { padding: 62px 0 34px; }
+.hero { padding-top: 62px; padding-bottom: 34px; }
 .kicker {
   font-size: 12px; letter-spacing: .12em; text-transform: uppercase;
   color: var(--accent); font-weight: 650; margin-bottom: 14px;

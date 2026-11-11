@@ -655,11 +655,12 @@ def build_vs(a, b, laptops, hoy):
                 "author": {"@id": f"{SITE}#organizacion"},
                 "publisher": {"@id": f"{SITE}#organizacion"},
                 "mainEntityOfPage": url,
+                # «Thing» y no «Product»: Google exige offers, review o aggregateRating
+                # en cada Product, y la comparativa no los tiene (la reseña está en
+                # la ficha de cada modelo).
                 "about": [
-                    {"@type": "Product", "name": na, "brand": {"@type": "Brand", "name": a["brand"]},
-                     "url": f"{SITE}portatil/{a['slug']}.html"},
-                    {"@type": "Product", "name": nb, "brand": {"@type": "Brand", "name": b["brand"]},
-                     "url": f"{SITE}portatil/{b['slug']}.html"},
+                    {"@type": "Thing", "name": na, "url": f"{SITE}portatil/{a['slug']}.html"},
+                    {"@type": "Thing", "name": nb, "url": f"{SITE}portatil/{b['slug']}.html"},
                 ],
             },
             {

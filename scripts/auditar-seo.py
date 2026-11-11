@@ -125,9 +125,22 @@ def audit_page(url, path, title_seen, desc_seen):
 
     for block in re.findall(r'<script type="application/ld\+json">(.*?)</script>', text, re.S):
         try:
-            json.loads(block)
+            data = json.loads(block)
         except json.JSONDecodeError as exc:
             errors.append(f"{url}: JSON-LD no válido ({exc})")
+            continue
+        # Google marca como problema crítico un Product sin offers, review ni aggregateRating.
+        pendientes = [data]
+        while pendientes:
+            nodo = pendientes.pop()
+            if isinstance(nodo, dict):
+                if (nodo.get("@type") == "Product"
+                        and not any(k in nodo for k in ("offers", "review", "aggregateRating"))):
+                    errors.append(f"{url}: Product «{nodo.get('name', '?')}» sin offers, review "
+                                  "ni aggregateRating (Google lo marca como problema crítico)")
+                pendientes.extend(nodo.values())
+            elif isinstance(nodo, list):
+                pendientes.extend(nodo)
 
     if re.search(r'href="(?:\.\./)?index\.html', text):
         warnings.append(f"{url}: enlace interno a index.html; usa ./ o ../ para no crear una URL duplicada")
