@@ -468,6 +468,18 @@ VS_PAIRS = [
     ("microsoft-surface-laptop-7", "macbook-air-13-m5"),
     ("acer-chromebook-plus-515", "lenovo-ideapad-slim-3-15"),
     ("asus-rog-zephyrus-g14", "asus-tuf-gaming-a16"),
+    # Tercera tanda (14/11/2026): las comparativas son lo que trae clics
+    # (búsquedas tipo «zenbook o macbook»).
+    ("macbook-air-13-m5", "asus-zenbook-14-oled"),
+    ("macbook-neo", "acer-swift-go-14"),
+    ("hp-pavilion-aero-13", "lenovo-ideapad-slim-5-13"),
+    ("dell-xps-13", "samsung-galaxy-book5-pro-14"),
+    ("macbook-air-13-m4", "microsoft-surface-laptop-7"),
+    ("acer-swift-go-14", "acer-swift-go-14-ai"),
+    ("lenovo-thinkpad-e14-gen-6", "hp-omnibook-5-14"),
+    ("macbook-pro-14-m5", "macbook-pro-14-m5-pro"),
+    ("asus-tuf-gaming-a15", "acer-nitro-v-15"),
+    ("msi-thin-15", "hp-victus-15"),
 ]
 
 
@@ -573,6 +585,15 @@ def build_vs(a, b, laptops, hoy):
         rec = (f"Si dudas entre los dos, el {barato}: rinden parecido y es el más barato."
                if a["price"] != b["price"] else
                "Elige según el apartado que más te importe.")
+    elif abs(ga - gb_) <= 3 and abs(a["price"] - b["price"]) >= 300:
+        # Poca diferencia de nota para mucha diferencia de precio: compensa el barato.
+        mejor, peor = (ca, cb) if ga > gb_ else (cb, ca)
+        usos_mejor = gana_a if ga > gb_ else gana_b
+        dif = eur(abs(a["price"] - b["price"]))
+        salvo = (f", salvo que lo que más te importe sea {lista(usos_mejor)}"
+                 if usos_mejor else "")
+        rec = (f"El {mejor} es algo mejor, pero son {abs(ga - gb_)} puntos por {dif} más: "
+               f"para la mayoría compensa el {peor}{salvo}.")
     else:
         mejor, peor = (ca, cb) if ga > gb_ else (cb, ca)
         rec = (f"El {mejor} es mejor en conjunto, pero el {peor} cuesta menos: "
