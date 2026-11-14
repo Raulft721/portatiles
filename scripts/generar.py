@@ -815,7 +815,7 @@ def build_vs(a, b, laptops, hoy):
 <footer>
   <div class="wrap foot">
     <span><b>ComparaPortátil</b> · Comparativa con precios orientativos de referencia; varían según tienda y disponibilidad. {pie}</span>
-    <span><a href="../">Inicio</a> · <a href="../#comparativas">Comparativas</a> · <a href="../#guias">Guías</a> · <a href="../metodologia.html">Metodología</a> · <a href="../contacto.html">Contacto</a></span>
+    <span><a href="../">Inicio</a> · <a href="../#comparativas">Comparativas</a> · <a href="../#guias">Guías</a> · <a href="../metodologia.html">Metodología</a> · <a href="../contacto.html">Contacto</a> · <a href="../aviso-legal.html">Aviso legal</a></span>
   </div>
 </footer>
 
@@ -922,7 +922,7 @@ def build_ficha(l, laptops, hoy):
                       'MacBook o Windows: cuál elegir según tu presupuesto</a></li>'))
     if l["weight"] < 1.4:
         guias.append(('<li><a href="../guias/portatil-ligero.html">'
-                      'Mejor portátil ligero por menos de 1,4 kg</a></li>'))
+                      'Portátil ligero y potente: los mejores de menos de 1,5 kg</a></li>'))
     if guias:
         extra = ('\n  <h2>Guías relacionadas</h2>\n\n  <ul>\n    '
                  + "\n    ".join(guias) + "\n  </ul>\n")
@@ -1176,7 +1176,7 @@ def build_ficha(l, laptops, hoy):
 <footer>
   <div class="wrap foot">
     <span><b>ComparaPortátil</b> · Precios orientativos de referencia: varían según tienda y disponibilidad, y algún modelo puede estar descatalogado. Fotografía de producto del fabricante, usada con fines informativos. {pie_afiliado}</span>
-    <span><a href="../">Inicio</a> · <a href="../#catalogo">Catálogo</a> · <a href="../metodologia.html">Metodología</a> · <a href="../sobre.html">Sobre</a> · <a href="../contacto.html">Contacto</a></span>
+    <span><a href="../">Inicio</a> · <a href="../#catalogo">Catálogo</a> · <a href="../metodologia.html">Metodología</a> · <a href="../sobre.html">Sobre</a> · <a href="../contacto.html">Contacto</a> · <a href="../aviso-legal.html">Aviso legal</a></span>
   </div>
 </footer>
 

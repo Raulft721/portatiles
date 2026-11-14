@@ -3,6 +3,7 @@ Thumbs.db
 desktop.ini
 __pycache__/
 *.pyc
+.claude
 
 # Vault de Obsidian: solo local. No se versiona ni se publica.
 notas/
