@@ -105,6 +105,15 @@ caracteres.
 - **Guías nuevas:** hay que añadirlas a `build_sitemap` en `generar.py` y a
   `expected_pages` en `scripts/auditar-seo.py`.
 
+## Black Friday
+
+La guía `guias/black-friday-portatiles.html` lleva el año en el título pero no en la URL,
+para reutilizarla cada año. Con `BLACK_FRIDAY = True` en `generar.py`, cada ficha muestra
+el «precio objetivo» (12 % bajo el precio de referencia, redondeado a la decena) y enlaza la
+guía. Después del Cyber Monday: poner `BLACK_FRIDAY = False`, regenerar y quitar de
+`index.html` los bloques entre `<!-- black-friday:inicio -->` y `<!-- black-friday:fin -->`
+(la tarjeta de la guía puede quedarse, sin la clase `destacada`). La guía sigue en el sitemap.
+
 ## Amazon Afiliados
 
 El tag va en la constante `AMAZON_TAG` de `scripts/generar.py`. Con el tag puesto,

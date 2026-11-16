@@ -256,6 +256,41 @@ def compra_arriba(l):
   </div>"""
 
 
+# Black Friday: aviso con el «precio objetivo» en cada ficha y la guía en el sitemap.
+# Después del Cyber Monday (30/11) se pone a False y se vuelve a generar.
+BLACK_FRIDAY = True
+GUIA_BF = "guias/black-friday-portatiles.html"
+
+
+def precio_objetivo(precio):
+    """Un 12 % por debajo del precio de referencia, redondeado a la decena."""
+    return int(precio * 0.88) // 10 * 10
+
+
+def aviso_bf(l):
+    if not BLACK_FRIDAY:
+        return ""
+    return f"""
+  <div class="callout bf">
+    <strong>Black Friday 2026.</strong> Este modelo es buena oferta por debajo de
+    <strong>{eur(precio_objetivo(l["price"]))}</strong> (precio de referencia: {eur(l["price"])}).
+    <a href="../{GUIA_BF}">Cómo saber si una oferta es real →</a>
+  </div>"""
+
+
+def aviso_bf_vs(a, b):
+    if not BLACK_FRIDAY:
+        return ""
+    partes = " y ".join(f"el {esc(corto(x['name']))} por debajo de "
+                        f"<strong>{eur(precio_objetivo(x['price']))}</strong>" for x in (a, b))
+    return f"""
+  <div class="callout bf">
+    <strong>Black Friday 2026.</strong> Son buena oferta {partes}.
+    <a href="../{GUIA_BF}">Ver la guía de Black Friday →</a>
+  </div>
+"""
+
+
 def compra_vs(a, b):
     """Un botón por modelo justo después de la respuesta rápida de una comparativa."""
     if not AMAZON_TAG:
@@ -416,11 +451,17 @@ def preguntas(l):
         llevar = f"Se puede: {kg(w)} es un peso normal, aunque al final del día se nota más que en un ultraligero."
     else:
         llevar = f"No es lo ideal. Con {kg(w)}, más el cargador, es un equipo para mover de vez en cuando, no a diario."
-    return [
+    qs = [
         (f"¿Sirve el {name} para jugar?", jugar),
         (f"¿Cuánto dura la batería del {name}?", bat),
         (f"¿Es buena opción para llevarlo a clase o al trabajo cada día?", llevar),
     ]
+    if BLACK_FRIDAY:
+        qs.insert(0, (f"¿A qué precio es buena oferta el {name} en Black Friday?",
+                      f"Por debajo de {eur(precio_objetivo(l['price']))}. Es un 12 % menos que su precio "
+                      f"de referencia ({eur(l['price'])}). Antes de comprar, comprueba el historial de "
+                      "precios y que la configuración (procesador, memoria y disco) sea la misma."))
+    return qs
 
 
 def faq_html(qs):
@@ -802,7 +843,7 @@ def build_vs(a, b, laptops, hoy):
   <div class="callout">
     <strong>Respuesta rápida.</strong> {esc(rapida)}
   </div>
-{compra_vs(a, b)}
+{compra_vs(a, b)}{aviso_bf_vs(a, b)}
   <h2>Especificaciones lado a lado</h2>
 
   <div class="table-wrap vs-table">
@@ -944,6 +985,9 @@ def build_ficha(l, laptops, hoy):
     if l["weight"] < 1.4:
         guias.append(('<li><a href="../guias/portatil-ligero.html">'
                       'Portátil ligero y potente: los mejores de menos de 1,5 kg</a></li>'))
+    if BLACK_FRIDAY:
+        guias.insert(0, (f'<li><a href="../{GUIA_BF}">'
+                         'Black Friday 2026: qué portátil comprar y a qué precio</a></li>'))
     if guias:
         extra = ('\n  <h2>Guías relacionadas</h2>\n\n  <ul>\n    '
                  + "\n    ".join(guias) + "\n  </ul>\n")
@@ -1008,6 +1052,9 @@ def build_ficha(l, laptops, hoy):
     title = f"{name}: precio y ficha técnica"
     desc = (f"{name} por {eur(l['price'])}: {l['cpu']}, {l['ram']} y {l['storage']}. "
             f"Ficha técnica, notas por uso y alternativas.")
+    if BLACK_FRIDAY:
+        desc = (f"{name} por {eur(l['price'])}. Black Friday: buena oferta por debajo de "
+                f"{eur(precio_objetivo(l['price']))}. Ficha técnica, notas por uso y alternativas.")
     og_image = f"{SITE}img/og/{slug}.jpg"
 
     ld = {
@@ -1132,7 +1179,7 @@ def build_ficha(l, laptops, hoy):
     <span>·</span>
     <span>Ficha actualizada el {fecha_larga(hoy)}</span>
   </div>
-  <p class="lead">{esc(lead)}</p>{compra_arriba(l)}
+  <p class="lead">{esc(lead)}</p>{compra_arriba(l)}{aviso_bf(l)}
 </header>
 
 <article class="wrap read">
@@ -1230,6 +1277,7 @@ def build_sitemap(laptops, hoy):
             (f"{SITE}guias/portatil-gaming-1000-euros.html", "0.8"),
             (f"{SITE}guias/portatil-ligero.html", "0.8"),
             (f"{SITE}guias/macbook-o-windows.html", "0.8"),
+            (f"{SITE}{GUIA_BF}", "0.8"),
             (f"{SITE}metodologia.html", "0.6"),
             (f"{SITE}sobre.html", "0.5"),
             (f"{SITE}contacto.html", "0.4")]
@@ -1260,6 +1308,28 @@ RE_GUIA_LINK = re.compile(
     r'(\s*<a class="link amazon"[^>]*>[^<]*</a>)?')
 
 
+RE_BANNER_BF = re.compile(r"\n  <!-- black-friday:inicio -->.*?<!-- black-friday:fin -->", re.S)
+
+
+def banner_bf_guia(texto, nombre):
+    """Pone (o quita) el aviso de Black Friday tras la respuesta rápida de cada guía."""
+    texto = RE_BANNER_BF.sub("", texto)
+    if not BLACK_FRIDAY or nombre == GUIA_BF.split("/")[-1]:
+        return texto
+    i = texto.find("<strong>Respuesta rápida.</strong>")
+    if i < 0:
+        return texto
+    j = texto.find("</div>", i) + len("</div>")
+    banner = ("\n  <!-- black-friday:inicio -->\n"
+              '  <div class="callout bf">\n'
+              "    <strong>Black Friday 2026.</strong> ¿Vas a comprar en Black Friday? Mira a qué "
+              "precio es buena oferta cada modelo de esta guía y cómo detectar descuentos falsos.\n"
+              f'    <a href="{GUIA_BF.split("/")[-1]}">Ver la guía de Black Friday →</a>\n'
+              "  </div>\n"
+              "  <!-- black-friday:fin -->")
+    return texto[:j] + banner + texto[j:]
+
+
 def patch_guias(laptops):
     """Añade (o quita, si no hay tag) el enlace a Amazon en las guías. Es idempotente."""
     por_slug = {l["slug"]: l for l in laptops}
@@ -1275,6 +1345,7 @@ def patch_guias(laptops):
                     f'rel="sponsored nofollow noopener" target="_blank">Ver precio en Amazon →</a>')
 
         nuevo = RE_GUIA_LINK.sub(enlace, texto)
+        nuevo = banner_bf_guia(nuevo, guia.name)
         if AMAZON_TAG:
             nuevo = nuevo.replace(PIE_SIN, AVISO_AFILIADO)
         else:

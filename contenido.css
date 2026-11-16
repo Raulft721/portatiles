@@ -104,6 +104,9 @@ strong { font-weight: 650; }
   margin: 26px 0;
 }
 .callout strong { color: #0057b8; }
+.callout.bf { background: #fff7ed; border-color: #fed7aa; }
+.callout.bf strong { color: #c2410c; }
+.callout.bf a { color: #c2410c; font-weight: 600; white-space: nowrap; }
 
 /* PICKS */
 .pick {

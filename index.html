@@ -562,6 +562,14 @@
   .g-top.alt { background: linear-gradient(90deg, #ea580c, #fbbf24); }
   .g-top.verde { background: linear-gradient(90deg, #0f9d74, #5fd3a8); }
   .g-top.gris { background: linear-gradient(90deg, #4b5563, #9ca3af); }
+  .g-top.bf { background: linear-gradient(90deg, #111, #ea580c); }
+  .guide-card.destacada { grid-column: 1 / -1; }
+  .bf-pill {
+    display: inline-block; margin: 4px 0 18px; padding: 8px 16px; border-radius: 999px;
+    background: #111; color: #fff; text-decoration: none; font-size: 14px; font-weight: 600;
+  }
+  .bf-pill span { color: #fdba74; }
+  .bf-pill:hover { background: #2a2a2a; }
   .vs-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
   .vs-list a {
     display: block; background: var(--surface); border: 1px solid var(--line);
@@ -637,6 +645,9 @@
   <div class="eyebrow"><i></i>Comparador independiente · sin anuncios</div>
   <h1>Dos portátiles. <span>Una decisión clara.</span></h1>
   <p>Elige tu perfil, compara modelos reales y descubre cuál gana para estudiar, trabajar, jugar o moverte. Todo con el precio sobre la mesa.</p>
+  <!-- black-friday:inicio (quitar después del 30/11) -->
+  <a class="bf-pill" href="guias/black-friday-portatiles.html"><span>Black Friday 2026:</span> qué portátil comprar y a qué precio →</a>
+  <!-- black-friday:fin -->
 
   <div class="profiles" id="profiles" role="group" aria-label="Elige tu perfil de uso">
     <button class="chip" data-profile="estudio">Estudiante</button>
@@ -1396,6 +1407,17 @@
       <span class="hint">Compra con criterio</span>
     </div>
     <div class="guides">
+      <!-- black-friday:inicio (después del 30/11, quitar la clase destacada y moverla al final) -->
+      <a class="guide-card destacada" href="guias/black-friday-portatiles.html">
+        <div class="g-top bf"></div>
+        <div class="g-body">
+          <span class="g-kicker">Guía de compra · Black Friday 2026</span>
+          <h3>Black Friday: qué portátil comprar y a qué precio merece la pena</h3>
+          <p>Ocho recomendados por uso, el precio por debajo del cual cada uno es buena oferta y cómo detectar descuentos falsos.</p>
+          <span class="g-link">Leer guía →</span>
+        </div>
+      </a>
+      <!-- black-friday:fin -->
       <a class="guide-card" href="guias/mejor-portatil-estudiar.html">
         <div class="g-top"></div>
         <div class="g-body">
