@@ -518,6 +518,10 @@ VS_PAIRS = [
     ("macbook-air-13-m4", "microsoft-surface-laptop-7"),
     ("acer-swift-go-14", "acer-swift-go-14-ai"),
     ("lenovo-thinkpad-e14-gen-6", "hp-omnibook-5-14"),
+    # 17/11/2026: Surface Laptop 8 (ya se busca «surface laptop 8 vs macbook air m5»).
+    ("microsoft-surface-laptop-8", "macbook-air-13-m5"),
+    ("microsoft-surface-laptop-7", "microsoft-surface-laptop-8"),
+    ("microsoft-surface-laptop-8", "asus-zenbook-14-oled"),
     ("macbook-pro-14-m5", "macbook-pro-14-m5-pro"),
     ("asus-tuf-gaming-a15", "acer-nitro-v-15"),
     ("msi-thin-15", "hp-victus-15"),
@@ -982,6 +986,9 @@ def build_ficha(l, laptops, hoy):
     if l["os"] == "macOS" or slug in MAC_O_WINDOWS:
         guias.append(('<li><a href="../guias/macbook-o-windows.html">'
                       'MacBook o Windows: cuál elegir según tu presupuesto</a></li>'))
+    if scores["trabajo"] >= 88:
+        guias.append(('<li><a href="../guias/mejor-portatil-trabajar.html">'
+                      'Mejor portátil para trabajar: oficina, teletrabajo y programar</a></li>'))
     if l["weight"] < 1.4:
         guias.append(('<li><a href="../guias/portatil-ligero.html">'
                       'Portátil ligero y potente: los mejores de menos de 1,5 kg</a></li>'))
@@ -1278,6 +1285,7 @@ def build_sitemap(laptops, hoy):
             (f"{SITE}guias/portatil-ligero.html", "0.8"),
             (f"{SITE}guias/macbook-o-windows.html", "0.8"),
             (f"{SITE}{GUIA_BF}", "0.8"),
+            (f"{SITE}guias/mejor-portatil-trabajar.html", "0.8"),
             (f"{SITE}metodologia.html", "0.6"),
             (f"{SITE}sobre.html", "0.5"),
             (f"{SITE}contacto.html", "0.4")]

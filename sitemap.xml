@@ -37,6 +37,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://raulft721.github.io/portatiles/guias/mejor-portatil-trabajar.html</loc>
+    <lastmod>2026-11-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://raulft721.github.io/portatiles/metodologia.html</loc>
     <lastmod>2026-11-17</lastmod>
     <changefreq>monthly</changefreq>
@@ -182,6 +188,12 @@
   </url>
   <url>
     <loc>https://raulft721.github.io/portatiles/portatil/microsoft-surface-laptop-7.html</loc>
+    <lastmod>2026-11-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://raulft721.github.io/portatiles/portatil/microsoft-surface-laptop-8.html</loc>
     <lastmod>2026-11-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -416,6 +428,24 @@
   </url>
   <url>
     <loc>https://raulft721.github.io/portatiles/vs/lenovo-thinkpad-e14-gen-6-vs-hp-omnibook-5-14.html</loc>
+    <lastmod>2026-11-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://raulft721.github.io/portatiles/vs/microsoft-surface-laptop-8-vs-macbook-air-13-m5.html</loc>
+    <lastmod>2026-11-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://raulft721.github.io/portatiles/vs/microsoft-surface-laptop-7-vs-microsoft-surface-laptop-8.html</loc>
+    <lastmod>2026-11-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://raulft721.github.io/portatiles/vs/microsoft-surface-laptop-8-vs-asus-zenbook-14-oled.html</loc>
     <lastmod>2026-11-17</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>

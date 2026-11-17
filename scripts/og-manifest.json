@@ -154,6 +154,13 @@
     "img": "img/surface-7.jpg"
   },
   {
+    "slug": "microsoft-surface-laptop-8",
+    "name": "Microsoft Surface Laptop 8",
+    "price": "1349 €",
+    "brand": "Microsoft",
+    "img": "img/surface-8.jpg"
+  },
+  {
     "slug": "asus-tuf-gaming-a16",
     "name": "ASUS TUF Gaming A16",
     "price": "1249 €",

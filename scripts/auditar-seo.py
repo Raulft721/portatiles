@@ -54,6 +54,7 @@ def expected_pages(laptops):
         f"{SITE}guias/portatil-ligero.html": ROOT / "guias" / "portatil-ligero.html",
         f"{SITE}guias/macbook-o-windows.html": ROOT / "guias" / "macbook-o-windows.html",
         f"{SITE}guias/black-friday-portatiles.html": ROOT / "guias" / "black-friday-portatiles.html",
+        f"{SITE}guias/mejor-portatil-trabajar.html": ROOT / "guias" / "mejor-portatil-trabajar.html",
         f"{SITE}metodologia.html": ROOT / "metodologia.html",
         f"{SITE}sobre.html": ROOT / "sobre.html",
         f"{SITE}contacto.html": ROOT / "contacto.html",
