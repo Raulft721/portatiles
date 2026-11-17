@@ -975,10 +975,10 @@ def build_ficha(l, laptops, hoy):
     guias = []
     if l["price"] <= 800 or scores["estudio"] >= 85:
         guias.append(('<li><a href="../guias/mejor-portatil-estudiar.html">'
-                      'Mejor portátil para estudiar por menos de 800 €</a></li>'))
+                      'Mejor portátil para estudiar: calidad-precio, universidad y baratos</a></li>'))
     if scores["gaming"] >= 60:
         guias.append(('<li><a href="../guias/portatil-gaming-1000-euros.html">'
-                      'Portátil gaming por menos de 1.100 €</a></li>'))
+                      'Portátil gaming barato: los mejores por menos de 1.100 €</a></li>'))
     if l["os"] == "macOS" or slug in MAC_O_WINDOWS:
         guias.append(('<li><a href="../guias/macbook-o-windows.html">'
                       'MacBook o Windows: cuál elegir según tu presupuesto</a></li>'))
